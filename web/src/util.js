@@ -1,12 +1,12 @@
 import { useEffect, useCallback } from 'react';
 
-export function setMinimum(fn, min=1) {
+export function setMinimum(fn, min = 1) {
   return (arg) => {
     if (arg < min) {
       arg = min;
     }
     fn(arg);
-  }
+  };
 }
 
 export function useKeyHandler(keyHandler) {
@@ -19,7 +19,7 @@ export function useKeyHandler(keyHandler) {
     }, [handler]);
 }
 
-export function calcTextWidth(str, min=0) {
+export function calcTextWidth(str, min = 0) {
   if (typeof min !== 'number') {
     min = String(min).length;
   }

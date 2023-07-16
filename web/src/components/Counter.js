@@ -5,7 +5,7 @@ import { setMinimum, calcTextWidth } from '../util';
 
 const fontSize = "7em";
 
-function useGlobalShortcut({increment, decrement, reset}) {
+function useGlobalShortcut({ increment, decrement, reset }) {
   useEffect(() => {
     if (window.counter !== undefined) {
       window.counter.handleIncrement(increment);
@@ -46,10 +46,10 @@ function Counter() {
     }
   }, [setRawCount]);
 
-  return <div className='d-flex flex-column align-items-center justify-content-center' style={{flexGrow: 1}}>
+  return <div className='d-flex flex-column align-items-center justify-content-center' style={{ flexGrow: 1 }}>
            <div className="d-flex">
              <h1 className="" style={{
-               fontSize: fontSize,
+               fontSize,
                marginRight: "0.5ch"
              }}>
                Take
@@ -58,11 +58,12 @@ function Counter() {
                     type="text"
                     value= { count }
                     onChange={ inputCount }
-                    style={{outline: "none",
-                            fontSize: fontSize,
-                            textAlign: "right",
-                            width: calcTextWidth(count)}}
-             />
+                    style={{
+                      outline: "none",
+                      fontSize,
+                      textAlign: "right",
+                      width: calcTextWidth(count)
+                    }} />
            </div>
            <div className=''>
              <button className='btn btn-primary m-1' onClick={decrementCount}>-</button>

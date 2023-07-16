@@ -7,12 +7,13 @@ module.exports = {
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
+      config: {
+        name: "TakeCounter"
+      },
     },
     {
       name: '@electron-forge/maker-zip',
-      platforms: ['darwin'],
-      config:  {}
+      config: {}
     },
     {
       name: '@electron-forge/maker-deb',

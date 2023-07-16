@@ -4,7 +4,6 @@ import { useState, useCallback } from 'react';
 import { calcTextWidth } from '../util';
 
 export default function Details() {
-
   const [details, setDetails] = useState("");
 
   const handleInput = useCallback((event) => {
@@ -22,9 +21,11 @@ export default function Details() {
                         value={ details }
                         onChange={ handleInput }
                         className="h3 text-white bg-transparent h-100 border-0 border-bottom"
-                        style={{outline: "none",
-                                overflow: "visible",
-                                width: details.length <= 25 ? "100%" : calcTextWidth(details)}} />
+                        style={{
+                          outline: "none",
+                          overflow: "visible",
+                          width: details.length <= 25 ? "100%" : calcTextWidth(details)
+                        }} />
                </div>
                <div className="col d-none d-sm-block">
                </div>

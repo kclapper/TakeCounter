@@ -1,0 +1,69 @@
+name: Build and Deploy Electron App
+
+on:
+  workflow_dispatch:
+  push:
+    tags: [ 'v*.*.*' ]
+
+jobs:
+  test:
+    uses: ./.github/workflows/test-electron.yml
+
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: macos-latest
+            arch: universal
+            target: darwin
+
+    needs: test
+    runs-on: ${{ matrix.os }}
+
+    env:
+      electron-directory: ./electron
+      web-directory: ./web
+      distributable-path: "electron/out/make/zip/${{ matrix.target }}/${{ matrix.arch }}/*.zip"
+      artifact-name: "${{ matrix.target }}-${{ matrix.arch }}"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Install Electron dependencies
+        run: npm ci
+        working-directory: ${{ env.electron-directory }}
+      - name: Install web app dependencies
+        run: npm ci
+        working-directory: ${{ env.web-directory }}
+      - name: Build Electron App
+        run: npm run make -- --arch ${{ matrix.arch }} --platform ${{ matrix.target }}
+        working-directory: ${{ env.electron-directory }}
+      - name: Upload App to Workflow Run
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.artifact-name }}
+          path: ${{ env.distributable-path }}
+          retention-days: 1
+
+  upload:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: S3
+
+    steps:
+      - name: Retrieve build
+        uses: actions/download-artifact@v3
+      - run: mkdir artifacts
+      - run: mv ./**/*.zip artifacts
+      - name: Upload App to S3
+        uses: keithweaver/aws-s3-github-action@v1.0.0
+        with:
+          command: cp
+          source: ./artifacts/
+          destination: s3://${{ vars.S3_BUCKET }}/
+          aws_access_key_id: ${{ secrets.S3_ID }}
+          aws_secret_access_key: ${{ secrets.S3_SECRET }}
+          aws_region: ${{ vars.S3_REGION }}
+          flags: --recursive --include "*.zip"

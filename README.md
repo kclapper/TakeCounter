@@ -1,7 +1,7 @@
 # Take Counter 
 
 [![Test Web App](https://github.com/kclapper/counter/actions/workflows/test-web-app.yml/badge.svg)](https://github.com/kclapper/counter/actions/workflows/test-web-app.yml)
-
+[![Test Electron App](https://github.com/kclapper/counter/actions/workflows/test-electron.yml/badge.svg)](https://github.com/kclapper/counter/actions/workflows/test-electron.yml)
 
 
 ## Organization 
