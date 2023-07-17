@@ -18,13 +18,13 @@ const createWindow = () => {
     },
   });
 
-  globalShortcut.register('F12', () => {
+  globalShortcut.register('Alt+Shift+=', () => {
     mainWindow.webContents.send('increment-counter');
   });
-  globalShortcut.register('F11', () => {
+  globalShortcut.register('Alt+Shift+-', () => {
     mainWindow.webContents.send('decrement-counter');
   });
-  globalShortcut.register('Alt+CommandOrControl+R', () => {
+  globalShortcut.register('Alt+Shift+R', () => {
     mainWindow.webContents.send('reset-counter');
   });
 
