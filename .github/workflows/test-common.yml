@@ -16,14 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - run: npm ci
-        working-directory: ./common/${{env.package}}
+      - name: Install commons
+        uses: ./.github/actions/install-common
       - name: Lint
         run: npm run lint
-        working-directory: ./common/${{env.package}}
+        working-directory: ./common/${{ matrix.package }}
       - name: Test
         run: npm test
-        working-directory: ./common/${{env.package}}
+        working-directory: ./common/${{ matrix.package }}

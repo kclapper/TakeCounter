@@ -31,11 +31,11 @@ jobs:
     needs: test
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - run: npm ci
-        working-directory: ${{env.working-directory}}
+      - name: Install commons
+        uses: ./.github/actions/install-common
+      - name: Install web app dependencies
+        run: npm ci
+        working-directory: ${{ env.working-directory }}
       - name: Build
         run: npm run build
         working-directory: ${{env.working-directory}}

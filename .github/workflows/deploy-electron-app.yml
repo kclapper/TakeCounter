@@ -29,14 +29,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
-      - name: Install Electron dependencies
-        run: npm ci
-        working-directory: ${{ env.electron-directory }}
+      - name: Install commons
+        uses: ./.github/actions/install-common
       - name: Install web app dependencies
         run: npm ci
         working-directory: ${{ env.web-directory }}
+      - name: Install Electron app dependencies
+        run: npm ci
+        working-directory: ${{ env.electron-directory }}
       - name: Build Electron App
         run: npm run make -- --arch ${{ matrix.arch }} --platform ${{ matrix.target }}
         working-directory: ${{ env.electron-directory }}

@@ -1,0 +1,24 @@
+name: 'Install Commons'
+description: 'Install dependencies for the common libraries'
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - run: npm ci
+      shell: bash
+      working-directory: ./common/lint
+    - run: npm ci
+      shell: bash
+      working-directory: ./common/util
+    - run: npm ci
+      shell: bash
+      working-directory: ./common/settings
+    - run: npm ci
+      shell: bash
+      working-directory: ./electron
+    - run: npm ci
+      shell: bash
+      working-directory: ./web
