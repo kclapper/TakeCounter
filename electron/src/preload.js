@@ -17,3 +17,8 @@ contextBridge.exposeInMainWorld('counter', {
     ipcRenderer.on('reset-counter', callback);
   },
 });
+
+contextBridge.exposeInMainWorld('settings', {
+  getSettings: () => ipcRenderer.invoke('get-settings'),
+  changeSettings: (settings) => ipcRenderer.invoke('change-settings', settings),
+});

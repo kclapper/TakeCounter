@@ -1,6 +1,7 @@
 /* global  MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY, MAIN_WINDOW_WEBPACK_ENTRY */
-
-const { app, BrowserWindow, globalShortcut } = require('electron');
+const { app, BrowserWindow } = require('electron');
+const { loadSettings, registerSettingsHandlers } = require('./settings.js');
+const { registerKeyboardShortcuts } = require('./shortcuts.js');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -18,29 +19,26 @@ const createWindow = () => {
     },
   });
 
-  globalShortcut.register('Alt+Shift+=', () => {
-    mainWindow.webContents.send('increment-counter');
-  });
-  globalShortcut.register('Alt+Shift+-', () => {
-    mainWindow.webContents.send('decrement-counter');
-  });
-  globalShortcut.register('Alt+Shift+R', () => {
-    mainWindow.webContents.send('reset-counter');
-  });
-
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  if (!app.isPackaged) {
+    mainWindow.webContents.openDevTools();
+  }
+
+  return mainWindow;
 };
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
-  createWindow();
-});
+app
+  .whenReady()
+  .then(loadSettings)
+  .then(registerSettingsHandlers)
+  .then(createWindow)
+  .then(registerKeyboardShortcuts);
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits

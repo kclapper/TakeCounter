@@ -1,0 +1,29 @@
+name: Test Common Libraries
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        package: [util, settings, lint]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+        working-directory: ./common/${{env.package}}
+      - name: Lint
+        run: npm run lint
+        working-directory: ./common/${{env.package}}
+      - name: Test
+        run: npm test
+        working-directory: ./common/${{env.package}}
