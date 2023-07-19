@@ -9,7 +9,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
     env:
       working-directory: ./web
     runs-on: ubuntu-latest

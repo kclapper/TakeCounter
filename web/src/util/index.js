@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+export * from '@common/util';
 
 export function setMinimum(fn, min = 1) {
   return (arg) => {
@@ -9,14 +9,16 @@ export function setMinimum(fn, min = 1) {
   };
 }
 
-export function useKeyHandler(keyHandler) {
-  const handler = useCallback(keyHandler, [keyHandler]);
-    useEffect(() => {
-        document.addEventListener('keydown', handler);
-        return () => {
-            document.removeEventListener('keydown', handler);
-        };
-    }, [handler]);
+export function setEquals(one, two) {
+  if (one.size !== two.size) {
+    return false;
+  }
+  for (const item of one) {
+    if (!two.has(item)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 export function calcTextWidth(str, min = 0) {

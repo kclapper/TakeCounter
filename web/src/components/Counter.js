@@ -2,18 +2,10 @@ import React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 
 import { setMinimum, calcTextWidth } from '../util';
+import { useShortcut } from '../util/shortcuts';
+import { useSettings } from '../util/settings';
 
 const fontSize = "7em";
-
-function useGlobalShortcut({ increment, decrement, reset }) {
-  useEffect(() => {
-    if (window.counter !== undefined) {
-      window.counter.handleIncrement(increment);
-      window.counter.handleDecrement(decrement);
-      window.counter.handleReset(reset);
-    }
-  }, [increment, decrement, reset]);
-}
 
 function Counter() {
   const [count, setRawCount] = useState(1);
@@ -33,12 +25,11 @@ function Counter() {
     document.title = "Take " + count;
   }, [count]);
 
-  // Electron global keyboard shortcuts
-  useGlobalShortcut({
-    increment: incrementCount,
-    decrement: decrementCount,
-    reset: resetCount,
-  });
+  const shortcuts = useSettings("keyboardShortcuts");
+
+  useShortcut(incrementCount, shortcuts.incrementCount, "counter.handleIncrement");
+  useShortcut(decrementCount, shortcuts.decrementCount, "counter.handleDecrement");
+  useShortcut(resetCount, shortcuts.resetCount, "counter.handleReset");
 
   const inputCount = useCallback((event) => {
     if (Number.isInteger(Number(event.target.value))) {
@@ -69,6 +60,13 @@ function Counter() {
              <button className='btn btn-primary m-1' onClick={decrementCount}>-</button>
              <button className='btn btn-primary m-1' onClick={resetCount}>reset</button>
              <button className="btn btn-primary m-1" onClick={incrementCount}>+</button>
+           </div>
+           <div className='mt-2 d-flex flex-column align-items-center justify-content-center'>
+             <small className='text-center'>
+               "{ shortcuts.incrementCount }": next take <br/>
+               "{ shortcuts.decrementCount }": previous take <br/>
+               "{ shortcuts.resetCount }": reset to 1
+             </small>
            </div>
          </div>
 }

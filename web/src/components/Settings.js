@@ -1,25 +1,12 @@
 import React from 'react';
+import { useState, useCallback } from 'react';
+
+import { copy } from '../util';
 import {
-  useState,
-  useCallback,
-  createContext
-} from 'react';
-
-import { defaultSettings, settingsAreValid } from '@common/settings';
-import { copy } from '@common/util';
-
-const runningInElectron = window.settings !== undefined;
-
-async function loadSettings() {
-  if (runningInElectron) {
-    return await window.settings.getSettings();
-  }
-  return defaultSettings;
-}
-
-const initialSettings = await loadSettings();
-
-export const SettingsContext = createContext(initialSettings);
+  initialSettings,
+  settingsAreValid,
+  SettingsContext
+} from '../util/settings';
 
 export default function Settings({ children }) {
   const [settings, setSettings] = useState(initialSettings);
@@ -30,7 +17,7 @@ export default function Settings({ children }) {
     if (settingsAreValid(newSettings)) {
       setSettings(newSettings);
 
-      if (runningInElectron) {
+      if (window.settings !== undefined) {
         window.settings.changeSettings(newSettings);
       }
     } else {
