@@ -27,5 +27,16 @@ $font-family-base:
 // Fix tooltip color on dark background
 $tooltip-color: white;
 
+// Main Counter Font Sizes
+$display-font-sizes: (
+  1: 7rem,
+  2: 6.5rem,
+  3: 6rem,
+  4: 5.5rem,
+  5: 5rem,
+  6: 4.5rem
+);
+$display-font-weight: 500;
+
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
