@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 
 
 import './index.scss';
-import bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
 
 import Settings from './components/Settings.js';
 
