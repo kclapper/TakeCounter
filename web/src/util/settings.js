@@ -8,7 +8,7 @@ const runningInElectron = window.settings !== undefined;
 if (!runningInElectron) {
   defaultSettings.keyboardShortcuts.incrementCount = "Shift+Plus";
   defaultSettings.keyboardShortcuts.decrementCount = "Shift+_";
-  defaultSettings.keyboardShortcuts.resetCount = "C+R";
+  defaultSettings.keyboardShortcuts.resetCount = "Shift+R";
 }
 
 export async function loadSettings() {

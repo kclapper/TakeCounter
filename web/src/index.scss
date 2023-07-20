@@ -1,6 +1,13 @@
 // Override default variables before the import
 $body-bg: #282c34;
 
+$theme-colors: (
+  "primary": #f468f7,
+  "secondary": #ced900,
+  "danger": #ff4136
+);
+
+// Change font to Avenir
 $font-family-base:
   // Avenir preferred
   Avenir,
@@ -17,11 +24,8 @@ $font-family-base:
   // Emoji fonts
   "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 
-$theme-colors: (
-  "primary": #f468f7,
-  "secondary": #ced900,
-  "danger": #ff4136
-);
+// Fix tooltip color on dark background
+$tooltip-color: white;
 
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';

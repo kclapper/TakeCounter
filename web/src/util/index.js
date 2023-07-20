@@ -20,25 +20,3 @@ export function setEquals(one, two) {
   }
   return true;
 }
-
-export function calcTextWidth(str, min = 0) {
-  if (typeof min !== 'number') {
-    min = String(min).length;
-  }
-  str = String(str);
-
-  const letterFactor = 0.68;
-  const numberFactor = 1;
-
-  let acc = 0;
-  for (let i = 0; i < str.length; i++) {
-    const charCode = str.charCodeAt(i);
-    if (48 <= charCode && charCode <= 57) {
-      acc += numberFactor;
-    } else {
-      acc += letterFactor;
-    }
-  }
-
-  return Math.max(acc, min) + "ch";
-}

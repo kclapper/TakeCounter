@@ -1,13 +1,18 @@
 import React from 'react';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
-import { setMinimum, calcTextWidth } from '../util';
+import { setMinimum } from '../util';
 import { useShortcut } from '../util/shortcuts';
 import { useSettings } from '../util/settings';
+
+import Button from './Button';
 
 const fontSize = "7em";
 
 function Counter() {
+  const takeInput = useRef(null);
+  const [caretOffset, setCaretOffset] = useState(1);
+
   const [count, setRawCount] = useState(1);
   const setCount = setMinimum(setRawCount);
 
@@ -22,8 +27,19 @@ function Counter() {
   }, [setCount]);
 
   useEffect(() => {
+    if (takeInput.current !== null) {
+      takeInput.current.innerText = count;
+    }
+
     document.title = "Take " + count;
-  }, [count]);
+
+    // HACK: This feels like an ugly way to reset the cursor
+    // position when someone types in a take number.
+    const selection = window.getSelection();
+    for (let i = 0; i < caretOffset; i++) {
+      selection.modify("move", "right", "character");
+    }
+  }, [count, takeInput, caretOffset]);
 
   const shortcuts = useSettings("keyboardShortcuts");
 
@@ -31,43 +47,54 @@ function Counter() {
   useShortcut(decrementCount, shortcuts.decrementCount, "counter.handleDecrement");
   useShortcut(resetCount, shortcuts.resetCount, "counter.handleReset");
 
-  const inputCount = useCallback((event) => {
-    if (Number.isInteger(Number(event.target.value))) {
-      setRawCount(Number(event.target.value));
+  const validateNewCount = useCallback((event) => {
+    if (!Number.isInteger(Number(event.data))) {
+      event.preventDefault();
     }
+  }, []);
+
+  const inputCount = useCallback((event) => {
+    const selection = window.getSelection();
+    const caretOffset = selection.anchorOffset;
+    setCaretOffset(caretOffset);
+
+    setRawCount(Number(event.target.innerText));
   }, [setRawCount]);
 
   return <div className='d-flex flex-column align-items-center justify-content-center' style={{ flexGrow: 1 }}>
+           <div style={{ flexGrow: 0.75 }}/>
            <div className="d-flex">
-             <h1 className="" style={{
-               fontSize,
-               marginRight: "0.5ch"
-             }}>
+             <h1 className="" style={{ fontSize, marginRight: "0.5ch" }}>
                Take
              </h1>
-             <input className="bg-transparent h1 text-white border-0"
-                    type="text"
-                    value= { count }
-                    onChange={ inputCount }
-                    style={{
-                      outline: "none",
-                      fontSize,
-                      textAlign: "right",
-                      width: calcTextWidth(count)
-                    }} />
+             <div ref={ takeInput }
+                 className="h1"
+                 contentEditable="true"
+                 onBeforeInput={ validateNewCount }
+                 onInput={ inputCount }
+                 style={{
+                   outline: "none",
+                   fontSize,
+                 }} />
            </div>
            <div className=''>
-             <button className='btn btn-primary m-1' onClick={decrementCount}>-</button>
-             <button className='btn btn-primary m-1' onClick={resetCount}>reset</button>
-             <button className="btn btn-primary m-1" onClick={incrementCount}>+</button>
+             <Button onClick={ decrementCount }
+                     tooltip={ shortcuts.decrementCount }
+                     tooltipPlacement="bottom">
+               -
+             </Button>
+             <Button onClick={ resetCount }
+                     tooltip={ shortcuts.resetCount }
+                     tooltipPlacement="bottom">
+               reset
+             </Button>
+             <Button onClick={ incrementCount }
+                     tooltip={ shortcuts.incrementCount }
+                     tooltipPlacement="bottom">
+               +
+             </Button>
            </div>
-           <div className='mt-2 d-flex flex-column align-items-center justify-content-center'>
-             <small className='text-center'>
-               "{ shortcuts.incrementCount }": next take <br/>
-               "{ shortcuts.decrementCount }": previous take <br/>
-               "{ shortcuts.resetCount }": reset to 1
-             </small>
-           </div>
+           <div style={{ flexGrow: 1 }}/>
          </div>
 }
 
