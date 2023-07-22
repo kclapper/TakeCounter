@@ -3,9 +3,15 @@ import React from 'react';
 import InputDisplay from '../InputDisplay';
 
 export default function TakeInputDisplay({ display, onInput }) {
-  const inputIsValid = (input) => Number.isInteger(Number(input));
+  const inputIsValid = (input) => {
+    try {
+      return BigInt(input);
+    } catch {
+      return false;
+    }
+  };
 
-  const handleInput = (input) => onInput(Number(input));
+  const handleInput = (input) => onInput(BigInt(input));
 
   return <InputDisplay
            className="display-1"

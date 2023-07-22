@@ -1,7 +1,7 @@
 {
   "name": "Take Counter",
   "productName": "Take Counter",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "A take counter for recording sessions.",
   "main": ".webpack/main",
   "scripts": {
@@ -9,7 +9,7 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --config .eslintrc.js .",
+    "lint": "eslint --max-warnings 0 --config .eslintrc.js .",
     "test": "jest"
   },
   "keywords": [],

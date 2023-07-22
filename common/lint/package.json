@@ -4,7 +4,7 @@
   "description": "Common linting configuration",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --config index.js .",
+    "lint": "eslint --max-warnings 0 --config index.js .",
     "test": "npm run lint"
   },
   "author": "Kyle Clapper",

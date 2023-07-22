@@ -4,7 +4,7 @@
   "description": "Take Counter Common Utilities",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint --max-warnings 0 .",
     "test": "jest"
   },
   "author": "",

@@ -9,17 +9,17 @@ import Button from '../Button';
 import TakeInputDisplay from './TakeInputDisplay';
 
 function Counter() {
-  const [count, setRawCount] = useState(1);
+  const [count, setRawCount] = useState(1n);
   const setCount = setMinimum(setRawCount);
 
   const incrementCount = useCallback(() => {
-    setCount(count + 1);
+    setCount(count + 1n);
   }, [count, setCount]);
   const decrementCount = useCallback(() => {
-    setCount(count - 1);
+    setCount(count - 1n);
   }, [count, setCount])
   const resetCount = useCallback(() => {
-    setCount(1);
+    setCount(1n);
   }, [setCount]);
 
   useEffect(() => {
