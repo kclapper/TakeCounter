@@ -31,6 +31,10 @@ export default function InputDisplay(props) {
   }, [validateInput]);
 
   const handleInput = useCallback((event) => {
+    if (event.nativeEvent.inputType === "insertFromPaste") {
+      return;
+    }
+
     const selection = window.getSelection();
     const caretOffset = selection.anchorOffset;
     setCaretOffset(caretOffset);
@@ -38,9 +42,18 @@ export default function InputDisplay(props) {
     onInput(event.target.innerText);
   }, [onInput, setCaretOffset]);
 
+  const handlePaste = useCallback((event) => {
+    const text = event.clipboardData.getData('text');
+    if (validateInput(text)) {
+      onInput(text);
+    }
+    event.preventDefault();
+  }, [validateInput, onInput]);
+
   return <ExpandingInput
            ref={ inputDisplay }
            onBeforeInput={ handleValidation }
+           onPaste={ handlePaste }
            onInput={ handleInput }
            { ...restProps } />
 }

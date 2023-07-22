@@ -2,7 +2,7 @@ const EventEmitter = require('node:events');
 const path = require('node:path');
 const fs = require('node:fs/promises');
 
-const { ipcMain } = require('electron');
+const { app, ipcMain } = require('electron');
 
 const { copy } = require('@common/util');
 
@@ -12,7 +12,7 @@ class SettingsEmitter extends EventEmitter {}
 
 const settingsEmitter = new SettingsEmitter();
 
-const settingsPath = path.join(__dirname, 'settings.json');
+const settingsPath = path.join(app.getPath('userData'), 'settings.json');
 
 // The main settings object
 let settings;
@@ -21,19 +21,28 @@ function getSettings() {
 }
 
 async function loadSettings() {
-  try {
-    settings = await fs.readFile(settingsPath, { encoding: 'utf8' });
+  fs.readFile(settingsPath, { encoding: 'utf8' })
+    .then((settingsJson) => {
+      const loadedSettings = JSON.parse(settingsJson);
 
-    if (!settingsAreValid(settings)) {
-      throw new Error('Invalid settings found');
-    }
-  } catch (err) {
-    console.warn(err.message);
-    console.warn("Loading default settings");
+      if (!settingsAreValid(loadedSettings)) {
+        throw new Error('Invalid settings found');
+      }
 
-    await fs.writeFile(settingsPath, JSON.stringify(defaultSettings), { encoding: 'utf8' });
-    settings = copy(defaultSettings);
-  }
+      settings = loadedSettings;
+    })
+    .catch((err) => {
+      console.warn(err.message);
+      console.warn("Loading default settings");
+
+      return fs.writeFile(settingsPath, JSON.stringify(defaultSettings), { encoding: 'utf8' });
+    })
+    .catch((err) => {
+      console.warn(err.message);
+      console.warn("Failed to save settings.");
+    });
+
+  settings = copy(defaultSettings);
 
   settingsEmitter.emit('loaded');
 }
