@@ -3,18 +3,23 @@ import { useRef, useEffect } from 'react';
 
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
 
-function Button({ onClick, tooltipPlacement, tooltip, children }) {
+function Button({ onClick, tooltipPlacement, tooltip, className, children}) {
 
   const element = useRef(null);
 
   useEffect(() => {
-    if (element.current) {
-      new bootstrap.Tooltip(element.current, { delay: 1000 });
+    if (element.current !== null) {
+      new bootstrap.Tooltip(element.current, {
+        delay: {
+          show: 1000,
+          hide: 200
+        }
+      });
     }
-  }, [element]);
+  }, [tooltip, tooltipPlacement, element]);
 
   return <button ref={ element }
-                 className='btn btn-primary m-1'
+                 className={ className || 'btn btn-primary m-1' }
                  type='button'
                  onClick={ onClick }
                  data-bs-toggle="tooltip"

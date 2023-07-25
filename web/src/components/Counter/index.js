@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 
-import { setMinimum } from '../../util';
+import { bigIntMax } from '@common/util';
 import { useShortcut } from '../../util/shortcuts';
 import { useSettings } from '../../util/settings';
 
@@ -10,7 +10,10 @@ import TakeInputDisplay from './TakeInputDisplay';
 
 function Counter() {
   const [count, setRawCount] = useState(1n);
-  const setCount = setMinimum(setRawCount);
+
+  const setCount = useCallback((newCount) => {
+    setRawCount(bigIntMax(newCount, 1n));
+  }, [setRawCount]);
 
   const incrementCount = useCallback(() => {
     setCount(count + 1n);

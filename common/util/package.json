@@ -1,6 +1,6 @@
 {
   "name": "@common/util",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Take Counter Common Utilities",
   "main": "index.js",
   "scripts": {

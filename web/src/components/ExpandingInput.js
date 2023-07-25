@@ -2,7 +2,7 @@ import React from 'react';
 import { forwardRef } from 'react';
 
 function ExpandingInput(props, ref) {
-  const { style, ...restProps } = props;
+  const { style, value, ...restProps } = props;
 
   return <div ref={ ref }
               contentEditable="true"

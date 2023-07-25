@@ -1,12 +1,13 @@
 import React from 'react';
 import { useState, useCallback } from 'react';
 
-import { copy } from '../util';
+import { copy } from '@common/util';
 import {
   initialSettings,
   settingsAreValid,
-  SettingsContext
-} from '../util/settings';
+  SettingsContext,
+  defaultSettings
+} from '../../util/settings';
 
 export default function Settings({ children }) {
   const [settings, setSettings] = useState(initialSettings);
@@ -25,7 +26,11 @@ export default function Settings({ children }) {
     }
   }, [setSettings]);
 
-  return <SettingsContext.Provider value={{ get, change }}>
+  const reset = useCallback(() => {
+    change(defaultSettings);
+  }, [change]);
+
+  return <SettingsContext.Provider value={{ get, change, reset }}>
            { children }
          </SettingsContext.Provider>
 }

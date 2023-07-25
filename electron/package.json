@@ -1,7 +1,7 @@
 {
   "name": "Take Counter",
   "productName": "Take Counter",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "description": "A take counter for recording sessions.",
   "main": ".webpack/main",
   "scripts": {
@@ -44,6 +44,7 @@
     "@common/settings": "file:../common/settings",
     "@common/util": "file:../common/util",
     "bootstrap": "^5.3.0",
+    "bootstrap-icons": "^1.10.5",
     "electron-squirrel-startup": "^1.0.0",
     "eslint": "^8.45.0",
     "jest": "^29.6.1",

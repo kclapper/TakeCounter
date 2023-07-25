@@ -25,6 +25,9 @@ export default function InputDisplay(props) {
   }, [inputDisplay, display, caretOffset]);
 
   const handleValidation = useCallback((event) => {
+    if (validateInput === undefined) {
+      return;
+    }
     if (!validateInput(event.data)) {
       event.preventDefault();
     }
@@ -44,7 +47,11 @@ export default function InputDisplay(props) {
 
   const handlePaste = useCallback((event) => {
     const text = event.clipboardData.getData('text');
-    if (validateInput(text)) {
+    if (validateInput !== undefined) {
+      if (validateInput(text)) {
+        onInput(text);
+      }
+    } else {
       onInput(text);
     }
     event.preventDefault();

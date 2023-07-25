@@ -1,6 +1,7 @@
 import { createContext, useContext } from 'react';
 
 import { defaultSettings } from '@common/settings';
+import { copy, deepFreeze } from '@common/util';
 
 const runningInElectron = window.settings !== undefined;
 
@@ -11,18 +12,23 @@ if (!runningInElectron) {
   defaultSettings.keyboardShortcuts.resetCount = "Shift+R";
 }
 
+deepFreeze(defaultSettings);
+
+export { defaultSettings };
+
 export async function loadSettings() {
   if (runningInElectron) {
     return await window.settings.getSettings();
   }
-  return defaultSettings;
+  return copy(defaultSettings);
 }
 
 export const initialSettings = await loadSettings();
 
 export const SettingsContext = createContext({
   get: () => initialSettings,
-  change: () => {}
+  change: () => {},
+  reset: () => {}
 });
 
 export const useSettings = (setting) => {

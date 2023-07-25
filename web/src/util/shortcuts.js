@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react';
 
-import { setEquals } from './index';
+import { setEquals } from '@common/util';
 
 const isMacOS = window.navigator.userAgent.indexOf("Mac") === 0;
 
@@ -35,6 +35,10 @@ const electron_to_web_code_map = {
   num8: "8",
   num9: "9",
 }
+let web_key_to_electron_map = {};
+for (const [key, value] of Object.entries(electron_to_web_code_map)) {
+  web_key_to_electron_map[value] = key;
+}
 
 function parseShortcut(shortcutString) {
   const keyStrs = shortcutString.split("+");
@@ -52,12 +56,35 @@ function parseShortcut(shortcutString) {
   return keys;
 }
 
+export function setToShortcut(keySet) {
+  let result = '';
+
+  for (const key of keySet) {
+    if (web_key_to_electron_map[key] !== undefined) {
+      result += '+';
+      result += web_key_to_electron_map[key];
+      continue;
+    }
+
+    if (key.length === 1) {
+      result += '+';
+      result += key.toUpperCase();
+      continue;
+    }
+
+    result += '+';
+    result += key;
+  }
+
+  return result.slice(1);
+}
+
 export function useShortcut(callback, shortcut, electronTarget) {
   useWebShortcut(callback, shortcut);
   useElectronShortcut(callback, electronTarget);
 }
 
-const keysDown = new Set();
+export const keysDown = new Set();
 window.addEventListener('keydown', (event) => {
   if (event.key.length === 1) {
     keysDown.add(event.key.toUpperCase());
@@ -67,7 +94,9 @@ window.addEventListener('keydown', (event) => {
 });
 window.addEventListener('keyup', (event) => {
   // HACK: Prevent accumulation of alt code characters.
-  if (event.key === "Alt") {
+  if (event.key === "Alt"
+      || event.key === 'Meta'
+      || event.key === 'Super') {
     keysDown.clear();
   }
   if (event.key.length === 1) {
