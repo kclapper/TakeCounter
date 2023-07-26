@@ -2,7 +2,7 @@ const defaultSettings = {
   keyboardShortcuts: {
     incrementCount: "Alt+Shift+=",
     decrementCount: "Alt+Shift+-",
-    resetCount: "Alt+Shift+R"
+    resetCount: "Alt+Shift+0"
   }
 };
 
