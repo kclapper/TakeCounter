@@ -8,6 +8,7 @@ import { SettingsContext } from '../../../util/settings';
 
 import Button from '../../Button';
 import KeyItem from './KeyItem';
+import BooleanItem from './BooleanItem';
 
 const gear = <svg className='bi' width='24' height='24' fill='white' ><use href={ bootstrapIcons + '#gear-wide-connected' }/></svg>;
 
@@ -41,6 +42,15 @@ export default function Menu() {
     }
   };
 
+  const windowSettings = <div>
+                           <h4 className='row border-bottom'>
+                             Window
+                           </h4>
+                           <BooleanItem name='Always On Top'
+                                        value={ settings.alwaysOnTop }
+                                        onChange={ makeSettingChanger('alwaysOnTop') }/>
+                         </div>
+
   return <div>
            <button className="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#settingsMenu" aria-controls="settingsMenu">
              { gear }
@@ -72,6 +82,12 @@ export default function Menu() {
                <KeyItem name='Reset Count'
                         value={ settings.keyboardShortcuts.resetCount }
                         onChange={ makeSettingChanger('keyboardShortcuts', 'resetCount') }/>
+
+               { window.settings === undefined ? undefined : windowSettings }
+
+               <h4 className='row border-bottom'>
+                 Reset
+               </h4>
                <Button className='btn btn-outline-light m-1'
                        onClick={ resetSettings }>
                  Reset Default Settings

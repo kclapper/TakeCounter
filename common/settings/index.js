@@ -3,7 +3,8 @@ const defaultSettings = {
     incrementCount: "Alt+Shift+=",
     decrementCount: "Alt+Shift+-",
     resetCount: "Alt+Shift+0"
-  }
+  },
+  alwaysOnTop: true
 };
 
 function settingsAreValid(settings, schema = defaultSettings) {

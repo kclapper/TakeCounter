@@ -1,6 +1,6 @@
 {
   "name": "@common/settings",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Take Counter Common Settings Library",
   "main": "index.js",
   "scripts": {

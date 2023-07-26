@@ -52,7 +52,7 @@ async function changeSettings(newSettings) {
     try {
       await fs.writeFile(settingsPath, JSON.stringify(newSettings));
       settings = newSettings;
-      settingsEmitter.emit('change');
+      settingsEmitter.emit('change', settings);
     } catch (err) {
       console.warn("Could not save settings.");
     }

@@ -1,6 +1,6 @@
 /* global  MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY, MAIN_WINDOW_WEBPACK_ENTRY */
 const { app, BrowserWindow } = require('electron');
-const { loadSettings, registerSettingsHandlers } = require('./settings.js');
+const { loadSettings, registerSettingsHandlers, settingsEmitter } = require('./settings.js');
 const { registerKeyboardShortcuts } = require('./shortcuts.js');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -13,6 +13,7 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    alwaysOnTop: true,
     webPreferences: {
       devTools: !app.isPackaged,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
@@ -38,6 +39,12 @@ app
   .then(loadSettings)
   .then(registerSettingsHandlers)
   .then(createWindow)
+  .then((mainWindow) => {
+    settingsEmitter.on('change', (settings) => {
+      mainWindow.setAlwaysOnTop(settings.alwaysOnTop);
+    });
+    return mainWindow;
+  })
   .then(registerKeyboardShortcuts);
 
 // Quit when all windows are closed, except on macOS. There, it's common

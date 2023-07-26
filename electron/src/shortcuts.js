@@ -27,6 +27,8 @@ async function registerKeyboardShortcuts(mainWindow) {
     globalShortcut.unregisterAll();
     registerCountShortcuts(mainWindow);
   });
+
+  return mainWindow;
 }
 
 module.exports = {
