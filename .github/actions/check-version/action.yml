@@ -1,0 +1,12 @@
+name: Check Version
+description: Make sure the version number of the electron and web app match
+inputs:
+  electron-package-path:
+    description: Path to electron package.json file
+    required: true
+  web-package-path:
+    description: Path to web package.json file
+    required: true
+runs:
+  using: node16
+  main: 'dist/index.js'

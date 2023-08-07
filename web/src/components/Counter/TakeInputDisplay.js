@@ -1,6 +1,6 @@
 import React from 'react';
 
-import InputDisplay from '../InputDisplay';
+import InputDisplay from '../Input/InputDisplay';
 
 export default function TakeInputDisplay({ display, onInput }) {
   const inputIsValid = (input) => {

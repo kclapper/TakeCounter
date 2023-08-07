@@ -8,7 +8,7 @@ function Button({ onClick, tooltipPlacement, tooltip, className, children}) {
   const element = useRef(null);
 
   useEffect(() => {
-    if (element.current !== null) {
+    if (element.current !== null && tooltip !== undefined) {
       new bootstrap.Tooltip(element.current, {
         delay: {
           show: 1000,

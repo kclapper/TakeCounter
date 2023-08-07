@@ -23,7 +23,10 @@ export async function loadSettings() {
   return copy(defaultSettings);
 }
 
-export const initialSettings = await loadSettings();
+export let initialSettings = defaultSettings;
+loadSettings().then((settings) => {
+  initialSettings = settings;
+})
 
 export const SettingsContext = createContext({
   get: () => initialSettings,

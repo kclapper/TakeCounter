@@ -1,9 +1,8 @@
 name: Build and Deploy Web App
 
 on:
+  workflow_call:
   workflow_dispatch:
-  push:
-    tags: [ 'v*.*.*' ]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -18,17 +17,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  test:
-    uses: ./.github/workflows/test-web-app.yml
-
-  build:
+  deploy:
     env:
       working-directory: ./web
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: test
     steps:
       - uses: actions/checkout@v3
       - name: Install commons

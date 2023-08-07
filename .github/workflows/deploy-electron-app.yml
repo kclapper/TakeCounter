@@ -1,14 +1,30 @@
 name: Build and Deploy Electron App
 
 on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        description: deployment environment
+        required: true
+    secrets:
+      S3_ID:
+        required: true
+      S3_SECRET:
+        required: true
   workflow_dispatch:
-  push:
-    tags: [ 'v*.*.*' ]
+    inputs:
+      environment:
+        type: string
+        description: deployment environment
+        required: true
+    secrets:
+      S3_ID:
+        required: true
+      S3_SECRET:
+        required: true
 
 jobs:
-  test:
-    uses: ./.github/workflows/test-electron.yml
-
   build:
     strategy:
       matrix:
@@ -17,7 +33,6 @@ jobs:
             arch: universal
             target: darwin
 
-    needs: test
     runs-on: ${{ matrix.os }}
 
     env:
@@ -47,10 +62,10 @@ jobs:
           path: ${{ env.distributable-path }}
           retention-days: 1
 
-  upload:
+  deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment: S3
+    environment: ${{ inputs.environment }}
 
     steps:
       - name: Retrieve build

@@ -3,7 +3,7 @@ import { useState, useCallback, useEffect } from 'react';
 
 import { setToShortcut } from '../../../util/shortcuts';
 
-import InputDisplay from '../../InputDisplay';
+import InputDisplay from '../../Input/InputDisplay';
 
 const newShortcut = new Set();
 

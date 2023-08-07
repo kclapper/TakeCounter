@@ -7,18 +7,15 @@ runs:
     - uses: actions/setup-node@v3
       with:
         node-version: 18
-    - run: npm ci
+    - name: Install common linting dependencies
+      run: npm ci
       shell: bash
       working-directory: ./common/lint
-    - run: npm ci
+    - name: Install common utility dependencies
+      run: npm ci
       shell: bash
       working-directory: ./common/util
-    - run: npm ci
+    - name: Install common settings dependencies
+      run: npm ci
       shell: bash
       working-directory: ./common/settings
-    - run: npm ci
-      shell: bash
-      working-directory: ./electron
-    - run: npm ci
-      shell: bash
-      working-directory: ./web
