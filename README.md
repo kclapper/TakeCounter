@@ -20,7 +20,6 @@ Take Counter is available as a Universal MacOS app.
 - Always on top display (togglable)
 
 ![Screenshot of Take Counter](./desktop-screenshot.png)
-![Screenshot of Take Counter with details added](./desktop-screenshot-with-details.png)
 
 ## Organization 
 This app has two major components; a web app and an Electron app.
