@@ -29,9 +29,11 @@ export default function KeyItem({ name, value, onChange }) {
 
   const handleBlur = useCallback(() => {
     setReading(false);
-    onChange(setToShortcut(newShortcut));
-    newShortcut.clear();
 
+    if (newShortcut.size !== 0) {
+      onChange(setToShortcut(newShortcut));
+      newShortcut.clear();
+    }
   }, [setReading, onChange]);
 
   return <div className='row justify-content-start'>

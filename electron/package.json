@@ -1,7 +1,7 @@
 {
   "name": "Take Counter",
   "productName": "Take Counter",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A take counter for recording sessions.",
   "main": ".webpack/main",
   "scripts": {

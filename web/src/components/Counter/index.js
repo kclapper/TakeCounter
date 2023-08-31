@@ -27,9 +27,6 @@ function Counter() {
 
   useEffect(() => {
     document.title = "Take " + count;
-
-    // HACK: This feels like an ugly way to reset the cursor
-    // position when someone types in a take number.
   }, [count]);
 
   const shortcuts = useSettings("keyboardShortcuts");
