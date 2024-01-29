@@ -8,26 +8,25 @@
 import SwiftUI
 import SwiftData
 
-let counter: Counter = SingletonCounter.getInstance()
+let defaultWidth = CGFloat(400)
+let defaultHeight = CGFloat(150)
 
 @main
 struct TakeCounterApp: App {
-    @State private var count: Count = counter.count
     
     var body: some Scene {
         WindowGroup {
-            CounterView(count: $count)
-            HStack {
-                DecrementButton {
-                    counter.decrement()
-                }
-                ResetButton {
-                    counter.reset()
-                }
-                IncrementButton {
-                    counter.increment()
-                }
-            }
+            ClientDetailView()
+            CounterView()
         }
+        .defaultSize(width: defaultWidth, height: defaultHeight)
+    }
+}
+
+#Preview {
+    Group {
+        ClientDetailView()
+        CounterView()
+                .frame(width: defaultWidth, height: defaultHeight)
     }
 }

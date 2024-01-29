@@ -10,10 +10,10 @@
 		A2278C3B2B559DC10011A60B /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2278C3A2B559DC10011A60B /* Counter.swift */; };
 		A2278C3D2B5615F00011A60B /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2278C3C2B5615F00011A60B /* Observable.swift */; };
 		A2278C3F2B5626F70011A60B /* PersistentCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2278C3E2B5626F70011A60B /* PersistentCount.swift */; };
-		A2278C412B5628680011A60B /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2278C402B5628680011A60B /* CounterView.swift */; };
+		A2278C412B5628680011A60B /* CountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2278C402B5628680011A60B /* CountView.swift */; };
 		A230A3962B5DEAD700873FEB /* IncrementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A230A3952B5DEAD700873FEB /* IncrementButton.swift */; };
 		A27ECA442B5DEE4C00EE82C5 /* ResetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27ECA432B5DEE4C00EE82C5 /* ResetButton.swift */; };
-		A27ECA472B5DEEAE00EE82C5 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27ECA462B5DEEAE00EE82C5 /* MainView.swift */; };
+		A27ECA472B5DEEAE00EE82C5 /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27ECA462B5DEEAE00EE82C5 /* CounterView.swift */; };
 		A28126202B5DECE3008BB808 /* DecrementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A281261F2B5DECE3008BB808 /* DecrementButton.swift */; };
 		A28126222B5DED08008BB808 /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28126212B5DED08008BB808 /* MainButton.swift */; };
 		A2D00D5D2B559BC8001D4311 /* TakeCounterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D00D5C2B559BC8001D4311 /* TakeCounterApp.swift */; };
@@ -24,6 +24,7 @@
 		A2D00D712B559BC9001D4311 /* TakeCounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D00D702B559BC9001D4311 /* TakeCounterTests.swift */; };
 		A2D00D7B2B559BC9001D4311 /* TakeCounterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D00D7A2B559BC9001D4311 /* TakeCounterUITests.swift */; };
 		A2D00D7D2B559BC9001D4311 /* TakeCounterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D00D7C2B559BC9001D4311 /* TakeCounterUITestsLaunchTests.swift */; };
+		A2DAB4DD2B673E0D00E30D0E /* ClientDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DAB4DC2B673E0D00E30D0E /* ClientDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,10 +48,10 @@
 		A2278C3A2B559DC10011A60B /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
 		A2278C3C2B5615F00011A60B /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		A2278C3E2B5626F70011A60B /* PersistentCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentCount.swift; sourceTree = "<group>"; };
-		A2278C402B5628680011A60B /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
+		A2278C402B5628680011A60B /* CountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountView.swift; sourceTree = "<group>"; };
 		A230A3952B5DEAD700873FEB /* IncrementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementButton.swift; sourceTree = "<group>"; };
 		A27ECA432B5DEE4C00EE82C5 /* ResetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetButton.swift; sourceTree = "<group>"; };
-		A27ECA462B5DEEAE00EE82C5 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		A27ECA462B5DEEAE00EE82C5 /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
 		A281261F2B5DECE3008BB808 /* DecrementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecrementButton.swift; sourceTree = "<group>"; };
 		A28126212B5DED08008BB808 /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
 		A2D00D592B559BC8001D4311 /* TakeCounter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TakeCounter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +66,7 @@
 		A2D00D762B559BC9001D4311 /* TakeCounterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TakeCounterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2D00D7A2B559BC9001D4311 /* TakeCounterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeCounterUITests.swift; sourceTree = "<group>"; };
 		A2D00D7C2B559BC9001D4311 /* TakeCounterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeCounterUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A2DAB4DC2B673E0D00E30D0E /* ClientDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,9 +97,10 @@
 		A2278C422B5628840011A60B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A2278C402B5628680011A60B /* CounterView.swift */,
+				A2278C402B5628680011A60B /* CountView.swift */,
 				A27ECA452B5DEE5D00EE82C5 /* MainButtons */,
-				A27ECA462B5DEEAE00EE82C5 /* MainView.swift */,
+				A27ECA462B5DEEAE00EE82C5 /* CounterView.swift */,
+				A2DAB4DC2B673E0D00E30D0E /* ClientDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -306,13 +309,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2278C3B2B559DC10011A60B /* Counter.swift in Sources */,
-				A27ECA472B5DEEAE00EE82C5 /* MainView.swift in Sources */,
+				A27ECA472B5DEEAE00EE82C5 /* CounterView.swift in Sources */,
 				A230A3962B5DEAD700873FEB /* IncrementButton.swift in Sources */,
+				A2DAB4DD2B673E0D00E30D0E /* ClientDetailView.swift in Sources */,
 				A2278C3D2B5615F00011A60B /* Observable.swift in Sources */,
 				A2D00D5F2B559BC8001D4311 /* ContentView.swift in Sources */,
 				A27ECA442B5DEE4C00EE82C5 /* ResetButton.swift in Sources */,
 				A28126222B5DED08008BB808 /* MainButton.swift in Sources */,
-				A2278C412B5628680011A60B /* CounterView.swift in Sources */,
+				A2278C412B5628680011A60B /* CountView.swift in Sources */,
 				A2D00D612B559BC8001D4311 /* Item.swift in Sources */,
 				A2278C3F2B5626F70011A60B /* PersistentCount.swift in Sources */,
 				A2D00D5D2B559BC8001D4311 /* TakeCounterApp.swift in Sources */,
@@ -485,6 +489,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Take Counter";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -513,6 +519,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Take Counter";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
