@@ -1,8 +1,8 @@
 # Take Counter 
 
-[![Test Web App](https://github.com/kclapper/counter/actions/workflows/test-web-app.yml/badge.svg)](https://github.com/kclapper/counter/actions/workflows/test-web-app.yml)
-[![Test Electron App](https://github.com/kclapper/counter/actions/workflows/test-electron-app.yml/badge.svg)](https://github.com/kclapper/counter/actions/workflows/test-electron-app.yml)
-[![Test Common Libraries](https://github.com/kclapper/counter/actions/workflows/test-common.yml/badge.svg)](https://github.com/kclapper/counter/actions/workflows/test-common.yml)
+[![Test Web App](https://github.com/kclapper/TakeCounter/actions/workflows/test-web-app.yml/badge.svg)](https://github.com/kclapper/TakeCounter/actions/workflows/test-web-app.yml)
+[![Test Electron App](https://github.com/kclapper/TakeCounter/actions/workflows/test-electron-app.yml/badge.svg)](https://github.com/kclapper/TakeCounter/actions/workflows/test-electron-app.yml)
+[![Test Common Libraries](https://github.com/kclapper/TakeCounter/actions/workflows/test-common.yml/badge.svg)](https://github.com/kclapper/TakeCounter/actions/workflows/test-common.yml)
 
 Take Counter is an app to help track takes during recording sessions. It allows
 engineers to keep the current take visible on screen while working in another
