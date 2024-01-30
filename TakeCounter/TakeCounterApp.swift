@@ -8,16 +8,23 @@
 import SwiftUI
 import SwiftData
 
-let defaultWidth = CGFloat(400)
-let defaultHeight = CGFloat(150)
+let defaultWidth = CGFloat(550)
+let defaultHeight = CGFloat(200)
 
 @main
 struct TakeCounterApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ClientDetailView()
-            CounterView()
+            VStack {
+                HStack {
+                    ClientDetailView()
+                    Spacer()
+                }
+                Spacer()
+                CounterView()
+            }
+            .padding()
         }
         .defaultSize(width: defaultWidth, height: defaultHeight)
     }
@@ -25,8 +32,14 @@ struct TakeCounterApp: App {
 
 #Preview {
     Group {
-        ClientDetailView()
-        CounterView()
-                .frame(width: defaultWidth, height: defaultHeight)
+        VStack {
+            HStack {
+                ClientDetailView()
+                Spacer()
+            }
+            Spacer()
+            CounterView()
+        }
+            .frame(width: defaultWidth, height: defaultHeight)
     }
 }

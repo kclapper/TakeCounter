@@ -11,13 +11,11 @@ struct ClientDetailView: View {
     @State var clientDetails: String = ""
     
     var body: some View {
-        TextField("", text: $clientDetails)
-            .underline()
-            .padding()
+        ExpandingInput("", text: $clientDetails)
+            .font(.title)
     }
 }
 
 #Preview {
     ClientDetailView()
-        .padding()
 }
