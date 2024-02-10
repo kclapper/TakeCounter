@@ -7,9 +7,10 @@
 
 import SwiftUI
 import SwiftData
+import AppKit
 
 let defaultWidth = CGFloat(550)
-let defaultHeight = CGFloat(200)
+let defaultHeight = CGFloat(250)
 
 @main
 struct TakeCounterApp: App {

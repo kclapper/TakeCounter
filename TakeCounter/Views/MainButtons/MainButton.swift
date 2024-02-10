@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AppKit
 
 struct MainButton: View {
     var text: String
@@ -16,6 +17,11 @@ struct MainButton: View {
             Text(text)
                 .font(.title)
                 .padding(8)
+        }
+        .onTapGesture {
+            DispatchQueue.main.async {
+                NSApp.keyWindow?.makeFirstResponder(nil)
+            }
         }
     }
 }
