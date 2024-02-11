@@ -26,6 +26,8 @@ struct TakeCounterApp: App {
                 CounterView()
             }
             .padding()
+            .background(.background)
+            .removeFocusOnTap()
         }
         .defaultSize(width: defaultWidth, height: defaultHeight)
     }
@@ -42,5 +44,7 @@ struct TakeCounterApp: App {
             CounterView()
         }
             .frame(width: defaultWidth, height: defaultHeight)
+            .background(.background)
+            .removeFocusOnTap()
     }
 }

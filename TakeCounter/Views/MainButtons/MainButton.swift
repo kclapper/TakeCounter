@@ -18,11 +18,6 @@ struct MainButton: View {
                 .font(.title)
                 .padding(8)
         }
-        .onTapGesture {
-            DispatchQueue.main.async {
-                NSApp.keyWindow?.makeFirstResponder(nil)
-            }
-        }
     }
 }
 

@@ -16,8 +16,8 @@ struct ExpandingInput: View {
     let placeholder: String
     @Binding var text: String
     
-    @State var focusTimer = newTimer()
-    @FocusState var focus: Bool
+//    @State var focusTimer = newTimer()
+//    @FocusState var focus: Bool
     
     init(_ placeholder: String = "", text: Binding<String>, minWidth: Int = 50) {
         if placeholder.count < minWidth {
@@ -29,22 +29,23 @@ struct ExpandingInput: View {
         }
         
         self._text = text
-        focus = false
+//        focus = false
     }
     
     var body: some View {
         VStack {
-            TextField(placeholder, text: $text, onCommit: {
-                focus = false
-            })
-            .onChange(of: text, {
-                focusTimer.upstream.connect().cancel()
-                focusTimer = newTimer()
-            })
-            .onReceive(focusTimer, perform: { _ in
-                focus = false
-            })
-            .focused($focus)
+            TextField(placeholder, text: $text)
+//            TextField(placeholder, text: $text, onCommit: {
+//                focus = false
+//            })
+//            .onChange(of: text, {
+//                focusTimer.upstream.connect().cancel()
+//                focusTimer = newTimer()
+//            })
+//            .onReceive(focusTimer, perform: { _ in
+//                focus = false
+//            })
+//            .focused($focus)
             .textFieldStyle(.plain)
             .foregroundColor(.white)
             
@@ -57,6 +58,23 @@ struct ExpandingInput: View {
     }
 }
 
+struct RemoveFocusModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .onTapGesture {
+                DispatchQueue.main.async {
+                    NSApp.keyWindow?.makeFirstResponder(nil)
+                }
+            }
+    }
+}
+
+extension View {
+    func removeFocusOnTap() -> some View {
+        modifier(RemoveFocusModifier())
+    }
+}
+
 #Preview {
     @State var someText: String = ""
     return VStack {
@@ -64,4 +82,5 @@ struct ExpandingInput: View {
             .padding()
         ExpandingInput("Placeholder", text: $someText)
     }
+    .removeFocusOnTap()
 }
