@@ -16,9 +16,6 @@ struct ExpandingInput: View {
     let placeholder: String
     @Binding var text: String
     
-//    @State var focusTimer = newTimer()
-//    @FocusState var focus: Bool
-    
     init(_ placeholder: String = "", text: Binding<String>, minWidth: Int = 50) {
         if placeholder.count < minWidth {
             let paddingCount = minWidth - placeholder.count
@@ -29,31 +26,21 @@ struct ExpandingInput: View {
         }
         
         self._text = text
-//        focus = false
     }
     
     var body: some View {
-        VStack {
-            TextField(placeholder, text: $text)
-//            TextField(placeholder, text: $text, onCommit: {
-//                focus = false
-//            })
-//            .onChange(of: text, {
-//                focusTimer.upstream.connect().cancel()
-//                focusTimer = newTimer()
-//            })
-//            .onReceive(focusTimer, perform: { _ in
-//                focus = false
-//            })
-//            .focused($focus)
-            .textFieldStyle(.plain)
-            .foregroundColor(.white)
+        HStack {
+            VStack {
+                TextField(placeholder, text: $text)
+                    .textFieldStyle(.plain)
+                
+                Divider()
+                    .frame(height: 1)
+            }
+            .fixedSize()
             
-            Divider()
-                .frame(height: 1)
-                .background(.white)
+            Spacer()
         }
-        .fixedSize()
         .padding()
     }
 }

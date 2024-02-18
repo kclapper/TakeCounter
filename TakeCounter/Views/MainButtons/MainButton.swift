@@ -11,6 +11,7 @@ import AppKit
 struct MainButton: View {
     var text: String
     var action: () -> Void
+    let color: Color
     
     var body: some View {
         Button(action: action) {
@@ -18,9 +19,11 @@ struct MainButton: View {
                 .font(.title)
                 .padding(8)
         }
+        .buttonStyle(.borderedProminent)
+        .tint(color)
     }
 }
 
 #Preview {
-    MainButton(text: "Test", action: { print("Clicked") })
+    MainButton(text: "Test", action: { print("Clicked") }, color: .purple)
 }

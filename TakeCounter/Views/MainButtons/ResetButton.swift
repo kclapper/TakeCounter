@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ResetButton: View {
+    @AppStorage(AppSettings.resetShortcut.name) var resetShortcut = AppSettings.resetShortcut.defaultValue
+    
     var action: () -> Void
     
     var body: some View {
-        MainButton(text: "Reset", action: action)
-            .background(Color.red)
+        MainButton(text: "Reset", action: action, color: .red)
+            .keyboardShortcut(makeShortcut(fromString: resetShortcut))
     }
 }
 

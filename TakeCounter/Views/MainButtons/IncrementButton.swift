@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct IncrementButton: View {
+    @AppStorage(AppSettings.incrementShortcut.name) var incrementShortcut = AppSettings.incrementShortcut.defaultValue
+    
     var action: () -> Void
     
     var body: some View {
-        MainButton(text: "Increment", action: action)
-            .background(Color.blue)
+        MainButton(text: "+", action: action, color: .blue)
+            .keyboardShortcut(makeShortcut(fromString: incrementShortcut))
     }
+    
 }
 
 #Preview {

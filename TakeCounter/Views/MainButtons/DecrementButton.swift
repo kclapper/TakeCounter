@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct DecrementButton: View {
+    @AppStorage(AppSettings.decrementShortcut.name) var decrementShortcut = AppSettings.decrementShortcut.defaultValue
+    
     var action: () -> Void
     
     var body: some View {
-        MainButton(text: "Decrement", action: action)
-            .background(Color.blue)
+        MainButton(text: "-", action: action, color: .blue)
+            .keyboardShortcut(makeShortcut(fromString: decrementShortcut))
     }
 }
 

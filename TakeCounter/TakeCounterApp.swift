@@ -17,34 +17,21 @@ struct TakeCounterApp: App {
     
     var body: some Scene {
         WindowGroup {
-            VStack {
-                HStack {
-                    ClientDetailView()
-                    Spacer()
-                }
-                Spacer()
-                CounterView()
-            }
-            .padding()
-            .background(.background)
-            .removeFocusOnTap()
+            MainView()
         }
         .defaultSize(width: defaultWidth, height: defaultHeight)
+        
+        Settings {
+            SettingsView()
+        }
     }
 }
 
 #Preview {
     Group {
-        VStack {
-            HStack {
-                ClientDetailView()
-                Spacer()
-            }
-            Spacer()
-            CounterView()
-        }
+        MainView()
             .frame(width: defaultWidth, height: defaultHeight)
-            .background(.background)
+            .background(.gray)
             .removeFocusOnTap()
     }
 }
