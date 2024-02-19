@@ -11,8 +11,9 @@ struct ClientDetailView: View {
     @State var clientDetails: String = ""
     
     var body: some View {
-        ExpandingInput("", text: $clientDetails)
-            .font(.title)
+        ExpandingInput("", text: $clientDetails, minWidth: 25)
+            .customFont(size: 15)
+            .foregroundStyle(.white)
     }
 }
 

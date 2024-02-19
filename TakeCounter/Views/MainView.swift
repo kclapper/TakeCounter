@@ -8,15 +8,19 @@
 import SwiftUI
 
 struct MainView: View {
+    @State var count: Count = 0
+    
     var body: some View {
         VStack {
             ClientDetailView()
             Spacer()
-            CounterView()
-            Label("", systemImage: "gear")
+            CountView(count: $count)
+            Spacer()
+            ControlView(count: $count)
+                .padding(.bottom, 20)
         }
-        .padding()
-        .background(.gray)
+        .padding(2)
+        .background(Color("BackgroundColor"))
         .removeFocusOnTap()
     }
 }

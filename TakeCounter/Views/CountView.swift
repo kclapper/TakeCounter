@@ -14,8 +14,8 @@ struct CountView: View {
 
     var body: some View {
         Text("\(count)")
-            .font(.system(size: 64))
-            .bold()
+            .customFont(.regular, size: 100)
+            .foregroundStyle(.white)
     }
 }
 

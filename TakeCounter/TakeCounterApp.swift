@@ -18,6 +18,11 @@ struct TakeCounterApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+                .onAppear {
+                    DispatchQueue.main.async {
+                        NSApp.keyWindow?.makeFirstResponder(nil)
+                    }
+                }
         }
         .defaultSize(width: defaultWidth, height: defaultHeight)
         

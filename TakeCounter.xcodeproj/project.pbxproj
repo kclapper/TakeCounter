@@ -12,8 +12,9 @@
 		A2278C3F2B5626F70011A60B /* PersistentCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2278C3E2B5626F70011A60B /* PersistentCount.swift */; };
 		A2278C412B5628680011A60B /* CountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2278C402B5628680011A60B /* CountView.swift */; };
 		A230A3962B5DEAD700873FEB /* IncrementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A230A3952B5DEAD700873FEB /* IncrementButton.swift */; };
+		A2744C772B82926E00E18AF2 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2744C762B82926E00E18AF2 /* Font.swift */; };
 		A27ECA442B5DEE4C00EE82C5 /* ResetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27ECA432B5DEE4C00EE82C5 /* ResetButton.swift */; };
-		A27ECA472B5DEEAE00EE82C5 /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27ECA462B5DEEAE00EE82C5 /* CounterView.swift */; };
+		A27ECA472B5DEEAE00EE82C5 /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27ECA462B5DEEAE00EE82C5 /* ControlView.swift */; };
 		A28126202B5DECE3008BB808 /* DecrementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A281261F2B5DECE3008BB808 /* DecrementButton.swift */; };
 		A28126222B5DED08008BB808 /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28126212B5DED08008BB808 /* MainButton.swift */; };
 		A28496782B7A9AA10097DE79 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28496772B7A9AA10097DE79 /* MainView.swift */; };
@@ -53,8 +54,9 @@
 		A2278C3E2B5626F70011A60B /* PersistentCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentCount.swift; sourceTree = "<group>"; };
 		A2278C402B5628680011A60B /* CountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountView.swift; sourceTree = "<group>"; };
 		A230A3952B5DEAD700873FEB /* IncrementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementButton.swift; sourceTree = "<group>"; };
+		A2744C762B82926E00E18AF2 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		A27ECA432B5DEE4C00EE82C5 /* ResetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetButton.swift; sourceTree = "<group>"; };
-		A27ECA462B5DEEAE00EE82C5 /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
+		A27ECA462B5DEEAE00EE82C5 /* ControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
 		A281261F2B5DECE3008BB808 /* DecrementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecrementButton.swift; sourceTree = "<group>"; };
 		A28126212B5DED08008BB808 /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
 		A28496772B7A9AA10097DE79 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -106,7 +108,7 @@
 				A28496772B7A9AA10097DE79 /* MainView.swift */,
 				A2278C402B5628680011A60B /* CountView.swift */,
 				A27ECA452B5DEE5D00EE82C5 /* MainButtons */,
-				A27ECA462B5DEEAE00EE82C5 /* CounterView.swift */,
+				A27ECA462B5DEEAE00EE82C5 /* ControlView.swift */,
 				A2DAB4DC2B673E0D00E30D0E /* ClientDetailView.swift */,
 				A2B6447B2B6889C000C5CED9 /* ExpandingInput.swift */,
 				A2A0EF102B797C1F0088ADDD /* SettingsView.swift */,
@@ -150,6 +152,7 @@
 			children = (
 				A2278C422B5628840011A60B /* Views */,
 				A2D00D5C2B559BC8001D4311 /* TakeCounterApp.swift */,
+				A2744C762B82926E00E18AF2 /* Font.swift */,
 				A2D00D5E2B559BC8001D4311 /* ContentView.swift */,
 				A2D00D602B559BC8001D4311 /* Item.swift */,
 				A2278C3E2B5626F70011A60B /* PersistentCount.swift */,
@@ -319,7 +322,7 @@
 			files = (
 				A2A0EF112B797C1F0088ADDD /* SettingsView.swift in Sources */,
 				A2278C3B2B559DC10011A60B /* Counter.swift in Sources */,
-				A27ECA472B5DEEAE00EE82C5 /* CounterView.swift in Sources */,
+				A27ECA472B5DEEAE00EE82C5 /* ControlView.swift in Sources */,
 				A230A3962B5DEAD700873FEB /* IncrementButton.swift in Sources */,
 				A2DAB4DD2B673E0D00E30D0E /* ClientDetailView.swift in Sources */,
 				A2278C3D2B5615F00011A60B /* Observable.swift in Sources */,
@@ -329,6 +332,7 @@
 				A28496782B7A9AA10097DE79 /* MainView.swift in Sources */,
 				A28126222B5DED08008BB808 /* MainButton.swift in Sources */,
 				A2278C412B5628680011A60B /* CountView.swift in Sources */,
+				A2744C772B82926E00E18AF2 /* Font.swift in Sources */,
 				A2D00D612B559BC8001D4311 /* Item.swift in Sources */,
 				A2278C3F2B5626F70011A60B /* PersistentCount.swift in Sources */,
 				A2D00D5D2B559BC8001D4311 /* TakeCounterApp.swift in Sources */,
@@ -509,7 +513,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = co.widesoftware.TakeCounter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -539,7 +543,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = co.widesoftware.TakeCounter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

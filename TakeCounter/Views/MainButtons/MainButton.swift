@@ -16,11 +16,11 @@ struct MainButton: View {
     var body: some View {
         Button(action: action) {
             Text(text)
-                .font(.title)
-                .padding(8)
+                .customFont(size: 10)
+                .padding(2)
         }
         .buttonStyle(.borderedProminent)
-        .tint(color)
+        .tint(.accentColor)
     }
 }
 
