@@ -21,6 +21,16 @@ Take Counter is available as a Universal MacOS app.
 
 ![Screenshot of Take Counter](./desktop-screenshot.png)
 
+## Development
+
+The UI for the application is kept in the `web` folder and the code for the desktop is kept in the `electron` folder.
+
+To start developing:
+
+    cd electron
+    npm install
+    npm start
+
 ## For Potential Employers
 
 This project showcases my ability to create web and native apps using React and
