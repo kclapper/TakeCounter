@@ -19,6 +19,7 @@ struct MainView: View {
             ControlView(count: $count)
                 .padding(.bottom, 20)
         }
+        .customFont()
         .padding(2)
         .background(Color("BackgroundColor"))
         .removeFocusOnTap()
