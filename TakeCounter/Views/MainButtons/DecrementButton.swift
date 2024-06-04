@@ -13,8 +13,7 @@ struct DecrementButton: View {
     var action: () -> Void
     
     var body: some View {
-        MainButton(text: "-", action: action, color: .blue)
-            .keyboardShortcut(makeShortcut(fromString: decrementShortcut))
+        MainButton(text: "-", action: action, color: .blue, shortcut: makeShortcut(fromString: decrementShortcut))
     }
 }
 

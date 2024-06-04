@@ -13,8 +13,7 @@ struct ResetButton: View {
     var action: () -> Void
     
     var body: some View {
-        MainButton(text: "Reset", action: action, color: .red)
-            .keyboardShortcut(makeShortcut(fromString: resetShortcut))
+        MainButton(text: "Reset", action: action, color: .red, shortcut: makeShortcut(fromString: resetShortcut))
     }
 }
 

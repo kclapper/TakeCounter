@@ -14,7 +14,8 @@ let defaultHeight = CGFloat(250)
 
 @main
 struct TakeCounterApp: App {
-    
+    @AppStorage(AppSettings.alwaysOnTop.name) var alwaysOnTop = AppSettings.alwaysOnTop.defaultValue
+
     var body: some Scene {
         WindowGroup {
             MainView()
@@ -22,12 +23,24 @@ struct TakeCounterApp: App {
                     DispatchQueue.main.async {
                         NSApp.keyWindow?.makeFirstResponder(nil)
                     }
+                    setWindowLevel()
                 }
         }
         .defaultSize(width: defaultWidth, height: defaultHeight)
+        .onChange(of: alwaysOnTop) {
+            setWindowLevel()
+        }
         
         Settings {
             SettingsView()
+        }
+    }
+    
+    func setWindowLevel() {
+        let level: NSWindow.Level = alwaysOnTop ? .floating : .normal
+        
+        for window in NSApplication.shared.windows {
+            window.level = level
         }
     }
 }
