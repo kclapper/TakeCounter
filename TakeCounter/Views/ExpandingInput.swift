@@ -15,6 +15,7 @@ var newTimer = {
 struct ExpandingInput: View {
     let placeholder: String
     @Binding var text: String
+    @State var textSize: CGSize
     
     init(_ placeholder: String = "", text: Binding<String>, minWidth: Int = 50) {
         if placeholder.count < minWidth {
@@ -26,22 +27,43 @@ struct ExpandingInput: View {
         }
         
         self._text = text
+        self.textSize = CGSize(width: 0, height: 0)
     }
     
     var body: some View {
-        HStack {
-            VStack {
-                TextField(placeholder, text: $text)
-                    .textFieldStyle(.plain)
+        ZStack(alignment: .topLeading) {
+            HStack {
+                Text(text == "" ? placeholder : text)
+                        .frame(height: 1)
+                        .fixedSize()
+                        .background(
+                            GeometryReader { proxy in
+                                Color.clear
+                                    .onAppear {
+                                        textSize = proxy.size
+                                    }
+                                    .onChange(of: text) {
+                                        textSize = proxy.size
+                                    }
+                            }
+                        )
+            }
+            .hidden()
+
+            HStack {
+                VStack {
+                    TextField(placeholder, text: $text)
+                        .textFieldStyle(.plain)
                 
                 Divider()
                     .frame(height: 1)
+                }
+                .frame(width: textSize.width + 20)
+
+                Spacer()
             }
-            .fixedSize()
-            
-            Spacer()
+            .padding()
         }
-        .padding()
     }
 }
 
@@ -65,7 +87,7 @@ extension View {
 #Preview {
     @State var someText: String = ""
     return VStack {
-        Text("Example expanding input:")
+        Text("Example expanding input: (Not actually expanding due to weird binding issue, but works in practice)")
             .padding()
         ExpandingInput("Placeholder", text: $someText)
     }
