@@ -11,11 +11,38 @@ import SwiftData
 
 struct CountView: View {
     @Binding var count: Count
+    @State var displayText: String
+    
+    init(count: Binding<Count>) {
+        self._count = count
+        self.displayText = "\(count.wrappedValue)"
+    }
 
     var body: some View {
-        Text("\(count)")
-            .customFont(.regular, size: 100)
-            .foregroundStyle(.white)
+        HStack{
+            Spacer()
+            ExpandingInput(displayText, text: $displayText, minWidth: 0, underlined: false)
+                .customFont(.regular, size: 100)
+                .foregroundStyle(.white)
+                .onChange(of: displayText, parseInputText)
+                .onChange(of: count, displayCount)
+                .offset(x: 8)
+            Spacer()
+        }
+        .padding(.vertical, -30)
+        .background(Color("BackgroundColor"))
+    }
+    
+    func displayCount() {
+        displayText = "\(count)"
+    }
+    
+    func parseInputText() {
+        if let parsedCount = UInt(displayText) {
+            count = parsedCount
+        } else if displayText != "" {
+            displayCount()
+        }
     }
 }
 

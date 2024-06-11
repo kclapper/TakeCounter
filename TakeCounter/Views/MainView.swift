@@ -11,13 +11,21 @@ struct MainView: View {
     @State var count: Count = 0
     
     var body: some View {
-        VStack {
-            ClientDetailView()
-            Spacer()
-            CountView(count: $count)
-            Spacer()
-            ControlView(count: $count)
-                .padding(.bottom, 20)
+        ZStack {
+            VStack {
+                ClientDetailView()
+                Spacer()
+            }
+            VStack {
+                Spacer()
+                ControlView(count: $count)
+                    .padding(.bottom, 20)
+            }
+            VStack {
+                Spacer()
+                CountView(count: $count)
+                Spacer()
+            }
         }
         .customFont()
         .padding(2)

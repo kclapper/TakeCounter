@@ -14,10 +14,12 @@ var newTimer = {
 
 struct ExpandingInput: View {
     let placeholder: String
+    let underlined: Bool
+    
     @Binding var text: String
     @State var textSize: CGSize
     
-    init(_ placeholder: String = "", text: Binding<String>, minWidth: Int = 50) {
+    init(_ placeholder: String = "", text: Binding<String>, minWidth: Int = 50, underlined: Bool = true) {
         if placeholder.count < minWidth {
             let paddingCount = minWidth - placeholder.count
             let padding = String(repeating: " ", count: paddingCount)
@@ -28,6 +30,8 @@ struct ExpandingInput: View {
         
         self._text = text
         self.textSize = CGSize(width: 0, height: 0)
+        
+        self.underlined = underlined
     }
     
     var body: some View {
@@ -54,15 +58,14 @@ struct ExpandingInput: View {
                 VStack {
                     TextField(placeholder, text: $text)
                         .textFieldStyle(.plain)
-                
-                Divider()
-                    .frame(height: 1)
+
+                    if underlined {
+                        Divider()
+                            .frame(height: 1)
+                    }
                 }
                 .frame(width: textSize.width + 20)
-
-                Spacer()
             }
-            .padding()
         }
     }
 }
