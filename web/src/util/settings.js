@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext } from 'react';
+import { createContext, useContext } from 'react';
 
 import { defaultSettings } from 'common';
 import { copy, deepFreeze } from 'common';
