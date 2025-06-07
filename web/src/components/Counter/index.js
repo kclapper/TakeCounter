@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState, useEffect, useCallback } from 'react';
 
 import { bigIntMax } from 'common/util';
 import { useShortcut } from '../../util/shortcuts';
-import { useSettings } from '../../util/settings';
+import { SettingsContext, useSettings } from '../../util/settings';
 
 import Button from '../Button';
 import TakeInputDisplay from './TakeInputDisplay';
 
 function Counter() {
-  const [count, setRawCount] = useState(1n);
+  const settingsCtx = useContext(SettingsContext);
+  let settings = settingsCtx.get();
+
+  const startingTake = BigInt(settings.currentTake);
+  const [count, setRawCount] = useState(startingTake);
 
   const setCount = useCallback((newCount) => {
-    setRawCount(bigIntMax(newCount, 1n));
-  }, [setRawCount]);
+    const validatedNewCount = bigIntMax(newCount, 1n);
+
+    settings.currentTake = Number(validatedNewCount);
+    settingsCtx.change(settings);
+
+    setRawCount(validatedNewCount);
+  }, [setRawCount, settings]);
 
   const incrementCount = useCallback(() => {
     setCount(count + 1n);

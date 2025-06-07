@@ -1,4 +1,5 @@
 const defaultSettings = {
+  currentTake: 1,
   keyboardShortcuts: {
     incrementCount: "Alt+Shift+=",
     decrementCount: "Alt+Shift+-",
