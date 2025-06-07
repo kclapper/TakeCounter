@@ -3,19 +3,11 @@ description: 'Install dependencies for the common libraries'
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
-        node-version: 18
-    - name: Install common linting dependencies
+        node-version: 22
+    - name: Install commons
       run: npm ci
       shell: bash
-      working-directory: ./common/lint
-    - name: Install common utility dependencies
-      run: npm ci
-      shell: bash
-      working-directory: ./common/util
-    - name: Install common settings dependencies
-      run: npm ci
-      shell: bash
-      working-directory: ./common/settings
+      working-directory: ./common

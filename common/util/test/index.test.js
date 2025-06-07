@@ -1,5 +1,7 @@
 'use strict';
 
+const { test, expect } = require('@jest/globals');
+
 const { copy, deepFreeze, bigIntMax, setEquals, setJoin } = require('../index.js');
 
 test('copy object', () => {

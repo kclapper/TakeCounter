@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 
-import { bigIntMax } from '@common/util';
+import { bigIntMax } from 'common/util';
 import { useShortcut } from '../../util/shortcuts';
 import { useSettings } from '../../util/settings';
 

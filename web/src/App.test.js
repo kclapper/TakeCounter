@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import renderer from 'react-test-renderer';
+import { expect, it } from '@jest/globals';
 
 import App from './App';
 

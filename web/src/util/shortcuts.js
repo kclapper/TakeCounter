@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react';
 
-import { setEquals } from '@common/util';
+import { setEquals } from 'common';
 
 const isMacOS = window.navigator.userAgent.indexOf("Mac") === 0;
 
@@ -107,7 +107,7 @@ window.addEventListener('keyup', (event) => {
 });
 
 export function useWebShortcut(callback, shortcut) {
-  const handler = useCallback((event) => {
+  const handler = useCallback(() => {
     const shortcutKeys = parseShortcut(shortcut);
     if (setEquals(shortcutKeys, keysDown)) {
       callback();
