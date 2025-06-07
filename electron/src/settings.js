@@ -76,13 +76,20 @@ async function registerSettingsHandlers() {
   });
 }
 
+let alwaysOnTopEnabled = false;
 async function alwaysOnTopInit(mainWindow) {
     console.info(`${settings.alwaysOnTop ? "Enabling" : "Disabling"} always on top`);
     mainWindow.setAlwaysOnTop(settings.alwaysOnTop);
+    alwaysOnTopEnabled = settings.alwaysOnTop;
 
     settingsEmitter.on('change', (settings) => {
+      if (settings.alwaysOnTop == alwaysOnTopEnabled) {
+        return;
+      }
+
       console.info(`${settings.alwaysOnTop ? "Enabling" : "Disabling"} always on top`);
       mainWindow.setAlwaysOnTop(settings.alwaysOnTop);
+      alwaysOnTopEnabled = settings.alwaysOnTop;
     });
 
     return mainWindow;
