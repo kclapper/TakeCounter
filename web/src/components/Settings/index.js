@@ -1,10 +1,9 @@
 import React from 'react';
 import { useState, useCallback } from 'react';
 
-import { copy } from '@common/util';
+import { copy, settingsAreValid } from 'common';
 import {
   initialSettings,
-  settingsAreValid,
   SettingsContext,
   defaultSettings
 } from '../../util/settings';

@@ -1,5 +1,7 @@
-const { copy } = require('@common/util');
-const { settingsAreValid } = require('../index.js');
+const { test, expect } = require('@jest/globals');
+
+const { copy } = require('../../util');
+const { settingsAreValid } = require('..');
 
 test('validate schema', () => {
   const example = {

@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
-import { defaultSettings } from '@common/settings';
-import { copy, deepFreeze } from '@common/util';
+import { defaultSettings } from 'common';
+import { copy, deepFreeze } from 'common';
 
 const runningInElectron = window.settings !== undefined;
 
@@ -49,4 +49,4 @@ export const useSettings = (setting) => {
   return requestedSetting;
 };
 
-export { settingsAreValid } from '@common/settings';
+export { settingsAreValid } from 'common';

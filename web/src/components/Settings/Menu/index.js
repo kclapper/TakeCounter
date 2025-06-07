@@ -3,7 +3,7 @@ import { useContext } from 'react';
 
 import bootstrapIcons from 'bootstrap-icons/bootstrap-icons.svg';
 
-import { copy } from '@common/util';
+import { copy } from 'common';
 import { SettingsContext } from '../../../util/settings';
 
 import Button from '../../Button';

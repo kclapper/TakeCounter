@@ -4,9 +4,9 @@ const fs = require('node:fs/promises');
 
 const { app, ipcMain } = require('electron');
 
-const { copy } = require('@common/util');
+const { copy } = require('common/util');
 
-const { defaultSettings, settingsAreValid } = require("@common/settings");
+const { defaultSettings, settingsAreValid } = require("common/settings");
 
 class SettingsEmitter extends EventEmitter {}
 
@@ -54,7 +54,7 @@ async function changeSettings(newSettings) {
       settings = newSettings;
       settingsEmitter.emit('change', settings);
     } catch (err) {
-      console.warn("Could not save settings.");
+      console.warn(`Could not save settings:\n${err}`);
     }
   } else {
     throw new Error('Tried to save invalid application settings');
