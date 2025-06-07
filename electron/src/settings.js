@@ -9,7 +9,6 @@ const { copy } = require('common/util');
 const { defaultSettings, settingsAreValid } = require("common/settings");
 
 class SettingsEmitter extends EventEmitter {}
-
 const settingsEmitter = new SettingsEmitter();
 
 const settingsPath = path.join(app.getPath('userData'), 'settings.json');
@@ -20,30 +19,38 @@ function getSettings() {
   return copy(settings);
 }
 
-async function loadSettings() {
-  fs.readFile(settingsPath, { encoding: 'utf8' })
-    .then((settingsJson) => {
-      const loadedSettings = JSON.parse(settingsJson);
-
-      if (!settingsAreValid(loadedSettings)) {
-        throw new Error('Invalid settings found');
-      }
-
-      settings = loadedSettings;
-    })
-    .catch((err) => {
-      console.warn(err.message);
-      console.warn("Loading default settings");
-
-      return fs.writeFile(settingsPath, JSON.stringify(defaultSettings), { encoding: 'utf8' });
-    })
-    .catch((err) => {
-      console.warn(err.message);
-      console.warn("Failed to save settings.");
-    });
-
+function resetDefaultSettings()
+{
+  fs.writeFile(
+    settingsPath, 
+    JSON.stringify(defaultSettings), 
+    { encoding: 'utf8' }
+  );
   settings = copy(defaultSettings);
+}
 
+async function loadSettings() {
+  console.info(`Settings path: ${settingsPath}`);
+
+  let loadedSettings;
+
+  try {
+    const settingsJson = await fs.readFile(settingsPath, { encoding: 'utf8' });
+    loadedSettings = JSON.parse(settingsJson);
+  } catch (err) {
+    console.warn("Could not load settings, using defaults");
+    resetDefaultSettings();
+    return;
+  }
+
+  if (settingsAreValid(loadedSettings)) {
+    settings = copy(loadedSettings);
+  } else {
+    console.error("Invalid settings found, using defaults");
+    resetDefaultSettings();
+  }
+
+  console.info("Finished loading settings");
   settingsEmitter.emit('loaded');
 }
 
@@ -69,10 +76,23 @@ async function registerSettingsHandlers() {
   });
 }
 
+async function alwaysOnTopInit(mainWindow) {
+    console.info(`${settings.alwaysOnTop ? "Enabling" : "Disabling"} always on top`);
+    mainWindow.setAlwaysOnTop(settings.alwaysOnTop);
+
+    settingsEmitter.on('change', (settings) => {
+      console.info(`${settings.alwaysOnTop ? "Enabling" : "Disabling"} always on top`);
+      mainWindow.setAlwaysOnTop(settings.alwaysOnTop);
+    });
+
+    return mainWindow;
+}
+
 module.exports = {
   settingsEmitter,
   getSettings,
   loadSettings,
   changeSettings,
-  registerSettingsHandlers
+  registerSettingsHandlers,
+  alwaysOnTopInit
 };
