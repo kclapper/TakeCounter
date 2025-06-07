@@ -3,7 +3,6 @@ const { app, BrowserWindow } = require('electron');
 const { 
   loadSettings, 
   registerSettingsHandlers, 
-  settingsEmitter, 
   alwaysOnTopInit 
 } = require('./settings.js');
 const { registerKeyboardShortcuts } = require('./shortcuts.js');

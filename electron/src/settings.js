@@ -37,7 +37,7 @@ async function loadSettings() {
   try {
     const settingsJson = await fs.readFile(settingsPath, { encoding: 'utf8' });
     loadedSettings = JSON.parse(settingsJson);
-  } catch (err) {
+  } catch {
     console.warn("Could not load settings, using defaults");
     resetDefaultSettings();
     return;
