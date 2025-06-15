@@ -33,8 +33,9 @@ export default function KeyItem({ name, value, onChange }) {
     if (newShortcut.size !== 0) {
       onChange(setToShortcut(newShortcut));
       newShortcut.clear();
+      setDisplay(value);
     }
-  }, [setReading, onChange]);
+  }, [setReading, onChange, setDisplay]);
 
   return <div className='row justify-content-start'>
            <h5 className='col'>
