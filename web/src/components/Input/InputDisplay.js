@@ -18,17 +18,31 @@ export default function InputDisplay(props) {
     if (inputDisplay.current !== null) {
       inputDisplay.current.innerText = display;
     }
+
     const selection = window.getSelection();
+    if (selection.rangeCount === 0) {
+      return;
+    }
+
     for (let i = 0; i < caretOffset; i++) {
       selection.modify("move", "right", "character");
     }
+
   }, [inputDisplay, display, caretOffset]);
 
   const handleValidation = useCallback((event) => {
     if (validateInput === undefined) {
       return;
     }
-    if (!validateInput(event.data)) {
+
+    const currentText = event.target.innerText;
+
+    const startIndex = event.currentTarget.selectionStart || 0;
+    const endIndex = event.currentTarget.selectionEnd || startIndex;
+
+    const nextInput = `${currentText.slice(0, startIndex)}${event.data}${currentText.slice(endIndex)}`;
+    
+    if (!validateInput(nextInput)) {
       event.preventDefault();
     }
   }, [validateInput]);

@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
@@ -14,7 +13,6 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-scripts": "^5.0.1",
-    "react-test-renderer": "^19.1.0",
     "sass": "^1.63.6",
     "web-vitals": "^5.0.2"
   },
@@ -42,6 +40,8 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@common/eslint-config": "file:../common/lint",
-    "@popperjs/core": "^2.11.8"
+    "@popperjs/core": "^2.11.8",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.3.0"
   }
 }

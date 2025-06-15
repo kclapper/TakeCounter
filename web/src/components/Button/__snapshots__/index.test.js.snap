@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Renders with no props 1`] = `null`;
+exports[`Renders with no props 1`] = `
+<DocumentFragment>
+  <button
+    class="btn btn-primary m-1"
+    data-bs-placement="top"
+    data-bs-toggle="tooltip"
+    type="button"
+  />
+</DocumentFragment>
+`;
 
-exports[`Renders with text child 1`] = `null`;
+exports[`Renders with text child 1`] = `
+<DocumentFragment>
+  <button
+    class="btn btn-primary m-1"
+    data-bs-placement="top"
+    data-bs-toggle="tooltip"
+    type="button"
+  >
+    Click Me!
+  </button>
+</DocumentFragment>
+`;

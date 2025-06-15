@@ -1,5 +1,4 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { fireEvent, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect, it } from '@jest/globals';
@@ -7,8 +6,8 @@ import { expect, it } from '@jest/globals';
 import Button from './index';
 
 function matchSnapshot(comp) {
-  const tree = renderer.create(comp).toJSON();
-  expect(tree).toMatchSnapshot();
+  const { asFragment } = render(comp);
+  expect(asFragment()).toMatchSnapshot();
 }
 
 function setup(comp) {
