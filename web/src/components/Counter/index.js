@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useState, useEffect, useCallback } from 'react';
 
-import { bigIntMax } from 'common/util';
+import { getValidatedCount } from '../../util';
 import { useShortcut } from '../../util/shortcuts';
 import { SettingsContext, useSettings } from '../../util/settings';
 
@@ -16,7 +16,7 @@ function Counter() {
   const [count, setRawCount] = useState(startingTake);
 
   const setCount = useCallback((newCount) => {
-    const validatedNewCount = bigIntMax(newCount, 1n);
+    const validatedNewCount = getValidatedCount(newCount);
 
     settings.currentTake = Number(validatedNewCount);
     settingsCtx.change(settings);

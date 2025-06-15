@@ -1,21 +1,16 @@
 import React from 'react';
 
 import InputDisplay from '../Input/InputDisplay';
+import { isValidCount, getValidatedCount } from '../../util';
 
 export default function TakeInputDisplay({ display, onInput }) {
-  const inputIsValid = (input) => {
-    try {
-      return BigInt(input);
-    } catch {
-      return false;
-    }
+  const handleInput = (input) => {
+    onInput(getValidatedCount(input))
   };
-
-  const handleInput = (input) => onInput(BigInt(input));
 
   return <InputDisplay
            className="display-1"
-           validateInput={ inputIsValid }
+           validateInput={ isValidCount }
            onInput={ handleInput }
            display={ display }
          />
