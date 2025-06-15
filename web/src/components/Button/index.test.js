@@ -6,7 +6,7 @@ import { expect, it } from '@jest/globals';
 import Button from './index';
 
 function matchSnapshot(comp) {
-  const { asFragment, getByText } = render(comp);
+  const { asFragment } = render(comp);
   expect(asFragment()).toMatchSnapshot();
 }
 

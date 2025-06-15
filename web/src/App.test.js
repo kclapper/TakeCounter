@@ -5,6 +5,6 @@ import { expect, it } from '@jest/globals';
 import App from './App';
 
 it('Matches snapshot', () => {
-  const { asFragment, getByText } = render(<App />);
+  const { asFragment } = render(<App />);
   expect(asFragment()).toMatchSnapshot();
 });
