@@ -27,7 +27,9 @@ The UI for the application is kept in the `web` folder and the code for the desk
 
 To start developing:
 
-    cd electron
+    cd web
+    npm install
+    cd ../electron
     npm install
     npm start
 
