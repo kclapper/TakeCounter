@@ -4,8 +4,8 @@ const {
   loadSettings, 
   registerSettingsHandlers, 
   alwaysOnTopInit 
-} = require('./settings.js');
-const { registerKeyboardShortcuts } = require('./shortcuts.js');
+} = require('./settings.cjs');
+const { registerKeyboardShortcuts } = require('./shortcuts.cjs');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {

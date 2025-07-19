@@ -4,7 +4,7 @@ const {
 const {
   settingsEmitter,
   getSettings
-} = require('./settings.js');
+} = require('./settings.cjs');
 
 function registerCountShortcuts(mainWindow) {
   const shortcuts = getSettings().keyboardShortcuts;

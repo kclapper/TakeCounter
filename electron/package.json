@@ -3,14 +3,15 @@
   "productName": "Take Counter",
   "version": "0.6.1",
   "description": "A take counter for recording sessions.",
-  "main": ".webpack/main",
+  "main": ".webpack/main/index.cjs",
+  "type": "module",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --max-warnings 0 --config eslint.config.mjs .",
-    "test": "jest"
+    "lint": "eslint --max-warnings 0 --config eslint.config.js .",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "keywords": [],
   "author": {
@@ -35,12 +36,15 @@
     "babel-loader": "^10.0.0",
     "css-loader": "^7.1.2",
     "electron": "^36.4.0",
+    "endent": "^2.1.0",
     "eslint": "^9.28.0",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.2.0",
     "node-loader": "^2.1.0",
+    "output-files": "^3.0.0",
     "semistandard": "^17.0.0",
-    "style-loader": "^4.0.0"
+    "style-loader": "^4.0.0",
+    "with-local-tmp-dir": "^5.1.1"
   },
   "dependencies": {
     "bootstrap": "^5.3.6",

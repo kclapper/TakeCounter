@@ -32,16 +32,16 @@ module.exports = {
     {
       name: '@electron-forge/plugin-webpack',
       config: {
-        mainConfig: './webpack.main.config.js',
+        mainConfig: './webpack.main.config.cjs',
         renderer: {
-          config: './webpack.renderer.config.js',
+          config: './webpack.renderer.config.cjs',
           entryPoints: [
             {
               html: '../web/public/index.html',
               js: '../web/src/index.js',
               name: 'main_window',
               preload: {
-                js: './src/preload.js',
+                js: './src/preload.cjs',
               },
             },
           ],
