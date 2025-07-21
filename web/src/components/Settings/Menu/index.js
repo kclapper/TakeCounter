@@ -9,6 +9,7 @@ import { SettingsContext } from '../../../util/settings';
 import Button from '../../Button';
 import KeyItem from './KeyItem';
 import BooleanItem from './BooleanItem';
+import DropdownItem from './DropdownItem';
 
 const gear = <svg className='bi' width='24' height='24' fill='white' ><use href={ bootstrapIcons + '#gear-wide-connected' }/></svg>;
 
@@ -83,7 +84,19 @@ export default function Menu() {
                         value={ settings.keyboardShortcuts.resetCount }
                         onChange={ makeSettingChanger('keyboardShortcuts', 'resetCount') }/>
 
+               <h4 className='row border-bottom'>
+                 Take Counting
+               </h4>
+               <DropdownItem name='Mode' 
+                             value={settings.counterMode} 
+                             onChange={ makeSettingChanger('counterMode') }
+                             options={[ 
+                              { name: 'Manual', value: 'manual' },
+                              { name: 'File Watcher', value: 'fileWatcher' },
+                              ]} /> 
+
                { window.settings === undefined ? undefined : windowSettings }
+
 
                <h4 className='row border-bottom'>
                  Reset
