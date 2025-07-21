@@ -7,7 +7,7 @@ import outputFiles from 'output-files';
 import endent_formats from 'endent';
 const endent = endent_formats.default;
 
-import { FileWatcher } from '.';
+import { FileWatcher } from './file_watcher';
 
 test('write temp file', () => withLocalTmpDir(async () => {
     await outputFiles({
@@ -206,7 +206,7 @@ test('change path to Audio Files', () => withLocalTmpDir(async () => {
     expect(watcher.currentTake)
         .toEqual(1);
 
-    await watcher.changeAudioFilesDirectory('Other Files');
+    await watcher.changeAudioFilesPath('Other Files');
 
     await outputFiles({
         'Other Files': {
