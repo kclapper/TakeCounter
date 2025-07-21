@@ -1,41 +1,89 @@
 import path from 'node:path';
 import { watch } from 'node:fs/promises';
 
+class TakeEvent extends Event {
+    constructor(take) {
+        super('takeUpdate');
+        this.take = take;
+    }
+}
+
+/*
+https://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
+*/
+function escapeRegex(string) {
+    return string.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
+}
+
 export class FileWatcher extends EventTarget {
     constructor(audioFilePath) {
         super();
 
         this.audioFilePath = audioFilePath;
         this.isWatching = false;
-        this.watchAbort = new AbortController();
     }
 
     get currentTake() {
-        return 0;
+        if (!this.lastAudioFile) {
+            return 0;
+        }
+
+        const lastTake = this.#parseTake(this.lastAudioFile);
+        if (lastTake == false) {
+            return 0;
+        }
+
+        return lastTake;
+    }
+
+    #parseTake(audioFileName) {
+        if (!this.trackNameRE) {
+            return false;
+        }
+        
+        if (!this.trackNameRE.test(audioFileName)) {
+            return false;
+        }
+
+        const match = audioFileName.match(this.trackNameRE);
+        if (!match[3]) {
+            return 1;
+        }
+
+        return Number(match[3]) + 1;
     }
 
     watchTrackName(trackName) {
-        this.trackName = trackName;
+        return this.stopWatching()
+            .then(() => {
+                this.trackName = trackName;
+                const trackNameEscaped = escapeRegex(trackName);
+                this.trackNameRE = new RegExp(
+                    `(${trackNameEscaped})(\.?([0-9]+))?(_[0-9]+\.wav)`
+                );
 
-        this.watchGenerator = watch(
-            this.audioFilePath, 
-            {  
-                signal: this.watchAbort.signal 
-            }
-        );
+                this.watchAbort = new AbortController();
+                this.watchGenerator = watch(
+                    this.audioFilePath, 
+                    {  
+                        signal: this.watchAbort.signal 
+                    }
+                );
 
-        this.#nextWatchResult();
-        this.isWatching = true;
+                this.isWatching = true;
+                this.#nextWatchResult();
+            });
     }
 
     #nextWatchResult() {
-        this.currentWatchPromise = this.watchGenerator.next();
-        this.currentWatchPromise   
+        this.currentWatchPromise = this.watchGenerator
+            .next()
             .then((watchIteratorResult) => {
                 this.#handleWatchIteratorResult(watchIteratorResult);
             })
             .catch((err) => {
                 if (err.name == 'AbortError') {
+                    this.isWatching = false;
                     return;
                 }
                 throw err;
@@ -53,15 +101,50 @@ export class FileWatcher extends EventTarget {
     }
 
     #handleAudioFilesChange(changeEvent) {
-        console.log(changeEvent);
+        if (changeEvent.eventType != 'rename') {
+            return;
+        }
+
+        const filename = changeEvent.filename;
+        const take = this.#parseTake(filename);
+        if (!take) {
+            return;
+        }
+
+        this.lastAudioFile = filename;
+        this.dispatchEvent(new TakeEvent(take));
     }
 
     stopWatching() {
-        this.watchAbort.abort();
-        this.isWatching = false;
+        if (this.isWatching) {
+            this.watchAbort.abort();
+        }
+        return this.nextUpdate();
     }
 
-    async nextUpdate() {
-        await this.currentWatchPromise;
+    nextUpdate() {
+        if (!this.isWatching) {
+            return Promise.resolve();
+        }
+
+        return new Promise((resolve, reject) => {
+            this.currentWatchPromise
+                .then(() => {
+                    resolve();
+                });
+        });
+    }
+
+    changeAudioFilesDirectory(directory) {
+        this.audioFilePath = directory;
+
+        if (!this.isWatching) {
+            return Promise.resolve();
+        }
+
+        return this.stopWatching()
+            .then(() => {
+                return this.watchTrackName(this.trackName);
+            })
     }
 }
