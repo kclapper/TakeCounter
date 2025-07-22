@@ -1,7 +1,7 @@
 {
   "name": "Take Counter",
   "productName": "Take Counter",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "A take counter for recording sessions.",
   "main": ".webpack/main/index.cjs",
   "type": "module",
