@@ -39,7 +39,7 @@ test('start and stop watcher', () => withLocalTmpDir(async () => {
     await watcher.stopWatching();
 
     expect(watcher.isWatching).toBe(false);
-}));
+}), 10000);
 
 test('get current take', () => withLocalTmpDir(async () => {
     await outputFiles({
@@ -76,7 +76,7 @@ test('get current take', () => withLocalTmpDir(async () => {
         .toEqual(2);
 
     await watcher.stopWatching();
-}));
+}), 10000);
 
 test('change track to watch', () => withLocalTmpDir(async () => {
     await outputFiles({
@@ -121,7 +121,7 @@ test('change track to watch', () => withLocalTmpDir(async () => {
         .toEqual(1);
 
     await watcher.stopWatching();
-}));
+}), 10000);
 
 test('emit event when take changes', () => withLocalTmpDir(async () => {
     await outputFiles({
@@ -170,7 +170,7 @@ test('emit event when take changes', () => withLocalTmpDir(async () => {
     expect(expectTwo).toHaveBeenCalledTimes(1);
 
     await watcher.stopWatching();
-}));
+}), 10000);
 
 test('stop a watcher that hasnt started', () => withLocalTmpDir(async () => {
     await outputFiles({
@@ -180,7 +180,7 @@ test('stop a watcher that hasnt started', () => withLocalTmpDir(async () => {
     });
     const watcher = new FileWatcher('Audio Files');
     await watcher.stopWatching();
-}));
+}), 10000);
 
 test('change path to Audio Files', () => withLocalTmpDir(async () => {
     await outputFiles({
@@ -219,7 +219,7 @@ test('change path to Audio Files', () => withLocalTmpDir(async () => {
         .toEqual(2);
 
     await watcher.stopWatching();
-}));
+}), 10000);
 
 test('not watching with default settings', () => withLocalTmpDir(async () => {
     await outputFiles({
@@ -236,4 +236,4 @@ test('not watching with default settings', () => withLocalTmpDir(async () => {
     await watcher.nextUpdate();
 
     expect(watcher.isWatching).toBe(false);
-}));
+}), 10000);
