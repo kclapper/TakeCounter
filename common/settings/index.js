@@ -5,7 +5,12 @@ const defaultSettings = {
     decrementCount: "Alt+Shift+-",
     resetCount: "Alt+Shift+0"
   },
-  alwaysOnTop: true
+  alwaysOnTop: false,
+  counterMode: 'manual',
+  fileWatcherMode: {
+    audioFilesPath: '.',
+    trackName: 'Audio 1'
+  }
 };
 
 function settingsAreValid(settings, schema = defaultSettings) {

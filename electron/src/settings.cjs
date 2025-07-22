@@ -2,7 +2,7 @@ const EventEmitter = require('node:events');
 const path = require('node:path');
 const fs = require('node:fs/promises');
 
-const { app, ipcMain } = require('electron');
+const { app, ipcMain, dialog } = require('electron');
 
 const { copy } = require('common/util');
 
@@ -29,7 +29,7 @@ function resetDefaultSettings()
   settings = copy(defaultSettings);
 }
 
-async function loadSettings() {
+async function loadSettings(mainWindow) {
   console.info(`Settings path: ${settingsPath}`);
 
   let loadedSettings;
@@ -51,7 +51,9 @@ async function loadSettings() {
   }
 
   console.info("Finished loading settings");
-  settingsEmitter.emit('loaded');
+  settingsEmitter.emit('loaded', settings);
+
+  return mainWindow;
 }
 
 async function changeSettings(newSettings) {
@@ -68,17 +70,26 @@ async function changeSettings(newSettings) {
   }
 }
 
-async function registerSettingsHandlers() {
+async function registerSettingsHandlers(mainWindow) {
   ipcMain.handle('get-settings', () => copy(settings));
   ipcMain.handle('change-settings', (event, newSettings) => {
     changeSettings(newSettings);
     return newSettings;
   });
+  ipcMain.handle('show-dialog', (event, dialogArg) => {
+    dialog.showOpenDialog(dialogArg)
+      .then((path) => {
+        mainWindow.webContents.send('dialog-response', path);
+      })
+      .catch(() => {
+        console.log("Failed while opening dialog");
+      });
+  });
+  return mainWindow;
 }
 
 let alwaysOnTopEnabled = false;
 async function alwaysOnTopInit(mainWindow) {
-    console.info(`${settings.alwaysOnTop ? "Enabling" : "Disabling"} always on top`);
     mainWindow.setAlwaysOnTop(settings.alwaysOnTop);
     alwaysOnTopEnabled = settings.alwaysOnTop;
 
@@ -87,7 +98,6 @@ async function alwaysOnTopInit(mainWindow) {
         return;
       }
 
-      console.info(`${settings.alwaysOnTop ? "Enabling" : "Disabling"} always on top`);
       mainWindow.setAlwaysOnTop(settings.alwaysOnTop);
       alwaysOnTopEnabled = settings.alwaysOnTop;
     });

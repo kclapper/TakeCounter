@@ -4,8 +4,9 @@ const {
   loadSettings, 
   registerSettingsHandlers, 
   alwaysOnTopInit 
-} = require('./settings.js');
-const { registerKeyboardShortcuts } = require('./shortcuts.js');
+} = require('./settings.cjs');
+const { registerKeyboardShortcuts } = require('./shortcuts.cjs');
+const { fileWatcherInit } = require('./file_watcher/index.js');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -40,9 +41,10 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app
   .whenReady()
+  .then(createWindow)
+  .then(fileWatcherInit)
   .then(loadSettings)
   .then(registerSettingsHandlers)
-  .then(createWindow)
   .then(alwaysOnTopInit)
   .then(registerKeyboardShortcuts);
 

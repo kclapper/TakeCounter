@@ -7,15 +7,22 @@ export default function BooleanItem({ name, value, onChange }) {
     onChange(Boolean(event.target.checked));
   }, [onChange]);
 
-  return <div className="form-check form-switch form-check-reverse">
-            <input className="form-check-input"
-                   role="switch"
-                   onChange={ handleChange }
-                   checked={ value }
-                   type="checkbox" id="flexSwitchCheckReverse" />
-            <label className="form-check-label"
-                   htmlFor="flexSwitchCheckReverse">
-              { name }
-            </label>
-         </div>
+  return (
+    <div className='row justify-content-start'>
+      <h5 className='col-6 my-auto'>
+        { name }
+      </h5>
+      <div className='col-6'>
+        <div className="form-check form-switch form-check-reverse me-2">
+          <input className="form-check-input"
+                  role="switch"
+                  onChange={ handleChange }
+                  checked={ value }
+                  type="checkbox" 
+                  id="flexSwitchCheckReverse" 
+                  style={{ transform: 'scale(1.5)' }} />
+        </div>
+      </div>
+    </div>
+  );
 }

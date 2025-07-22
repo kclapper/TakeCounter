@@ -38,10 +38,10 @@ export default function KeyItem({ name, value, onChange }) {
   }, [setReading, onChange, setDisplay]);
 
   return <div className='row justify-content-start'>
-           <h5 className='col'>
+           <h5 className='col-6 my-auto'>
              { name }
            </h5>
-           <InputDisplay className='col border p-1'
+           <InputDisplay className='col-6 border rounded p-1'
                          display={ reading ? display : value }
                          onInput={ () => {} }
                          onFocus={ handleFocus }

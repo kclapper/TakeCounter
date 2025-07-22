@@ -24,6 +24,10 @@ function Counter() {
     setRawCount(validatedNewCount);
   }, [setRawCount, settings]);
 
+  if (window.counter != undefined) {
+    window.counter.handleSetCount(setCount);
+  }
+
   const incrementCount = useCallback(() => {
     setCount(count + 1n);
   }, [count, setCount]);
