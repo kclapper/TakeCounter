@@ -23,3 +23,6 @@ jobs:
       - name: Lint
         run: npm run lint
         working-directory: ${{env.working-directory}}
+      - name: Test
+        run: npm run test:ci
+        working-directory: ${{env.working-directory}}

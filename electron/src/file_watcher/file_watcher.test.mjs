@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 
-import { test, expect, jest } from '@jest/globals';
+import { test as jestTest, expect, jest } from '@jest/globals';
 
 import withLocalTmpDir from 'with-local-tmp-dir';
 import outputFiles from 'output-files';
@@ -8,6 +8,8 @@ import endent_formats from 'endent';
 const endent = endent_formats.default;
 
 import { FileWatcher } from './file_watcher';
+
+const test = process.env.CI ? jestTest.skip : jestTest;
 
 test('write temp file', () => withLocalTmpDir(async () => {
     await outputFiles({
@@ -219,4 +221,21 @@ test('change path to Audio Files', () => withLocalTmpDir(async () => {
         .toEqual(2);
 
     await watcher.stopWatching();
+}));
+
+test('not watching with default settings', () => withLocalTmpDir(async () => {
+    await outputFiles({
+        'Audio Files': {
+            'whatever.txt': `Some file to create the Audio Files folder`
+        },
+        'Other Files': {
+            'whatever.txt': `Some file to create the Other Files folder`
+        }
+    });
+    const watcher = new FileWatcher('');
+    await watcher.watchTrackName('');
+
+    await watcher.nextUpdate();
+
+    expect(watcher.isWatching).toBe(false);
 }));

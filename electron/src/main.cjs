@@ -6,7 +6,7 @@ const {
   alwaysOnTopInit 
 } = require('./settings.cjs');
 const { registerKeyboardShortcuts } = require('./shortcuts.cjs');
-const { fileWatcherInit } = require('./file_watcher/index.js');
+const { fileWatcherInit } = require('./file_watcher/index.mjs');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
