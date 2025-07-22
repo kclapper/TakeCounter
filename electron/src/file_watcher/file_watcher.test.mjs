@@ -220,3 +220,20 @@ test('change path to Audio Files', () => withLocalTmpDir(async () => {
 
     await watcher.stopWatching();
 }));
+
+test('not watching with default settings', () => withLocalTmpDir(async () => {
+    await outputFiles({
+        'Audio Files': {
+            'whatever.txt': `Some file to create the Audio Files folder`
+        },
+        'Other Files': {
+            'whatever.txt': `Some file to create the Other Files folder`
+        }
+    });
+    const watcher = new FileWatcher('');
+    await watcher.watchTrackName('');
+
+    await watcher.nextUpdate();
+
+    expect(watcher.isWatching).toBe(false);
+}));

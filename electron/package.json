@@ -3,8 +3,7 @@
   "productName": "Take Counter",
   "version": "0.7.0",
   "description": "A take counter for recording sessions.",
-  "main": ".webpack/main/index.cjs",
-  "type": "module",
+  "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",

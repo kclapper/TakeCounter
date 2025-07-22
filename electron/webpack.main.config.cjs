@@ -5,7 +5,7 @@ module.exports = {
    */
   entry: './src/main.cjs',
   output: {
-    filename: 'index.cjs'
+    filename: 'index.js'
   },
   // Put your normal webpack config below here
   module: {

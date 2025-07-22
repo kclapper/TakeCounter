@@ -1,5 +1,5 @@
 import { settingsEmitter } from "../settings.cjs";
-import { FileWatcher } from "./file_watcher.js";
+import { FileWatcher } from "./file_watcher.mjs";
 
 let audioFilesPath;
 let trackName;

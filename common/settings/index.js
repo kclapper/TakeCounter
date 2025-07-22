@@ -8,8 +8,8 @@ const defaultSettings = {
   alwaysOnTop: false,
   counterMode: 'manual',
   fileWatcherMode: {
-    audioFilesPath: '.',
-    trackName: 'Audio 1'
+    audioFilesPath: '',
+    trackName: ''
   }
 };
 

@@ -20,6 +20,7 @@ export class FileWatcher extends EventTarget {
 
         this.audioFilePath = audioFilePath;
         this.isWatching = false;
+        this.trackName = '';
     }
 
     get currentTake() {
@@ -56,6 +57,11 @@ export class FileWatcher extends EventTarget {
         return this.stopWatching()
             .then(() => {
                 this.trackName = trackName;
+
+                if (this.audioFilePath === '' || trackName === '') {
+                    return;
+                }
+
                 const trackNameEscaped = escapeRegex(trackName);
                 this.trackNameRE = new RegExp(
                     `(${trackNameEscaped})(\.?([0-9]+))?(_[0-9]+\.wav)`
