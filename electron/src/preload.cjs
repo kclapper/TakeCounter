@@ -16,9 +16,24 @@ contextBridge.exposeInMainWorld('counter', {
     ipcRenderer.removeAllListeners('reset-counter');
     ipcRenderer.on('reset-counter', callback);
   },
+  handleSetCount: (callback) => {
+    ipcRenderer.removeAllListeners('set-count');
+    ipcRenderer.on('set-count', (event, count) => {
+      callback(count);
+    });
+  },
 });
 
 contextBridge.exposeInMainWorld('settings', {
   getSettings: () => ipcRenderer.invoke('get-settings'),
   changeSettings: (settings) => ipcRenderer.invoke('change-settings', settings),
+  showDialog: (arg) => ipcRenderer.invoke('show-dialog', arg),
+  handleDialogResponse: (callback) => {
+    ipcRenderer.removeAllListeners('dialog-response');
+    ipcRenderer.addListener('dialog-response', (event, dialogResponse) => {
+      if (dialogResponse.filePaths) {
+        callback(dialogResponse.filePaths[0]);
+      }
+    });
+  }
 });

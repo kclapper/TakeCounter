@@ -14,11 +14,18 @@ export default function DropdownItem({ name, options, value, onChange }) {
   });
 
   return (
-    <select className="form-select" 
-            aria-label={ name } 
-            onChange={ handleChange }
-            value={value} >
-      { selectOptions }
-    </select>
+    <div className='row justify-content-start'>
+      <h5 className='col-6 my-auto'>
+        { name }
+      </h5>
+      <div className='col-6'>
+        <select className="form-select" 
+                aria-label={ name } 
+                onChange={ handleChange }
+                value={value} >
+          { selectOptions }
+        </select>
+      </div>
+    </div>
   );
 }

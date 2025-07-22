@@ -12,17 +12,18 @@ export async function fileWatcherInit(mainWindow) {
     settingsEmitter.on('loaded', handleNewSettings);
 
     notifyNewTake = (take) => {
-        mainWindow.webContent.send('set-take', take);
+        mainWindow.webContents.send('set-count', take);
     }
 
     return mainWindow;
 }
 
 function handleNewSettings(settings) {
-    if (settings.counterMode != 'fileWatcherMode') {
+    if (settings.counterMode != 'fileWatcher') {
         if (watcher) {
             watcher.stopWatching();
         }
+        return;
     }
 
     handleFileWatcherMode(settings.fileWatcherMode);
