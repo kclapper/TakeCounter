@@ -1,4 +1,3 @@
-import path from 'node:path';
 import { watch } from 'node:fs/promises';
 
 class TakeEvent extends Event {
@@ -127,7 +126,7 @@ export class FileWatcher extends EventTarget {
             return Promise.resolve();
         }
 
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             this.currentWatchPromise
                 .then(() => {
                     resolve();

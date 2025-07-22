@@ -47,7 +47,7 @@ exports[`Matches snapshot 1`] = `
         </button>
         <div
           aria-labelledby="settingsMenu"
-          class="w-100 offcanvas offcanvas-start"
+          class="w-100 offcanvas offcanvas-start overflow-y-scroll p-4"
           data-bs-theme="dark"
           id="settingsMenu"
           tabindex="-1"
@@ -55,12 +55,6 @@ exports[`Matches snapshot 1`] = `
           <div
             class="offcanvas-header"
           >
-            <h2
-              class="offcanvas-title"
-              id="settingsMenuLabel"
-            >
-              Settings
-            </h2>
             <button
               aria-label="Close"
               class="btn-close"
@@ -68,29 +62,60 @@ exports[`Matches snapshot 1`] = `
               type="button"
             />
           </div>
-          <p
-            class="container"
-          >
-            To change keyboard shortcuts: click the shortcut box, enter the shortcut you want, then click away from the box.
-          </p>
           <div
             class="container"
           >
             <h4
               class="row border-bottom"
             >
-              Keyboard Shortcuts
+              Take Counting
             </h4>
             <div
               class="row justify-content-start"
             >
               <h5
-                class="col"
+                class="col-6 my-auto"
+              >
+                Mode
+              </h5>
+              <div
+                class="col-6"
+              >
+                <select
+                  aria-label="Mode"
+                  class="form-select"
+                >
+                  <option
+                    value="manual"
+                  >
+                    Manual
+                  </option>
+                  <option
+                    value="fileWatcher"
+                  >
+                    File Watcher
+                  </option>
+                </select>
+              </div>
+            </div>
+            <h4
+              class="row border-bottom mt-3"
+            >
+              Keyboard Shortcuts
+            </h4>
+            <p>
+              To change keyboard shortcuts: click the shortcut box, enter the shortcut you want, then click away from the box.
+            </p>
+            <div
+              class="row justify-content-start"
+            >
+              <h5
+                class="col-6 my-auto"
               >
                 Increment Count
               </h5>
               <div
-                class="col border p-1"
+                class="col-6 border rounded p-1"
                 contenteditable="true"
                 style="outline: none; min-width: 20%;"
               />
@@ -99,12 +124,12 @@ exports[`Matches snapshot 1`] = `
               class="row justify-content-start"
             >
               <h5
-                class="col"
+                class="col-6 my-auto"
               >
                 Decrement Count
               </h5>
               <div
-                class="col border p-1"
+                class="col-6 border rounded p-1"
                 contenteditable="true"
                 style="outline: none; min-width: 20%;"
               />
@@ -113,29 +138,40 @@ exports[`Matches snapshot 1`] = `
               class="row justify-content-start"
             >
               <h5
-                class="col"
+                class="col-6 my-auto"
               >
                 Reset Count
               </h5>
               <div
-                class="col border p-1"
+                class="col-6 border rounded p-1"
                 contenteditable="true"
                 style="outline: none; min-width: 20%;"
               />
             </div>
-            <h4
-              class="row border-bottom"
+            <div
+              class="row justify-content-start border-top mt-3 pt-2"
             >
-              Reset
-            </h4>
-            <button
-              class="btn btn-outline-light m-1"
-              data-bs-placement="top"
-              data-bs-toggle="tooltip"
-              type="button"
-            >
-              Reset Default Settings
-            </button>
+              <h4
+                class="col-6 my-auto"
+              >
+                Reset
+              </h4>
+              <div
+                class="col-6 d-flex"
+              >
+                <div
+                  class="flex-grow-1"
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  data-bs-placement="top"
+                  data-bs-toggle="tooltip"
+                  type="button"
+                >
+                  Reset Default Settings
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
