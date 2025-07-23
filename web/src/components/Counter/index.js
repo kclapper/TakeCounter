@@ -1,52 +1,44 @@
-import React, { useContext } from 'react';
-import { useState, useEffect, useCallback } from 'react';
+import React from 'react';
+import { useEffect, useCallback } from 'react';
 
 import { getValidatedCount } from '../../util';
 import { useShortcut } from '../../util/shortcuts';
-import { SettingsContext, useSettings } from '../../util/settings';
+import { useSetting } from '../Settings';
 
 import Button from '../Button';
 import TakeInputDisplay from './TakeInputDisplay';
 
 function Counter() {
-  const settingsCtx = useContext(SettingsContext);
-  let settings = settingsCtx.get();
+  const [take, setRawTake] = useSetting('currentTake');
 
-  const startingTake = BigInt(settings.currentTake);
-  const [count, setRawCount] = useState(startingTake);
-
-  const setCount = useCallback((newCount) => {
+  const setTake = useCallback((newCount) => {
     const validatedNewCount = getValidatedCount(newCount);
+    setRawTake(validatedNewCount);
+  }, [setRawTake]);
 
-    settings.currentTake = Number(validatedNewCount);
-    settingsCtx.change(settings);
-
-    setRawCount(validatedNewCount);
-  }, [setRawCount, settings]);
-
-  if (window.counter != undefined) {
-    window.counter.handleSetCount(setCount);
+  if (window.counter !== undefined) {
+    window.counter.handleSetCount(setTake);
   }
 
   const incrementCount = useCallback(() => {
-    setCount(count + 1n);
-  }, [count, setCount]);
+    setTake(take + 1);
+  }, [take, setTake]);
   const decrementCount = useCallback(() => {
-    setCount(count - 1n);
-  }, [count, setCount])
-  const resetCount = useCallback(() => {
-    setCount(1n);
-  }, [setCount]);
+    setTake(take - 1);
+  }, [take, setTake])
+  const resetTake = useCallback(() => {
+    setTake(1);
+  }, [setTake]);
 
   useEffect(() => {
-    document.title = "Take " + count;
-  }, [count]);
+    document.title = "Take " + take;
+  }, [take]);
 
-  const shortcuts = useSettings("keyboardShortcuts");
+  const [shortcuts] = useSetting("keyboardShortcuts");
 
   useShortcut(incrementCount, shortcuts.incrementCount, "counter.handleIncrement");
   useShortcut(decrementCount, shortcuts.decrementCount, "counter.handleDecrement");
-  useShortcut(resetCount, shortcuts.resetCount, "counter.handleReset");
+  useShortcut(resetTake, shortcuts.resetCount, "counter.handleReset");
 
   return <div className='d-flex flex-column align-items-center justify-content-center' style={{ flexGrow: 1 }}>
            <div style={{ flexGrow: 0.75 }}/>
@@ -54,7 +46,7 @@ function Counter() {
              <h1 className="display-1 me-4 me-md-5">
                Take
              </h1>
-             <TakeInputDisplay display={ count } onInput={ setRawCount } />
+             <TakeInputDisplay take={ take } onInput={ setTake } />
            </div>
            <div className='' style={{ flexGrow: 0 }}>
              <Button onClick={ decrementCount }
@@ -62,8 +54,8 @@ function Counter() {
                      tooltipPlacement="bottom">
                -
              </Button>
-             <Button onClick={ resetCount }
-                     tooltip={ shortcuts.resetCount }
+             <Button onClick={ resetTake }
+                     tooltip={ shortcuts.resetTake }
                      tooltipPlacement="bottom">
                reset
              </Button>

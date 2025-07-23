@@ -1,21 +1,13 @@
 export function isValidCount(rawCount) {
-    let asBigInt;
-    try {
-        asBigInt = BigInt(rawCount);
-    } catch {
-        return false;
-    }
-
-    if (asBigInt <= 0n) {
-        return false;
-    }
-
-    return true;
+    rawCount = Number(rawCount);
+    const isInt = Number.isInteger(rawCount);
+    const greaterThanZero = rawCount > 0;
+    return isInt && greaterThanZero;
 }
 
 export function getValidatedCount(rawCount) {
     if (!isValidCount(rawCount)) {
-        return 1n;
+        return 1;
     }
-    return BigInt(rawCount);
+    return Number(rawCount);
 }

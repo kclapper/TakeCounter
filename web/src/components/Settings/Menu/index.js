@@ -1,10 +1,8 @@
 import React from 'react';
-import { useContext } from 'react';
 
 import bootstrapIcons from 'bootstrap-icons/bootstrap-icons.svg';
 
-import { copy } from 'common';
-import { SettingsContext } from '../../../util/settings';
+import { useSetting, useResetter } from '..';
 
 import Button from '../../Button';
 import KeyItem from './KeyItem';
@@ -16,46 +14,30 @@ import PathItem from './PathItem';
 const gear = <svg className='bi' width='24' height='24' fill='white' ><use href={ bootstrapIcons + '#gear-wide-connected' }/></svg>;
 
 export default function Menu() {
-  const settingsCtx = useContext(SettingsContext);
-  const settings = settingsCtx.get();
-  const changeSettings = settingsCtx.change;
-  const resetSettings = settingsCtx.reset;
+  const resetDefaultSettings = useResetter();
 
-  const makeSettingChanger = (...args) => {
-    function makeChanger(settingsToChange, args) {
-      if (args.length === 1) {
-        return function (changedSettingValue) {
-          let settings = copy(settingsToChange);
-          settings[args[0]] = changedSettingValue;
-          return settings;
-        }
-      }
+  const [mode, setMode] = useSetting('counterMode');
 
-      return function (changedSettingValue) {
-        let settings = copy(settingsToChange);
-        const changer = makeChanger(settings[args[0]], args.slice(1));
-        settings[args[0]] = changer(changedSettingValue);
-        return settings;
-      }
-    }
+  const [trackName, setTrackName] = useSetting('fileWatcherMode', 'trackName');
+  const [audioFilesPath, setAudioFilesPath] = useSetting('fileWatcherMode', 'audioFilesPath');
 
-    const changer = makeChanger(settings, args);
-    return function (changedSettingValue) {
-      changeSettings(changer(changedSettingValue));
-    }
-  };
+  const [alwaysOnTop, setAlwaysOnTop] = useSetting('alwaysOnTop');
 
-  const fileWatcherSettings = settings.counterMode != 'fileWatcher' ? undefined :
+  const [incrementCountShortcut, setIncrementCountShortcut] = useSetting('keyboardShortcuts', 'incrementCount');
+  const [decrementCountShortcut, setDecrementCountShortcut] = useSetting('keyboardShortcuts', 'decrementCount');
+  const [resetCountShortcut, setResetCountShortcut] = useSetting('keyboardShortcuts', 'resetCount');
+
+  const fileWatcherSettings = mode != 'fileWatcher' ? undefined :
     <div>
       <h4 className='row border-bottom mt-3'>
         File Watcher
       </h4>
       <TextItem name='Track Name'
-                value={ settings.fileWatcherMode.trackName }
-                onChange={ makeSettingChanger('fileWatcherMode', 'trackName') }/> 
+                value={ trackName }
+                onChange={ setTrackName }/> 
       <PathItem name='Audio Files Path'
-                value={ settings.fileWatcherMode.audioFilesPath }
-                onChange={ makeSettingChanger('fileWatcherMode', 'audioFilesPath')}/>
+                value={ audioFilesPath }
+                onChange={ setAudioFilesPath }/>
     </div>;
 
   const windowSettings = 
@@ -64,15 +46,15 @@ export default function Menu() {
         Window
       </h4>
       <BooleanItem name='Always On Top'
-                  value={ settings.alwaysOnTop }
-                  onChange={ makeSettingChanger('alwaysOnTop') }/>
+                  value={ alwaysOnTop }
+                  onChange={ setAlwaysOnTop }/>
     </div>;
 
   const electronSettings = window.settings == undefined ? undefined :
     <div>
       { fileWatcherSettings }
       { windowSettings }
-    </div>
+    </div>;
 
   return <div>
            <button className="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#settingsMenu" aria-controls="settingsMenu">
@@ -90,8 +72,8 @@ export default function Menu() {
                  Take Counting
                </h4>
                <DropdownItem name='Mode' 
-                             value={settings.counterMode} 
-                             onChange={ makeSettingChanger('counterMode') }
+                             value={ mode } 
+                             onChange={ setMode }
                              options={[ 
                               { name: 'Manual', value: 'manual' },
                               { name: 'File Watcher', value: 'fileWatcher' },
@@ -110,14 +92,14 @@ export default function Menu() {
                </p>
 
                <KeyItem name='Increment Count'
-                        value={ settings.keyboardShortcuts.incrementCount }
-                        onChange={ makeSettingChanger('keyboardShortcuts', 'incrementCount') } />
+                        value={ incrementCountShortcut }
+                        onChange={ setIncrementCountShortcut } />
                <KeyItem name='Decrement Count'
-                        value={ settings.keyboardShortcuts.decrementCount }
-                        onChange={ makeSettingChanger('keyboardShortcuts', 'decrementCount') }/>
+                        value={ decrementCountShortcut }
+                        onChange={ setDecrementCountShortcut }/>
                <KeyItem name='Reset Count'
-                        value={ settings.keyboardShortcuts.resetCount }
-                        onChange={ makeSettingChanger('keyboardShortcuts', 'resetCount') }/>
+                        value={ resetCountShortcut }
+                        onChange={ setResetCountShortcut }/>
 
                <div className='row justify-content-start border-top mt-3 pt-2'>
                   <h4 className='col-6 my-auto'>
@@ -126,7 +108,7 @@ export default function Menu() {
                   <div className='col-6 d-flex'>
                     <div className='flex-grow-1' />
                     <Button className='btn btn-outline-secondary'
-                            onClick={ resetSettings }>
+                            onClick={ resetDefaultSettings }>
                       Reset Default Settings
                     </Button>
                   </div>
