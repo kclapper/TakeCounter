@@ -1,5 +1,5 @@
 /* global  MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY, MAIN_WINDOW_WEBPACK_ENTRY */
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 const { 
   loadSettings, 
   registerSettingsHandlers, 
@@ -67,3 +67,26 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+const menuTemplate = [
+  { role: 'appMenu' },
+  {
+    label: 'View',
+    submenu: [
+      ...( app.isPackaged ? [] : [
+        { role: 'reload' },
+        { role: 'forceReload' },
+        { role: 'toggleDevTools' },
+        { type: 'separator' },
+      ]),
+      { role: 'zoomIn' },
+      { role: 'zoomOut' },
+      { type: 'separator' },
+      { role: 'togglefullscreen' }
+    ]
+  },
+  { role: 'windowMenu' },
+  { role: 'helpMenu' },
+]
+const menu = Menu.buildFromTemplate(menuTemplate);
+Menu.setApplicationMenu(menu);
