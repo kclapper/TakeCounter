@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import { useState, useEffect, useCallback } from 'react';
+import React from 'react';
+import { useEffect, useCallback } from 'react';
 
 import { getValidatedCount } from '../../util';
 import { useShortcut } from '../../util/shortcuts';
-import { SettingsContext, useSetting } from '../Settings';
+import { useSetting } from '../Settings';
 
 import Button from '../Button';
 import TakeInputDisplay from './TakeInputDisplay';
