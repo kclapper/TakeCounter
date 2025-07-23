@@ -1,15 +1,25 @@
-import { useContext, useCallback, useReducer, createContext } from 'react';
+import { useContext, useCallback, useReducer, createContext, useEffect } from 'react';
 import React from 'react';
 
 import { copy } from '../../../../common/util';
 import { defaultSettings } from '../../../../common/settings';
-import { loadedSettings } from './load';
+import { loadSettings } from './load';
 
 export const SettingsContext = createContext(null);
 export const SettingsDispatchContext = createContext(null);
 
 export function SettingsProvider({ children }) {
-  const [settings, dispatch] = useReducer(settingsReducer, loadedSettings);
+  const [settings, dispatch] = useReducer(settingsReducer, defaultSettings);
+
+  useEffect(() => {
+    loadSettings()
+      .then((settings) => {
+        dispatch({
+          type: 'load',
+          value: settings
+        });
+      }); 
+  }, []);
 
   return (
     <SettingsContext value={ settings }>
@@ -22,6 +32,9 @@ export function SettingsProvider({ children }) {
 
 function settingsReducer(settings, action) {
   switch (action.type) {
+    case 'load': {
+      return action.value;
+    }
     case 'change': {
       return handleChangeAction(settings, action);
     }

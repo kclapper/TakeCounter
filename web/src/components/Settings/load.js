@@ -15,5 +15,3 @@ export async function loadSettings() {
     defaultSettings.keyboardShortcuts.resetCount = "Shift+R";
     return defaultSettings;
 }
-
-export const loadedSettings = await loadSettings();

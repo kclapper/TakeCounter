@@ -204,7 +204,7 @@ exports[`Matches snapshot 1`] = `
         <button
           class="btn btn-primary m-1"
           data-bs-placement="bottom"
-          data-bs-title="Shift+_"
+          data-bs-title="Alt+Shift+-"
           data-bs-toggle="tooltip"
           type="button"
         >
@@ -213,7 +213,6 @@ exports[`Matches snapshot 1`] = `
         <button
           class="btn btn-primary m-1"
           data-bs-placement="bottom"
-          data-bs-title="Shift+R"
           data-bs-toggle="tooltip"
           type="button"
         >
@@ -222,7 +221,7 @@ exports[`Matches snapshot 1`] = `
         <button
           class="btn btn-primary m-1"
           data-bs-placement="bottom"
-          data-bs-title="Shift+Plus"
+          data-bs-title="Alt+Shift+="
           data-bs-toggle="tooltip"
           type="button"
         >
