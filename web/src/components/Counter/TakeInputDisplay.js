@@ -1,17 +1,34 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import InputDisplay from '../Input/InputDisplay';
 import { isValidCount, getValidatedCount } from '../../util';
 
-export default function TakeInputDisplay({ display, onInput }) {
-  const handleInput = (input) => {
+export default function TakeInputDisplay({ take, onInput }) {
+  const [showEmpty, setShowEmpty] = useState(false);
+
+  const handleInput = useCallback((input) => {
+    console.log(input);
+    if (input.trim().length === 0) {
+      setShowEmpty(true);
+      return;
+    }
+
+    if (!isValidCount(input)) {
+      return;
+    }
+
+    setShowEmpty(false);
     onInput(getValidatedCount(input))
-  };
+  }, [onInput, setShowEmpty]);
+
+  const handleOnBlur = useCallback(() => {
+    setShowEmpty(false);
+  }, [setShowEmpty]);
 
   return <InputDisplay
            className="display-1"
-           validateInput={ isValidCount }
            onInput={ handleInput }
-           display={ display }
+           display={ showEmpty ? '' : take }
+           onBlur={ handleOnBlur }
          />
 }
