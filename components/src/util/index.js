@@ -1,9 +1,23 @@
-function copy(o) {
+export function isValidCount(rawCount) {
+    rawCount = Number(rawCount);
+    const isInt = Number.isInteger(rawCount);
+    const greaterThanZero = rawCount > 0;
+    return isInt && greaterThanZero;
+}
+
+export function getValidatedCount(rawCount) {
+    if (!isValidCount(rawCount)) {
+        return 1;
+    }
+    return Number(rawCount);
+}
+
+export function copy(o) {
   return Object.assign({}, o);
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
-function deepFreeze(object) {
+export function deepFreeze(object) {
   // Retrieve the property names defined on object
   const propNames = Reflect.ownKeys(object);
 
@@ -19,7 +33,7 @@ function deepFreeze(object) {
   return Object.freeze(object);
 }
 
-function bigIntMax(...args) {
+export function bigIntMax(...args) {
   let max = args[0];
   for (let i = 1; i < args.length; i++) {
     if (args[i] > max) {
@@ -29,7 +43,7 @@ function bigIntMax(...args) {
   return max;
 }
 
-function setEquals(one, two) {
+export function setEquals(one, two) {
   if (one.size !== two.size) {
     return false;
   }
@@ -41,7 +55,7 @@ function setEquals(one, two) {
   return true;
 }
 
-function setJoin(set, char) {
+export function setJoin(set, char) {
   if (set.size === 0) {
     return '';
   }
@@ -54,11 +68,3 @@ function setJoin(set, char) {
 
   return result.slice(1);
 }
-
-module.exports = {
-  copy,
-  deepFreeze,
-  bigIntMax,
-  setEquals,
-  setJoin
-};

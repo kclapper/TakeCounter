@@ -1,8 +1,8 @@
 import { useContext, useCallback, useReducer, createContext, useEffect } from 'react';
 import React from 'react';
 
-import { copy } from '../../common/util';
-import { defaultSettings } from '../../common/settings';
+import { copy } from '../util';
+import { defaultSettings } from './schema';
 import { loadSettings } from './load';
 
 export const SettingsContext = createContext(null);

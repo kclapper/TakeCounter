@@ -1,7 +1,7 @@
-const { test, expect } = require('@jest/globals');
+import { test, expect } from '@jest/globals';
 
-const { copy } = require('../../util');
-const { settingsAreValid } = require('..');
+import { copy } from '../util';
+import { settingsAreValid } from './schema';
 
 test('validate schema', () => {
   const example = {

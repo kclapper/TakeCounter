@@ -1,4 +1,4 @@
-const defaultSettings = {
+export const defaultSettings = {
   currentTake: 1,
   keyboardShortcuts: {
     incrementCount: "Alt+Shift+=",
@@ -13,7 +13,7 @@ const defaultSettings = {
   }
 };
 
-function settingsAreValid(settings, schema = defaultSettings) {
+export function settingsAreValid(settings, schema = defaultSettings) {
   for (const [key, value] of Object.entries(settings)) {
     // Recur into objects and arrays
     if (typeof value === 'object') {
@@ -43,8 +43,3 @@ function settingsAreValid(settings, schema = defaultSettings) {
 
   return true;
 }
-
-module.exports = {
-  defaultSettings,
-  settingsAreValid
-};

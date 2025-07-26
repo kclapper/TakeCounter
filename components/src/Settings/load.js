@@ -1,6 +1,4 @@
-import { defaultSettings } from 'common';
-
-export { settingsAreValid } from 'common';
+import { defaultSettings } from './schema';
 
 const runningInElectron = window.settings !== undefined;
 

@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react';
 
-import { setEquals } from 'common';
+import { setEquals } from '.';
 
 const isMacOS = window.navigator.userAgent.indexOf("Mac") === 0;
 

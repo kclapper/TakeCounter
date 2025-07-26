@@ -5,8 +5,7 @@
   "scripts": {
     "start": "parcel 'src/index.html'",
     "build": "parcel build 'src/index.html'",
-    "test": "jest --watchAll=false",
-    "lint": "eslint --max-warnings 0 ."
+    "lint": "eslint --max-warnings 0 --config eslint.config.mjs ."
   },
   "browserslist": {
     "production": [
@@ -39,6 +38,7 @@
     "bootstrap-icons": "^1.10.5",
     "common": "file:../common",
     "eslint": "^9.32.0",
+    "eslint-plugin-react": "^7.37.5",
     "jest": "^30.0.5",
     "parcel": "^2.9.3",
     "process": "^0.11.10",

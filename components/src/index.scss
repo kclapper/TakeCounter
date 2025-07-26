@@ -1,10 +1,28 @@
+@use 'bootstrap/scss/bootstrap.scss' as * with(
+
 // Override default variables before the import
-$body-bg: #282c34;
+$body-bg: #282c34,
 
 $theme-colors: (
   "primary":    #f468f7,
   "secondary":  #ced900,
   "danger":     #ff4136,
+),
+
+
+// Fix tooltip color on dark background
+$tooltip-color: white,
+
+// Main Counter Font Sizes
+$display-font-sizes: (
+  1: 7rem,
+  2: 6.5rem,
+  3: 6rem,
+  4: 5.5rem,
+  5: 5rem,
+  6: 4.5rem
+),
+$display-font-weight: 500,
 );
 
 // Change font to Avenir
@@ -23,20 +41,3 @@ $font-family-base:
   "Helvetica Neue", Arial, sans-serif,
   // Emoji fonts
   "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-
-// Fix tooltip color on dark background
-$tooltip-color: white;
-
-// Main Counter Font Sizes
-$display-font-sizes: (
-  1: 7rem,
-  2: 6.5rem,
-  3: 6rem,
-  4: 5.5rem,
-  5: 5rem,
-  6: 4.5rem
-);
-$display-font-weight: 500;
-
-// Import Bootstrap and its default variables
-@import '~bootstrap/scss/bootstrap.scss';
