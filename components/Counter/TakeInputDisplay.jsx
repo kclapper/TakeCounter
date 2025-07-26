@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import InputDisplay from '../Input/InputDisplay';
-import { isValidCount, getValidatedCount } from '../../util';
+import { isValidCount, getValidatedCount } from '../util';
 
 export default function TakeInputDisplay({ take, onInput }) {
   const [showEmpty, setShowEmpty] = useState(false);

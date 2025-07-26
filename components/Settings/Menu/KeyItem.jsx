@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useCallback, useEffect } from 'react';
 
-import { setToShortcut } from '../../../util/shortcuts';
+import { setToShortcut } from '../../util/shortcuts';
 
 import InputDisplay from '../../Input/InputDisplay';
 

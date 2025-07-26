@@ -1,27 +1,12 @@
 {
-  "name": "Take Counter",
+  "name": "take-counter-web",
   "version": "0.7.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/user-event": "^14.6.1",
-    "bootstrap": "^5.3.6",
-    "bootstrap-icons": "^1.13.1",
-    "common": "file:../common",
-    "eslint": "^9.28.0",
-    "jquery": "^3.7.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-scripts": "^5.0.1",
-    "sass": "^1.63.6",
-    "web-vitals": "^5.0.2"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false",
-    "lint": "eslint --max-warnings 0 .",
-    "eject": "react-scripts eject"
+    "start": "parcel 'src/index.html'",
+    "build": "parcel build 'src/index.html'",
+    "test": "jest --watchAll=false",
+    "lint": "eslint --max-warnings 0 ."
   },
   "browserslist": {
     "production": [
@@ -37,11 +22,26 @@
       "last 1 safari version"
     ]
   },
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@common/eslint-config": "file:../common/lint",
+    "@parcel/bundler-experimental": "^2.7.0",
+    "@parcel/packager-raw-url": "^2.15.4",
+    "@parcel/transformer-sass": "^2.9.3",
+    "@parcel/transformer-webmanifest": "^2.15.4",
     "@popperjs/core": "^2.11.8",
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/react": "^16.3.0"
+    "@testing-library/react": "^16.3.0",
+    "bootstrap": "^5.3.1",
+    "bootstrap-icons": "^1.10.5",
+    "common": "file:../common",
+    "eslint": "^9.32.0",
+    "jest": "^30.0.5",
+    "parcel": "^2.9.3",
+    "process": "^0.11.10",
+    "sharp": "^0.31.3"
   }
 }

@@ -1,17 +1,14 @@
 import React from 'react';
 
-import bootstrapIcons from 'bootstrap-icons/bootstrap-icons.svg';
-
 import { useSetting, useResetter } from '..';
 
+import { Gear } from './Gear';
 import Button from '../../Button';
 import KeyItem from './KeyItem';
 import BooleanItem from './BooleanItem';
 import DropdownItem from './DropdownItem';
 import TextItem from './TextItem';
 import PathItem from './PathItem';
-
-const gear = <svg className='bi' width='24' height='24' fill='white' ><use href={ bootstrapIcons + '#gear-wide-connected' }/></svg>;
 
 export default function Menu() {
   const resetDefaultSettings = useResetter();
@@ -58,7 +55,7 @@ export default function Menu() {
 
   return <div>
            <button className="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#settingsMenu" aria-controls="settingsMenu">
-             { gear }
+             <Gear />
            </button>
 
            <div className="w-100 offcanvas offcanvas-start overflow-y-scroll p-4" tabIndex="-1" id="settingsMenu" aria-labelledby="settingsMenu" data-bs-theme="dark">

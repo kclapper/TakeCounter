@@ -1,8 +1,9 @@
 {
-  "name": "Take Counter",
+  "name": "take-counter-electron",
   "productName": "Take Counter",
   "version": "0.7.0",
   "description": "A take counter for recording sessions.",
+  "private": true,
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -22,7 +23,6 @@
   "devDependencies": {
     "@babel/core": "^7.27.4",
     "@babel/preset-react": "^7.27.1",
-    "@common/eslint-config": "file:../common/lint",
     "@electron-forge/cli": "^7.8.1",
     "@electron-forge/maker-deb": "^7.8.1",
     "@electron-forge/maker-dmg": "^7.8.1",

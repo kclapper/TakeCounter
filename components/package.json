@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "scripts": {
+        "test": "jest",
+        "lint": "eslint"
+    }
+}

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useEffect, useCallback } from 'react';
 
-import { getValidatedCount } from '../../util';
-import { useShortcut } from '../../util/shortcuts';
+import { getValidatedCount } from '../util';
+import { useShortcut } from '../util/shortcuts';
 import { useSetting } from '../Settings';
 
 import Button from '../Button';

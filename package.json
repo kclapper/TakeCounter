@@ -1,0 +1,25 @@
+{
+  "name": "take-counter",
+  "version": "0.7.0",
+  "private": true,
+  "workspaces": [
+    "electron",
+    "web",
+    "common",
+    "components"
+  ],
+  "scripts": {
+    "start": "npm start -w electron",
+    "web": "npm start -w web",
+    "web:build": "npm run -w web build",
+    "make": "npm run make -w electron",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm test --workspaces --if-present",
+    "test:ci": "npm run test:ci -w electron"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Kyle Clapper",
+    "email": "35474281+kclapper@users.noreply.github.com"
+  }
+}
