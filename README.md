@@ -23,12 +23,33 @@ Take Counter is available as a Universal MacOS app.
 
 ## Development
 
-The UI for the application is kept in the `web` folder and the code for the desktop is kept in the `electron` folder.
+First, install the project dependencies:
 
-To start developing:
+    npm install
 
-    cd web
-    npm install
-    cd ../electron
-    npm install
+Then you can run the Electron app:
+
     npm start
+
+or the web app:
+
+    npm run web
+
+You can also run the tests:
+
+    npm test
+
+and lint the code:
+
+    npm run lint
+
+Both `npm test` and `npm run lint` must pass in 
+order to merge a PR.
+
+### Organization
+
+The UI and most of the application logic is kept in the
+`components` folder. The Electron and web app logic are 
+separated into the `electron` and `web` folders. All shared
+code should go in `components` and platform specific code should
+go in the respective folders.

@@ -44,14 +44,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install commons
-        uses: ./.github/actions/install-common
-      - name: Install web app dependencies
+      - name: Install dependencies
         run: npm ci
-        working-directory: ${{ env.web-directory }}
-      - name: Install Electron app dependencies
-        run: npm ci
-        working-directory: ${{ env.electron-directory }}
       - name: Build Electron App
         run: npm run make -- --arch ${{ matrix.arch }} --platform ${{ matrix.target }}
         working-directory: ${{ env.electron-directory }}

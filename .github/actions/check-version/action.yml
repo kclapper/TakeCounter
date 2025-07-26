@@ -1,12 +1,9 @@
 name: Check Version
-description: Make sure the version number of the electron and web app match
+description: Make sure the version number of the Take Counter components match
 inputs:
-  electron-package-path:
-    description: Path to electron package.json file
-    required: true
-  web-package-path:
-    description: Path to web package.json file
+  packages:
+    description: Paths to package.json files
     required: true
 runs:
-  using: node16
+  using: node22
   main: 'dist/index.js'
