@@ -5,5 +5,5 @@ inputs:
     description: Paths to package.json files
     required: true
 runs:
-  using: node22
+  using: node20
   main: 'dist/index.js'

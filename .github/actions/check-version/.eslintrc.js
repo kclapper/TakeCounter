@@ -1,5 +1,3 @@
-require("@rushstack/eslint-patch/modern-module-resolution");
-
 module.exports = {
   root: true,
   env: {
@@ -9,6 +7,5 @@ module.exports = {
     'node_modules/',
     'dist/**/',
     '*.yml'
-  ],
-  extends: '@common'
+  ]
 };
