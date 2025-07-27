@@ -12,7 +12,7 @@ const github = {
     context: {
         ref: {
             match: () => {
-                return ['v', '0.7.0'];
+                return ['v', '0.7.1'];
             }
         }
     }

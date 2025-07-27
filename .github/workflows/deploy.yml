@@ -26,12 +26,10 @@ jobs:
         working-directory: ./.github/actions/check-version
       - uses: ./.github/actions/check-version
         with:
-          packages: 
-            - ./electron/package.json
-            - ./web/package.json
-            - ./components/package.json
-          # electron-package-path: ./electron/package.json
-          # web-package-path: ./web/package.json
+          packages: |
+            ./electron/package.json
+            ./web/package.json
+            ./components/package.json
 
   deploy-web-app:
     needs: check-versions
