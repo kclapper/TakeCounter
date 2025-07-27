@@ -1,6 +1,6 @@
 {
   "name": "check-version",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Checks the electron and web app version match",
   "type": "module",
   "main": "dist/index.js",
