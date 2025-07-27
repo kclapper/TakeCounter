@@ -4,9 +4,9 @@ const fs = require('node:fs/promises');
 
 const { app, ipcMain, dialog } = require('electron');
 
-const { copy } = require('common/util');
+const { copy } = require('../../components/src/util');
 
-const { defaultSettings, settingsAreValid } = require("common/settings");
+const { defaultSettings, settingsAreValid } = require("../../components/src/settings/schema");
 
 class SettingsEmitter extends EventEmitter {}
 const settingsEmitter = new SettingsEmitter();

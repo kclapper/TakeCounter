@@ -1,0 +1,26 @@
+{
+    "name": "take-counter-components",
+    "version": "0.7.1",
+    "private": true,
+    "scripts": {
+        "test": "jest",
+        "test:ci": "npm test",
+        "lint": "eslint"
+    },
+    "devDependencies": {
+        "@babel/preset-env": "^7.28.0",
+        "@babel/preset-react": "^7.27.1",
+        "babel-jest": "^30.0.5",
+        "babel-plugin-transform-scss": "^1.2.0",
+        "bootstrap": "^5.3.7",
+        "eslint": "^9.32.0",
+        "jest": "^30.0.5",
+        "jest-environment-jsdom": "^30.0.5"
+    },
+    "dependencies": {
+        "@testing-library/dom": "^10.4.0",
+        "@testing-library/jest-dom": "^6.6.4",
+        "@testing-library/react": "^16.3.0",
+        "@testing-library/user-event": "^14.6.1"
+    }
+}

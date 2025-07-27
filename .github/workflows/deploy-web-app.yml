@@ -18,28 +18,24 @@ concurrency:
 
 jobs:
   deploy:
-    env:
-      working-directory: ./web
+    # env:
+    #   working-directory: ./web
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install commons
-        uses: ./.github/actions/install-common
-      - name: Install web app dependencies
+      - name: Install dependencies
         run: npm ci
-        working-directory: ${{ env.working-directory }}
       - name: Build
-        run: npm run build
-        working-directory: ${{env.working-directory}}
+        run: npm run web:build
       - name: Configure Github Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './web/build/'
+          path: './web/dist/'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

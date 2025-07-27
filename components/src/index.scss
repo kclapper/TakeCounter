@@ -1,0 +1,43 @@
+@use 'bootstrap/scss/bootstrap.scss' as * with(
+
+// Override default variables before the import
+$body-bg: #282c34,
+
+$theme-colors: (
+  "primary":    #f468f7,
+  "secondary":  #ced900,
+  "danger":     #ff4136,
+),
+
+
+// Fix tooltip color on dark background
+$tooltip-color: white,
+
+// Main Counter Font Sizes
+$display-font-sizes: (
+  1: 7rem,
+  2: 6.5rem,
+  3: 6rem,
+  4: 5.5rem,
+  5: 5rem,
+  6: 4.5rem
+),
+$display-font-weight: 500,
+);
+
+// Change font to Avenir
+$font-family-base:
+  // Avenir preferred
+  Avenir,
+  // Safari for OS X and iOS (San Francisco)
+  -apple-system,
+  // Chrome < 56 for OS X (San Francisco)
+  BlinkMacSystemFont,
+  // Windows
+  "Segoe UI",
+  // Android
+  "Roboto",
+  // Basic web fallback
+  "Helvetica Neue", Arial, sans-serif,
+  // Emoji fonts
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
