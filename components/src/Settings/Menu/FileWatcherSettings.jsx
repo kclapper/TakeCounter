@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { useSetting } from '..';
 import { TextItem, PathItem, DropdownItem, IntegerItem } from '../Items/index';
 
-export function FileWatcherSettings({}) {
+export function FileWatcherSettings() {
     const [counterMode] = useSetting('counterMode');
     const [fileWatcherMode, setFileWatcherMode] = useSetting('fileWatcherMode', 'mode');
     const [trackName, setTrackName] = useSetting('fileWatcherMode', 'trackName');

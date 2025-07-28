@@ -1,14 +1,6 @@
 import React from 'react';
 
-import { useSetting, useResetter } from '..';
-
 import { Gear } from './Gear';
-import Button from '../../Button';
-import { KeyItem } from '../Items/KeyItem';
-import { BooleanItem } from '../Items/BooleanItem';
-import { DropdownItem } from '../Items/DropdownItem';
-import { TextItem } from '../Items/TextItem';
-import { PathItem } from '../Items/PathItem';
 
 import { FileWatcherSettings } from './FileWatcherSettings';
 import { KeyboardShortcutSettings } from './KeyboardShortcutSettings';

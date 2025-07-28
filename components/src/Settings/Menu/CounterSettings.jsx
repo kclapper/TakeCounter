@@ -3,7 +3,7 @@ import React from 'react';
 import { useSetting } from '..';
 import { DropdownItem } from '../Items';
 
-export function CounterSettings({}) {
+export function CounterSettings() {
     const [mode, setMode] = useSetting('counterMode');
 
     return (

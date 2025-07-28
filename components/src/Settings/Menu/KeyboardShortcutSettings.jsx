@@ -4,7 +4,7 @@ import { useSetting } from '..';
 
 import { KeyItem } from '../Items';
 
-export function KeyboardShortcutSettings({}) {
+export function KeyboardShortcutSettings() {
     const [incrementCountShortcut, setIncrementCountShortcut] = useSetting('keyboardShortcuts', 'incrementCount');
     const [decrementCountShortcut, setDecrementCountShortcut] = useSetting('keyboardShortcuts', 'decrementCount');
     const [resetCountShortcut, setResetCountShortcut] = useSetting('keyboardShortcuts', 'resetCount');

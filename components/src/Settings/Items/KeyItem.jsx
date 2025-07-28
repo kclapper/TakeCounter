@@ -46,12 +46,12 @@ export function KeyItem({ name, value, onChange, children }) {
     }
   }, [reading, setDisplay]);
 
-  const handleFocus = useCallback((event) => {
+  const handleFocus = useCallback(() => {
     setDisplay(value);
     setReading(true);
   }, [setReading, setDisplay, value]);
 
-  const handleBlur = useCallback((event) => {
+  const handleBlur = useCallback(() => {
     setReading(false);
 
     if (newShortcut.size !== 0) {

@@ -3,7 +3,7 @@ import React from 'react';
 import { useSetting } from '..';
 import { BooleanItem } from '../Items';
 
-export function WindowSettings({}) {
+export function WindowSettings() {
     const [alwaysOnTop, setAlwaysOnTop] = useSetting('alwaysOnTop');
 
     if (window.settings === undefined) {
