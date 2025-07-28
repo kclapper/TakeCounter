@@ -1,7 +1,9 @@
 import React from 'react';
 import { useCallback } from 'react';
 
-export default function PathItem({ name, value, onChange }) {
+import { Item } from './Item';
+
+export function PathItem({ name, value, onChange, children }) {
   const handlePathSelect = useCallback((path) => {
     onChange(path);
   }, [ onChange ]);
@@ -12,11 +14,7 @@ export default function PathItem({ name, value, onChange }) {
   }, []);
 
   return (
-    <div className='row justify-content-start'>
-      <h5 className='col-6 my-auto'>
-        { name }
-      </h5>
-      <div className='col-6 p-0'>
+    <Item name={ name } description={ children }>
         <div className='input-group'>
           <input type="text" 
                 readOnly 
@@ -27,10 +25,6 @@ export default function PathItem({ name, value, onChange }) {
             Browse
           </div>
         </div>
-      </div>
-    </div>
+    </Item>
   );
 }
-          // <div className='border rounded-start overflow-x-scroll'>
-          //   { value }
-          // </div>

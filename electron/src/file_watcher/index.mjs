@@ -3,6 +3,7 @@ import { FileWatcher } from "./file_watcher.mjs";
 
 let audioFilesPath;
 let trackName;
+let offset;
 let watcher;
 
 let notifyNewTake;
@@ -44,6 +45,11 @@ async function handleFileWatcherMode(fileWatcherSettings) {
     if (!trackName || trackName != fileWatcherSettings.trackName) {
         trackName = fileWatcherSettings.trackName;
         await watcher.watchTrackName(trackName);
+    }
+
+    if (!offset || offset != fileWatcherSettings.offset) {
+        offset = fileWatcherSettings.offset;
+        watcher.setOffset(offset);
     }
 } 
 

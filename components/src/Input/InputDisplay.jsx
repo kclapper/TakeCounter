@@ -19,6 +19,10 @@ export default function InputDisplay(props) {
       inputDisplay.current.innerText = display;
     }
 
+    if (document.activeElement !== inputDisplay.current) {
+      return;
+    }
+
     const selection = window.getSelection();
     if (selection.rangeCount === 0) {
       return;
@@ -27,7 +31,6 @@ export default function InputDisplay(props) {
     for (let i = 0; i < caretOffset; i++) {
       selection.modify("move", "right", "character");
     }
-
   }, [inputDisplay, display, caretOffset]);
 
   const handleValidation = useCallback((event) => {
@@ -42,7 +45,7 @@ export default function InputDisplay(props) {
 
     const nextInput = `${currentText.slice(0, startIndex)}${event.data}${currentText.slice(endIndex)}`;
     
-    if (!validateInput(nextInput)) {
+    if (!validateInput(nextInput, event)) {
       event.preventDefault();
     }
   }, [validateInput]);
@@ -56,17 +59,17 @@ export default function InputDisplay(props) {
     const caretOffset = selection.anchorOffset;
     setCaretOffset(caretOffset);
 
-    onInput(event.target.innerText);
+    onInput(event.target.innerText, event);
   }, [onInput, setCaretOffset]);
 
   const handlePaste = useCallback((event) => {
     const text = event.clipboardData.getData('text');
     if (validateInput !== undefined) {
       if (validateInput(text)) {
-        onInput(text);
+        onInput(text, event);
       }
     } else {
-      onInput(text);
+      onInput(text, event);
     }
     event.preventDefault();
   }, [validateInput, onInput]);

@@ -73,15 +73,19 @@ exports[`Matches snapshot 1`] = `
               Take Counting
             </h4>
             <div
-              class="row justify-content-start"
+              class="row mb-2"
             >
-              <h5
-                class="col-6 my-auto"
-              >
-                Mode
-              </h5>
               <div
-                class="col-6"
+                class="col-6 align-self-center p-0"
+              >
+                <h5
+                  class="my-0"
+                >
+                  Mode
+                </h5>
+              </div>
+              <div
+                class="col-6 align-self-center p-0"
               >
                 <select
                   aria-label="Mode"
@@ -95,83 +99,121 @@ exports[`Matches snapshot 1`] = `
                   <option
                     value="fileWatcher"
                   >
-                    File Watcher
+                    Pro Tools File Watcher
                   </option>
                 </select>
               </div>
             </div>
-            <h4
-              class="row border-bottom mt-3"
-            >
-              Keyboard Shortcuts
-            </h4>
-            <p>
-              To change keyboard shortcuts: click the shortcut box, enter the shortcut you want, then click away from the box.
-            </p>
-            <div
-              class="row justify-content-start"
-            >
-              <h5
-                class="col-6 my-auto"
+            <div>
+              <h4
+                class="row border-bottom mt-3"
               >
-                Increment Count
-              </h5>
+                Keyboard Shortcuts
+              </h4>
+              <p>
+                To change keyboard shortcuts: click the shortcut box, enter the shortcut you want, then click away from the box.
+              </p>
               <div
-                class="col-6 border rounded p-1"
-                contenteditable="true"
-                style="outline: none; min-width: 20%;"
-              />
-            </div>
-            <div
-              class="row justify-content-start"
-            >
-              <h5
-                class="col-6 my-auto"
+                class="row mb-2"
               >
-                Decrement Count
-              </h5>
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <h5
+                    class="my-0"
+                  >
+                    Increment count
+                  </h5>
+                </div>
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <div
+                    class="border rounded p-1"
+                    contenteditable="true"
+                    style="outline: none; min-width: 20%;"
+                  />
+                </div>
+              </div>
               <div
-                class="col-6 border rounded p-1"
-                contenteditable="true"
-                style="outline: none; min-width: 20%;"
-              />
-            </div>
-            <div
-              class="row justify-content-start"
-            >
-              <h5
-                class="col-6 my-auto"
+                class="row mb-2"
               >
-                Reset Count
-              </h5>
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <h5
+                    class="my-0"
+                  >
+                    Decrement count
+                  </h5>
+                </div>
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <div
+                    class="border rounded p-1"
+                    contenteditable="true"
+                    style="outline: none; min-width: 20%;"
+                  />
+                </div>
+              </div>
               <div
-                class="col-6 border rounded p-1"
-                contenteditable="true"
-                style="outline: none; min-width: 20%;"
-              />
+                class="row mb-2"
+              >
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <h5
+                    class="my-0"
+                  >
+                    Reset count
+                  </h5>
+                </div>
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <div
+                    class="border rounded p-1"
+                    contenteditable="true"
+                    style="outline: none; min-width: 20%;"
+                  />
+                </div>
+              </div>
             </div>
             <div
               class="row justify-content-start border-top mt-3 pt-2"
             >
-              <h4
-                class="col-6 my-auto"
-              >
-                Reset
-              </h4>
               <div
-                class="col-6 d-flex"
+                class="row mb-2"
               >
                 <div
-                  class="flex-grow-1"
-                />
-                <button
-                  class="btn btn-outline-secondary"
-                  data-bs-placement="top"
-                  data-bs-toggle="tooltip"
-                  type="button"
+                  class="col-6 align-self-center p-0"
                 >
-                  Reset Default Settings
-                </button>
+                  <h5
+                    class="my-0"
+                  >
+                    Reset
+                  </h5>
+                </div>
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <div
+                    class="d-flex"
+                  >
+                    <div
+                      class="flex-grow-1"
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      data-bs-placement="top"
+                      data-bs-toggle="tooltip"
+                      type="button"
+                    >
+                      Reset Default Settings
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

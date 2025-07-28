@@ -8,8 +8,10 @@ export const defaultSettings = {
   alwaysOnTop: false,
   counterMode: 'manual',
   fileWatcherMode: {
+    mode: 'allFiles',
     audioFilesPath: '',
-    trackName: ''
+    trackName: '',
+    offset: 0,
   }
 };
 

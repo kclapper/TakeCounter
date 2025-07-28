@@ -7,7 +7,6 @@ export default function TakeInputDisplay({ take, onInput }) {
   const [showEmpty, setShowEmpty] = useState(false);
 
   const handleInput = useCallback((input) => {
-    console.log(input);
     if (input.trim().length === 0) {
       setShowEmpty(true);
       return;

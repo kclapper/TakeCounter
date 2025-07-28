@@ -21,6 +21,14 @@ export class FileWatcher extends EventTarget {
         this.audioFilePath = audioFilePath;
         this.isWatching = false;
         this.trackName = '';
+        this.offset = 1;
+    }
+
+    setOffset(offset) {
+        if (!Number.isInteger(offset)) {
+            return;
+        }
+        this.offset = offset;
     }
 
     get currentTake() {
@@ -29,7 +37,7 @@ export class FileWatcher extends EventTarget {
         }
 
         const lastTake = this.#parseTake(this.lastAudioFile);
-        if (lastTake == false) {
+        if (lastTake === false) {
             return 0;
         }
 
@@ -45,12 +53,14 @@ export class FileWatcher extends EventTarget {
             return false;
         }
 
+        let take = this.offset;
+
         const match = audioFileName.match(this.trackNameRE);
-        if (!match[3]) {
-            return 1;
+        if (match[3]) {
+            take = Number(match[3]) + this.offset;
         }
 
-        return Number(match[3]) + 1;
+        return take < 0 ? 1 : take;
     }
 
     watchTrackName(trackName) {
@@ -58,14 +68,21 @@ export class FileWatcher extends EventTarget {
             .then(() => {
                 this.trackName = trackName;
 
-                if (this.audioFilePath === '' || trackName === '') {
+                if (this.audioFilePath === '') {
                     return;
                 }
 
-                const trackNameEscaped = escapeRegex(trackName);
-                this.trackNameRE = new RegExp(
-                    `(${trackNameEscaped})(\.?([0-9]+))?(_[0-9]+\.wav)`
-                );
+                if (this.trackName.trim() === '') {
+                    this.trackNameRE = new RegExp(
+                        `([^\.]+)(\.?([0-9]+))?(_[0-9]+\.wav)`
+                    );
+                }
+                else {
+                    const trackNameEscaped = escapeRegex(trackName);
+                    this.trackNameRE = new RegExp(
+                        `(${trackNameEscaped})(\.?([0-9]+))?(_[0-9]+\.wav)`
+                    );
+                }
 
                 this.watchAbort = new AbortController();
                 this.watchGenerator = watch(
@@ -112,7 +129,7 @@ export class FileWatcher extends EventTarget {
 
         const filename = changeEvent.filename;
         const take = this.#parseTake(filename);
-        if (!take) {
+        if (take === false) {
             return;
         }
 
