@@ -2,8 +2,6 @@ import { useEffect, useCallback } from 'react';
 
 import { setEquals } from '.';
 
-const isMacOS = window.navigator.userAgent.indexOf("Mac") === 0;
-
 const web_code_to_electron_key_map = {
   Escape: "Esc",
   Digit1: "1",
@@ -73,7 +71,6 @@ const web_code_to_electron_key_map = {
   F8: "F8",
   F9: "F9",
   F10: "F10",
-  Pause: "MediaPlayPause",
   ScrollLock: "Scrollock",
   Numpad7: "num7",
   Numpad8: "num8",
@@ -130,7 +127,6 @@ const web_code_to_electron_key_map = {
   AudioVolumeUp: "VolumeUp",
   BrowserHome: "",
   NumpadDivide: "numdiv",
-  PrintScreen: "PrintScreen",
   AltRight: "Alt",
   Help: "",
   NumLock: "Numlock",
