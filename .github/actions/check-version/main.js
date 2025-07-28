@@ -1,5 +1,5 @@
-import * as core from '@actions/core';
-import * as github from '@actions/github';
+const core = require('@actions/core');
+const github = require('@actions/github');
 
 function getPaths() {
   const packages = core.getInput('packages');
@@ -11,7 +11,7 @@ function getPaths() {
           );
 }
 
-export async function run() {
+async function run() {
   try {
     const tagPattern = /refs\/tags\/v(.*)/;
     let tag = github.context.ref.match(tagPattern);
@@ -25,8 +25,8 @@ export async function run() {
   
     const packages = getPaths();
     for (const item of packages) {
-      const module = await import(item);
-      const packageJson = module.default;
+      const module = await require(item);
+      const packageJson = module;
 
       if (!packageJson.name) {
         core.setFailed(`${item} has no name attribute`);
@@ -47,3 +47,7 @@ export async function run() {
     core.setFailed(error.message);
   }
 }
+
+module.exports = {
+  run
+};
