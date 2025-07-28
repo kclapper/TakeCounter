@@ -2,10 +2,9 @@
   "name": "check-version",
   "version": "0.2.0",
   "description": "Checks the electron and web app version match",
-  "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "build": "ncc build index.js --license licenses.txt",
+    "build": "ncc build index.mjs --license licenses.txt",
     "lint": "eslint --max-warnings=0 --config=eslint.config.mjs .",
     "test": "NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 jest"
   },
