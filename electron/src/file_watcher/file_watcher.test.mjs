@@ -239,3 +239,93 @@ test('not watching with default settings', () => withLocalTmpDir(async () => {
 
     expect(watcher.isWatching).toBe(false);
 }));
+
+test('watch all files when blank track name', () => withLocalTmpDir(async () => {
+    await outputFiles({
+        'Audio Files': {
+            'whatever.txt': `Some file to create the Audio Files folder`
+        }
+    });
+    const watcher = new FileWatcher('Audio Files');
+
+    await watcher.watchTrackName('');
+    await watcher.nextUpdate();
+
+    await outputFiles({
+        'Audio Files': {
+            'Audio 1.01_01.wav': ``
+        }
+    });
+    await watcher.nextUpdate();
+
+    expect(watcher.currentTake)
+        .toEqual(2);
+
+    await outputFiles({
+        'Audio Files': {
+            'Drums 1_01.wav': ``
+        }
+    });
+    await watcher.nextUpdate();
+
+    expect(watcher.currentTake)
+        .toEqual(1);
+
+    await outputFiles({
+        'Audio Files': {
+            'Audio 1.03_01.wav': ``
+        }
+    });
+    await watcher.nextUpdate();
+
+    expect(watcher.currentTake)
+        .toEqual(4);
+
+    await watcher.stopWatching();
+}));
+
+test.only('change offset', () => withLocalTmpDir(async () => {
+    await outputFiles({
+        'Audio Files': {
+            'whatever.txt': `Some file to create the Audio Files folder`
+        }
+    });
+    const watcher = new FileWatcher('Audio Files');
+
+    await watcher.watchTrackName('');
+    await watcher.nextUpdate();
+
+    await outputFiles({
+        'Audio Files': {
+            'Audio 1.01_01.wav': ``
+        }
+    });
+    await watcher.nextUpdate();
+
+    expect(watcher.currentTake)
+        .toEqual(2);
+
+    watcher.setOffset(0);
+
+    await outputFiles({
+        'Audio Files': {
+            'Drums 1_01.wav': ``
+        }
+    });
+    await watcher.nextUpdate();
+
+    expect(watcher.currentTake)
+        .toEqual(0);
+
+    await outputFiles({
+        'Audio Files': {
+            'Audio 1.03_01.wav': ``
+        }
+    });
+    await watcher.nextUpdate();
+
+    expect(watcher.currentTake)
+        .toEqual(3);
+
+    await watcher.stopWatching();
+}));

@@ -2,36 +2,46 @@ import React from 'react';
 import { useCallback, useState } from 'react';
 
 import InputDisplay from '../../Input/InputDisplay';
+import { Item } from './Item';
 
-export default function TextItem({ name, value, onChange }) {
+function validateInput(input, event) {
+  const invalidCharacters = /\n|\r/;
+
+  const isValid = input.search(invalidCharacters) === -1;
+  if (!isValid) {
+    event.target.blur();
+  }
+    
+  return isValid;
+}
+
+export function TextItem({ name, value, onChange, children }) {
   const [ reading, setReading ] = useState(false);
   const [ display, setDisplay ] = useState(value);
 
   const handleFocus = useCallback(() => {
+    setDisplay(value);
     setReading(true);
-  }, [setReading]);
+  }, [value, setDisplay, setReading]);
 
   const handleBlur = useCallback(() => {
-    setReading(false);
     onChange(display);
-    setDisplay(value);
-  }, [setReading, display, onChange, setDisplay]);
+    setReading(false);
+  }, [setReading, display, onChange]);
 
   const handleInput = useCallback((input) => {
     setDisplay(input);
   }, [setDisplay]);
 
   return (
-    <div className='row justify-content-start'>
-      <h5 className='col-6 my-auto'>
-        { name }
-      </h5>
-      <InputDisplay className='col-6 border rounded p-1'
+    <Item name={ name } description={ children }>
+      <InputDisplay className='border rounded p-1'
                     display={ reading ? display : value }
                     onInput={ handleInput }
                     onFocus={ handleFocus }
                     onBlur={ handleBlur }
+                    validateInput={ validateInput }
                     style={{ minWidth: "20%" }}/>
-    </div>
+    </Item>
   );
 }
