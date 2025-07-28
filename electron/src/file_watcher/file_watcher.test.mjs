@@ -284,7 +284,7 @@ test('watch all files when blank track name', () => withLocalTmpDir(async () => 
     await watcher.stopWatching();
 }));
 
-test.only('change offset', () => withLocalTmpDir(async () => {
+test('change offset', () => withLocalTmpDir(async () => {
     await outputFiles({
         'Audio Files': {
             'whatever.txt': `Some file to create the Audio Files folder`
