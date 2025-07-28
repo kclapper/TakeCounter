@@ -20,14 +20,14 @@ export async function fileWatcherInit(mainWindow) {
 }
 
 function handleNewSettings(settings) {
-    if (settings.counterMode != 'fileWatcher') {
+    if (settings.counterMode != 'ptFileWatcher') {
         if (watcher) {
             watcher.stopWatching();
         }
         return;
     }
 
-    handleFileWatcherMode(settings.fileWatcherMode);
+    handleFileWatcherMode(settings.ptFileWatcherMode);
 }
 
 async function handleFileWatcherMode(fileWatcherSettings) {

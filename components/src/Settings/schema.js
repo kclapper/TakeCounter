@@ -6,7 +6,16 @@ export const defaultSettings = {
     resetCount: "Alt+Shift+0"
   },
   alwaysOnTop: false,
-  counterMode: 'manual',
+  counterMode: 'manual', /* manual, ptFileWatcher */
+  ptFileWatcherMode: {
+    mode: 'track', /* track, playlist */
+    offset: 0,
+    trackName: '',
+    audioFilesPath: '',
+    playlistMode: {
+      mode: 'allPlaylists' /* allPlaylists, specificPlaylist */
+    }
+  },
   fileWatcherMode: {
     mode: 'allFiles',
     audioFilesPath: '',
