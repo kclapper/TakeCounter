@@ -24,8 +24,6 @@ jobs:
         working-directory: ./.github/actions/check-version
       - run: npm run build
         working-directory: ./.github/actions/check-version
-      - run: ls -al
-      - run: pwd
       - uses: ./.github/actions/check-version
         with:
           packages: |
