@@ -11,7 +11,7 @@ export const defaultSettings = {
     mode: 'allFiles',
     audioFilesPath: '',
     trackName: '',
-    offset: 1,
+    offset: 0,
   }
 };
 
