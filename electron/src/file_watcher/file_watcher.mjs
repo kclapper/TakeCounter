@@ -26,7 +26,6 @@ export class FileWatcher extends EventTarget {
 
     setOffset(offset) {
         if (!Number.isInteger(offset)) {
-            console.log("return");
             return;
         }
         this.offset = offset;
