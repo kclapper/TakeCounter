@@ -5,12 +5,17 @@ import InputDisplay from '../../Input/InputDisplay';
 import { Item } from './Item';
 
 function validateInput(input, event) {
-  const invalidCharacters = /\n|\r/;
+  const invalidCharacters = /(\n)[^\n]/;
 
   const isValid = input.search(invalidCharacters) === -1;
+  console.log(event);
+  console.log(input);
+  console.log(input.search(invalidCharacters));
+  console.log(input.match(invalidCharacters));
   if (!isValid) {
     event.target.blur();
   }
+  console.log(isValid);
     
   return isValid;
 }

@@ -3,3 +3,4 @@ export * from './DropdownItem';
 export * from './KeyItem';
 export * from './PathItem';
 export * from './TextItem';
+export * from './IntegerItem';

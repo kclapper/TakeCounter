@@ -16,8 +16,8 @@ export function WindowSettings({}) {
             Window
         </h4>
         <BooleanItem name='Always on top'
-                    value={ alwaysOnTop }
-                    onChange={ setAlwaysOnTop }/>
+                     value={ alwaysOnTop }
+                     onChange={ setAlwaysOnTop }/>
         </div>
     );
 }

@@ -10,7 +10,8 @@ export const defaultSettings = {
   fileWatcherMode: {
     mode: 'allFiles',
     audioFilesPath: '',
-    trackName: ''
+    trackName: '',
+    offset: 1,
   }
 };
 

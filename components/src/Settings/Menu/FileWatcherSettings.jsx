@@ -1,13 +1,14 @@
 import React, { useCallback } from 'react';
 
 import { useSetting } from '..';
-import { TextItem, PathItem, DropdownItem } from '../Items/index';
+import { TextItem, PathItem, DropdownItem, IntegerItem } from '../Items/index';
 
 export function FileWatcherSettings({}) {
     const [counterMode] = useSetting('counterMode');
     const [fileWatcherMode, setFileWatcherMode] = useSetting('fileWatcherMode', 'mode');
     const [trackName, setTrackName] = useSetting('fileWatcherMode', 'trackName');
     const [audioFilesPath, setAudioFilesPath] = useSetting('fileWatcherMode', 'audioFilesPath');
+    const [offset, setOffset] = useSetting('fileWatcherMode', 'offset');
 
     const handleSetMode = useCallback((mode) => {
         if (mode === 'allFiles') {
@@ -47,6 +48,11 @@ export function FileWatcherSettings({}) {
             <PathItem name='Audio files path'
                         value={ audioFilesPath }
                         onChange={ setAudioFilesPath }/>
+            <IntegerItem name='Take offset'
+                         value={ offset }
+                         onChange={ setOffset }>
+                Add or subtract from the automatic take value.
+            </IntegerItem>
         </div>
     );
 }
