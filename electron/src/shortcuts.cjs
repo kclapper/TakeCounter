@@ -3,21 +3,44 @@ const {
 } = require('electron');
 const {
   settingsEmitter,
-  getSettings
+  getSettings,
+  changeSettings
 } = require('./settings.cjs');
+const { defaultSettings } = require("../../components/src/settings/schema");
 
 function registerCountShortcuts(mainWindow) {
-  const shortcuts = getSettings().keyboardShortcuts;
+  let settings = getSettings();
+  const shortcuts = settings.keyboardShortcuts;
 
-  globalShortcut.register(shortcuts.incrementCount, () => {
+  let status = globalShortcut.register(shortcuts.incrementCount, () => {
     mainWindow.webContents.send('increment-counter');
   });
-  globalShortcut.register(shortcuts.decrementCount, () => {
+  if (!status) {
+    console.log("Invalid increment count shortcut", shortcuts.incrementCount);
+    settings.keyboardShortcuts.incrementCount = defaultSettings.keyboardShortcuts.incrementCount; 
+    changeSettings(settings);
+    return;
+  }
+
+  status = globalShortcut.register(shortcuts.decrementCount, () => {
     mainWindow.webContents.send('decrement-counter');
   });
-  globalShortcut.register(shortcuts.resetCount, () => {
+  if (!status) {
+    console.log("Invalid decrement count shortcut", shortcuts.decrementCount);
+    settings.keyboardShortcuts.decrementCount = defaultSettings.keyboardShortcuts.decrementCount; 
+    changeSettings(settings);
+    return;
+  }
+
+  status = globalShortcut.register(shortcuts.resetCount, () => {
     mainWindow.webContents.send('reset-counter');
   });
+  if (!status) {
+    console.log("Invalid reset count shortcut", shortcuts.resetCount);
+    settings.keyboardShortcuts.resetCount = defaultSettings.keyboardShortcuts.resetCount; 
+    changeSettings(settings);
+    return;
+  }
 }
 
 async function registerKeyboardShortcuts(mainWindow) {

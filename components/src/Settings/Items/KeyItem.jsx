@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useCallback, useEffect } from 'react';
 
-import { setToShortcut } from '../../util/shortcuts';
+import { setIsOnlyModifiers, setToShortcut } from '../../util/shortcuts';
 
 import InputDisplay from '../../Input/InputDisplay';
 import { Item } from './Item';
@@ -9,13 +9,14 @@ import { Item } from './Item';
 const newShortcut = new Set();
 
 function keyIsInvalid(key) {
+  console.log(key);
   switch (key) {
     case 'Escape':
     case 'Enter':
     case ' ':
     case 'Backspace':
       return true;
-    default: 
+    default:
       return false;
   }
 }
@@ -26,7 +27,7 @@ export function KeyItem({ name, value, onChange, children }) {
 
   useEffect(() => {
     const handler = (event) => {
-      if (keyIsInvalid(event.key)) {
+      if (keyIsInvalid(event.code)) {
         event.target.blur();
         return;
       }
@@ -36,7 +37,7 @@ export function KeyItem({ name, value, onChange, children }) {
         return;
       }
 
-      newShortcut.add(event.key);
+      newShortcut.add(event.code);
       setDisplay(setToShortcut(newShortcut));
     };
 
@@ -54,11 +55,12 @@ export function KeyItem({ name, value, onChange, children }) {
   const handleBlur = useCallback(() => {
     setReading(false);
 
-    if (newShortcut.size !== 0) {
+    if (newShortcut.size !== 0 && !setIsOnlyModifiers(newShortcut)) {
       onChange(setToShortcut(newShortcut));
-      newShortcut.clear();
-      setDisplay(value);
     }
+
+    newShortcut.clear();
+    setDisplay(value);
   }, [setReading, onChange, setDisplay, value]);
 
   return (
