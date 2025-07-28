@@ -250,25 +250,9 @@ export function setToShortcut(keySet) {
     }
 
     result += web_code_to_electron_key_map[key];
-
-    // if (web_key_to_electron_map[key] !== undefined) {
-    //   result += '+';
-    //   result += web_key_to_electron_map[key];
-    //   continue;
-    // }
-
-    // if (key.length === 1) {
-    //   result += '+';
-    //   result += key.toUpperCase();
-    //   continue;
-    // }
-
-    // result += '+';
-    // result += key;
   }
 
   return result;
-  // return result.slice(1);
 }
 
 export function useShortcut(callback, shortcut, electronTarget) {
