@@ -16,7 +16,7 @@ export function CounterSettings() {
                             onChange={ setMode }
                             options={[ 
                             { name: 'Manual', value: 'manual' },
-                            { name: 'Pro Tools File Watcher', value: 'fileWatcher' },
+                            { name: 'Pro Tools File Watcher', value: 'ptFileWatcher' },
                             ]} /> 
         </>
     )    
