@@ -30,6 +30,7 @@ jobs:
             ./electron/package.json
             ./web/package.json
             ./components/package.json
+            ./package.json
 
   deploy-web-app:
     needs: check-versions
