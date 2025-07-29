@@ -9,18 +9,10 @@ export const defaultSettings = {
   counterMode: 'manual', /* manual, ptFileWatcher */
   ptFileWatcherMode: {
     mode: 'track', /* track, playlist */
+    subMode: 'all', /* all, specific */
     offset: 0,
     trackName: '',
-    audioFilesPath: '',
-    playlistMode: {
-      mode: 'allPlaylists' /* allPlaylists, specificPlaylist */
-    }
-  },
-  fileWatcherMode: {
-    mode: 'allFiles',
-    audioFilesPath: '',
-    trackName: '',
-    offset: 0,
+    audioFilesPath: ''
   }
 };
 

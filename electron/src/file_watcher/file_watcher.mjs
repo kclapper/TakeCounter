@@ -160,10 +160,6 @@ export class PlaylistWatcher extends EventTarget {
     changeAudioFilesPath(directory) {
         this.audioFilePath = directory;
 
-        if (!this.isWatching) {
-            return Promise.resolve();
-        }
-
         return this.stopWatching()
             .then(() => {
                 return this.watchTrackName(this.trackName);

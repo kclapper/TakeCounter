@@ -32,51 +32,54 @@ function handleNewSettings(settings) {
 }
 
 async function handleFileWatcherMode(fileWatcherSettings) {
-    if (!mode || !watcher || mode != fileWatcherSettings.mode) {
-        if (watcher) {
+    if (mode === undefined || mode != fileWatcherSettings.mode) {
+        if (watcher !== undefined) {
             await watcher.stopWatching();
         }
 
         mode = fileWatcherSettings.mode;
-        watcher = getWatcher(fileWatcherSettings.mode);
-
-        if (audioFilesPath) {
-            await watcher.changeAudioFilesPath(audioFilesPath);
-        }
-
-        if (trackName !== undefined) {
-            await watcher.watchTrackName(trackName);
-        }
-
-        if (offset) {
-            watcher.setOffset(offset);
-        }
+        watcher = await getWatcher(mode);
     }
 
-    if (!audioFilesPath || audioFilesPath != fileWatcherSettings.audioFilesPath) {
+    if (audioFilesPath === undefined || audioFilesPath != fileWatcherSettings.audioFilesPath) {
         audioFilesPath = fileWatcherSettings.audioFilesPath; 
         await watcher.changeAudioFilesPath(audioFilesPath);
     } 
 
-    if (!trackName || trackName != fileWatcherSettings.trackName) {
+    if (trackName === undefined || trackName != fileWatcherSettings.trackName) {
         trackName = fileWatcherSettings.trackName;
         await watcher.watchTrackName(trackName);
     }
 
-    if (!offset || offset != fileWatcherSettings.offset) {
+    if (offset === undefined || offset != fileWatcherSettings.offset) {
         offset = fileWatcherSettings.offset;
         watcher.setOffset(offset);
     }
 } 
 
-function getWatcher(fileWatcherMode) {
+async function getWatcher(fileWatcherMode) {
     let watcher;
+
     if (fileWatcherMode === 'track') {
         watcher = new TrackWatcher('');
     } else {
         watcher = new PlaylistWatcher('');
     }
+
     watcher.addEventListener('takeUpdate', handleTakeChange);
+
+    if (audioFilesPath !== undefined) {
+        await watcher.changeAudioFilesPath(audioFilesPath);
+    }
+
+    if (trackName !== undefined) {
+        await watcher.watchTrackName(trackName);
+    }
+
+    if (offset !== undefined) {
+        watcher.setOffset(offset);
+    }
+
     return watcher;
 }
 

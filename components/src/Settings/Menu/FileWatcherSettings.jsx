@@ -6,17 +6,17 @@ import { TextItem, PathItem, DropdownItem, IntegerItem } from '../Items/index';
 export function FileWatcherSettings() {
     const [counterMode] = useSetting('counterMode');
     const [fileWatcherMode, setFileWatcherMode] = useSetting('ptFileWatcherMode', 'mode');
-    const [playlistMode, setPlaylistMode] = useSetting('ptFileWatcherMode', 'playlistMode', 'mode');
+    const [fileWatcherSubMode, setFileWatcherSubMode] = useSetting('ptFileWatcherMode', 'subMode');
     const [trackName, setTrackName] = useSetting('ptFileWatcherMode', 'trackName');
     const [audioFilesPath, setAudioFilesPath] = useSetting('ptFileWatcherMode', 'audioFilesPath');
     const [offset, setOffset] = useSetting('ptFileWatcherMode', 'offset');
 
-    const handleSetPlaylistMode = useCallback((mode) => {
-        if (playlistMode === 'allFiles') {
+    const handleSetSubMode = useCallback((mode) => {
+        if (mode === 'all') {
             setTrackName('');
         }
-        setPlaylistMode(mode);
-    }, [playlistMode, setPlaylistMode, setTrackName]);
+        setFileWatcherSubMode(mode);
+    }, [fileWatcherSubMode, setFileWatcherSubMode, setTrackName]);
 
     if (window.settings === undefined) {
         return undefined;
@@ -28,23 +28,34 @@ export function FileWatcherSettings() {
 
     const trackModeSettings = 
         <>
-            <TextItem name='Track name'
-                        value={ trackName }
-                        onChange={ setTrackName }> 
-            </TextItem>
+            <DropdownItem name='Track to watch'
+                          value={ fileWatcherSubMode }
+                          onChange={ handleSetSubMode }
+                          options={[
+                              { name: 'All tracks', value: 'all' },
+                              { name: 'Specific track', value: 'specific' },
+                          ]}/>
+            {
+                fileWatcherSubMode === 'specific' ?
+                <TextItem name='Track name'
+                            value={ trackName }
+                            onChange={ setTrackName }> 
+                </TextItem>
+                : undefined
+            }
         </>;
 
     const playlistModeSettings = 
         <>
             <DropdownItem name='Playlist to watch'
-                          value={ playlistMode }
-                          onChange={ handleSetPlaylistMode }
+                          value={ fileWatcherSubMode }
+                          onChange={ handleSetSubMode }
                           options={[
-                              { name: 'All playlists', value: 'allPlaylists' },
-                              { name: 'Specific playlist', value: 'specificPlaylist' },
+                              { name: 'All playlists', value: 'all' },
+                              { name: 'Specific playlist', value: 'specific' },
                           ]}/>
             {
-                playlistMode === 'specificPlaylist' ?
+                fileWatcherSubMode === 'specific' ?
                 <TextItem name='Playlist name'
                           value={ trackName }
                           onChange={ setTrackName }> 

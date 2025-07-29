@@ -97,7 +97,7 @@ exports[`Matches snapshot 1`] = `
                     Manual
                   </option>
                   <option
-                    value="fileWatcher"
+                    value="ptFileWatcher"
                   >
                     Pro Tools File Watcher
                   </option>
