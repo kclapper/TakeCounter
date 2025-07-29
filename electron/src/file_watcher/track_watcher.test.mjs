@@ -1,11 +1,7 @@
-import { readFile } from 'node:fs/promises';
-
-import { test as jestTest, expect, jest } from '@jest/globals';
+import { test as jestTest, expect } from '@jest/globals';
 
 import withLocalTmpDir from 'with-local-tmp-dir';
 import outputFiles from 'output-files';
-import endent_formats from 'endent';
-const endent = endent_formats.default;
 
 import { TrackWatcher } from './file_watcher';
 
