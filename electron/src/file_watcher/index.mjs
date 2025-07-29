@@ -1,10 +1,11 @@
 import { settingsEmitter } from "../settings.cjs";
-import { FileWatcher } from "./file_watcher.mjs";
+import { FileWatcher, PlaylistWatcher, TrackWatcher } from "./file_watcher.mjs";
 
 let audioFilesPath;
 let trackName;
 let offset;
 let watcher;
+let mode;
 
 let notifyNewTake;
 
@@ -31,13 +32,28 @@ function handleNewSettings(settings) {
 }
 
 async function handleFileWatcherMode(fileWatcherSettings) {
-    if (!watcher) {
-        audioFilesPath = fileWatcherSettings.audioFilesPath; 
-        watcher = new FileWatcher(audioFilesPath);
-        watcher.addEventListener('takeUpdate', handleTakeChange);
+    if (!mode || !watcher || mode != fileWatcherSettings.mode) {
+        if (watcher) {
+            await watcher.stopWatching();
+        }
+
+        mode = fileWatcherSettings.mode;
+        watcher = getWatcher(fileWatcherSettings.mode);
+
+        if (audioFilesPath) {
+            await watcher.changeAudioFilesPath(audioFilesPath);
+        }
+
+        if (trackName !== undefined) {
+            await watcher.watchTrackName(trackName);
+        }
+
+        if (offset) {
+            watcher.setOffset(offset);
+        }
     }
 
-    if (audioFilesPath != fileWatcherSettings.audioFilesPath) {
+    if (!audioFilesPath || audioFilesPath != fileWatcherSettings.audioFilesPath) {
         audioFilesPath = fileWatcherSettings.audioFilesPath; 
         await watcher.changeAudioFilesPath(audioFilesPath);
     } 
@@ -52,6 +68,17 @@ async function handleFileWatcherMode(fileWatcherSettings) {
         watcher.setOffset(offset);
     }
 } 
+
+function getWatcher(fileWatcherMode) {
+    let watcher;
+    if (fileWatcherMode === 'track') {
+        watcher = new TrackWatcher('');
+    } else {
+        watcher = new PlaylistWatcher('');
+    }
+    watcher.addEventListener('takeUpdate', handleTakeChange);
+    return watcher;
+}
 
 function handleTakeChange(event) {
     if (!notifyNewTake) {

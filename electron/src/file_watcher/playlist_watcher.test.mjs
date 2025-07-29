@@ -7,7 +7,7 @@ import outputFiles from 'output-files';
 import endent_formats from 'endent';
 const endent = endent_formats.default;
 
-import { FileWatcher } from './file_watcher';
+import { PlaylistWatcher } from './file_watcher';
 
 const test = process.env.CI ? jestTest.skip : jestTest;
 
@@ -32,7 +32,7 @@ test('start and stop watcher', () => withLocalTmpDir(async () => {
             'whatever.txt': `Some file to create the Audio Files folder`
         }
     });
-    const watcher = new FileWatcher('Audio Files');
+    const watcher = new PlaylistWatcher('Audio Files');
 
     await watcher.watchTrackName('Audio 1');
 
@@ -49,7 +49,7 @@ test('get current take', () => withLocalTmpDir(async () => {
             'whatever.txt': `Some file to create the Audio Files folder`
         }
     });
-    const watcher = new FileWatcher('Audio Files');
+    const watcher = new PlaylistWatcher('Audio Files');
 
     expect(watcher.currentTake)
         .toEqual(0);
@@ -86,7 +86,7 @@ test('change track to watch', () => withLocalTmpDir(async () => {
             'whatever.txt': `Some file to create the Audio Files folder`
         }
     });
-    const watcher = new FileWatcher('Audio Files');
+    const watcher = new PlaylistWatcher('Audio Files');
 
     await watcher.watchTrackName('Audio 1');
     await watcher.nextUpdate();
@@ -131,7 +131,7 @@ test('emit event when take changes', () => withLocalTmpDir(async () => {
             'whatever.txt': `Some file to create the Audio Files folder`
         }
     });
-    const watcher = new FileWatcher('Audio Files');
+    const watcher = new PlaylistWatcher('Audio Files');
     await watcher.watchTrackName('Audio 1');
     await watcher.nextUpdate();
 
@@ -180,7 +180,7 @@ test('stop a watcher that hasnt started', () => withLocalTmpDir(async () => {
             'whatever.txt': `Some file to create the Audio Files folder`
         }
     });
-    const watcher = new FileWatcher('Audio Files');
+    const watcher = new PlaylistWatcher('Audio Files');
     await watcher.stopWatching();
 }));
 
@@ -193,7 +193,7 @@ test('change path to Audio Files', () => withLocalTmpDir(async () => {
             'whatever.txt': `Some file to create the Other Files folder`
         }
     });
-    const watcher = new FileWatcher('Audio Files');
+    const watcher = new PlaylistWatcher('Audio Files');
 
     await watcher.watchTrackName('Audio 1');
     await watcher.nextUpdate();
@@ -232,7 +232,7 @@ test('not watching with default settings', () => withLocalTmpDir(async () => {
             'whatever.txt': `Some file to create the Other Files folder`
         }
     });
-    const watcher = new FileWatcher('');
+    const watcher = new PlaylistWatcher('');
     await watcher.watchTrackName('');
 
     await watcher.nextUpdate();
@@ -246,7 +246,7 @@ test('watch all files when blank track name', () => withLocalTmpDir(async () => 
             'whatever.txt': `Some file to create the Audio Files folder`
         }
     });
-    const watcher = new FileWatcher('Audio Files');
+    const watcher = new PlaylistWatcher('Audio Files');
 
     await watcher.watchTrackName('');
     await watcher.nextUpdate();
@@ -290,7 +290,7 @@ test('change offset', () => withLocalTmpDir(async () => {
             'whatever.txt': `Some file to create the Audio Files folder`
         }
     });
-    const watcher = new FileWatcher('Audio Files');
+    const watcher = new PlaylistWatcher('Audio Files');
 
     await watcher.watchTrackName('');
     await watcher.nextUpdate();

@@ -14,7 +14,7 @@ function escapeRegex(string) {
     return string.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
 }
 
-export class FileWatcher extends EventTarget {
+export class PlaylistWatcher extends EventTarget {
     constructor(audioFilePath) {
         super();
 
@@ -36,7 +36,7 @@ export class FileWatcher extends EventTarget {
             return 0;
         }
 
-        const lastTake = this.#parseTake(this.lastAudioFile);
+        const lastTake = this.parseTake(this.lastAudioFile);
         if (lastTake === false) {
             return 0;
         }
@@ -44,23 +44,35 @@ export class FileWatcher extends EventTarget {
         return lastTake;
     }
 
-    #parseTake(audioFileName) {
-        if (!this.trackNameRE) {
-            return false;
-        }
-        
-        if (!this.trackNameRE.test(audioFileName)) {
+    parseTake(audioFileName) {
+        const matcher = this.getRE();
+
+        if (!matcher.test(audioFileName)) {
             return false;
         }
 
         let take = this.offset;
 
-        const match = audioFileName.match(this.trackNameRE);
+        const match = audioFileName.match(matcher);
         if (match[3]) {
             take = Number(match[3]) + this.offset;
         }
 
         return take < 0 ? 1 : take;
+    }
+
+    getRE() {
+        if (this.trackName.trim() === '') {
+            return new RegExp(
+                `([^\.]+)(\.?([0-9]+))?(_([0-9]+)\.wav)`
+            );
+        }
+        else {
+            const trackNameEscaped = escapeRegex(this.trackName);
+            return new RegExp(
+                `(${trackNameEscaped})(\.?([0-9]+))?(_([0-9]+)\.wav)`
+            );
+        }
     }
 
     watchTrackName(trackName) {
@@ -70,18 +82,6 @@ export class FileWatcher extends EventTarget {
 
                 if (this.audioFilePath === '') {
                     return;
-                }
-
-                if (this.trackName.trim() === '') {
-                    this.trackNameRE = new RegExp(
-                        `([^\.]+)(\.?([0-9]+))?(_[0-9]+\.wav)`
-                    );
-                }
-                else {
-                    const trackNameEscaped = escapeRegex(trackName);
-                    this.trackNameRE = new RegExp(
-                        `(${trackNameEscaped})(\.?([0-9]+))?(_[0-9]+\.wav)`
-                    );
                 }
 
                 this.watchAbort = new AbortController();
@@ -128,7 +128,7 @@ export class FileWatcher extends EventTarget {
         }
 
         const filename = changeEvent.filename;
-        const take = this.#parseTake(filename);
+        const take = this.parseTake(filename);
         if (take === false) {
             return;
         }
@@ -168,5 +168,29 @@ export class FileWatcher extends EventTarget {
             .then(() => {
                 return this.watchTrackName(this.trackName);
             })
+    }
+}
+
+export class TrackWatcher extends PlaylistWatcher {
+    constructor(audioFilePath) {
+        super(audioFilePath);
+        this.offset = 0;
+    }
+
+    parseTake(audioFileName) {
+        const matcher = this.getRE();
+        
+        if (!matcher.test(audioFileName)) {
+            return false;
+        }
+
+        let take = this.offset;
+
+        const match = audioFileName.match(matcher);
+        if (match[5]) {
+            take = Number(match[5]) + this.offset;
+        }
+
+        return take < 0 ? 1 : take;
     }
 }
