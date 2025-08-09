@@ -26,14 +26,14 @@ export function FileWatcherSettings() {
         return undefined;
     }
 
-    const trackModeSettings = 
+    const clipModeSettings = 
         <>
-            <DropdownItem name='Track to watch'
+            <DropdownItem name='Tracks to watch'
                           value={ fileWatcherSubMode }
                           onChange={ handleSetSubMode }
                           options={[
-                              { name: 'All tracks', value: 'all' },
-                              { name: 'Specific track', value: 'specific' },
+                              { name: 'Any Track', value: 'all' },
+                              { name: 'Specific Track', value: 'specific' },
                           ]}/>
             {
                 fileWatcherSubMode === 'specific' ?
@@ -47,16 +47,16 @@ export function FileWatcherSettings() {
 
     const playlistModeSettings = 
         <>
-            <DropdownItem name='Playlist to watch'
+            <DropdownItem name='Playlists to watch'
                           value={ fileWatcherSubMode }
                           onChange={ handleSetSubMode }
                           options={[
-                              { name: 'All playlists', value: 'all' },
-                              { name: 'Specific playlist', value: 'specific' },
+                              { name: 'Any Track Playlists', value: 'all' },
+                              { name: 'Specific Track Playlists', value: 'specific' },
                           ]}/>
             {
                 fileWatcherSubMode === 'specific' ?
-                <TextItem name='Playlist name'
+                <TextItem name='Track name'
                           value={ trackName }
                           onChange={ setTrackName }> 
                 </TextItem>
@@ -69,26 +69,26 @@ export function FileWatcherSettings() {
             <h4 className='row border-bottom mt-3'>
                 Pro Tools File Watcher
             </h4>
-            <PathItem name='Audio files path'
+            <PathItem name='Audio Files folder path'
                         value={ audioFilesPath }
                         onChange={ setAudioFilesPath }/>
-            <IntegerItem name='Take offset'
-                         value={ offset }
-                         onChange={ setOffset }>
-                Add or subtract from the automatic take value.
-            </IntegerItem>
-            <DropdownItem name='What to watch'
+            <DropdownItem name='Take Count follows'
                           value={ fileWatcherMode }
                           onChange={ setFileWatcherMode }
                           options={[
-                              { name: 'Track', value: 'track' },
-                              { name: 'Playlist(s)', value: 'playlist' },
+                              { name: 'Clip Number', value: 'clip' },
+                              { name: 'Playlist Number', value: 'playlist' },
                           ]}/>
             {
                 fileWatcherMode === 'playlist' ?
                 playlistModeSettings 
-                : trackModeSettings
+                : clipModeSettings
             }
+            <IntegerItem name='Take Count offset'
+                         value={ offset }
+                         onChange={ setOffset }>
+                Offset adjusts the automatic take value up or down.
+            </IntegerItem>
         </div>
     );
 }

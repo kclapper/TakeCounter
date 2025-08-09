@@ -167,7 +167,7 @@ export class PlaylistWatcher extends EventTarget {
     }
 }
 
-export class TrackWatcher extends PlaylistWatcher {
+export class ClipWatcher extends PlaylistWatcher {
     constructor(audioFilePath) {
         super(audioFilePath);
         this.offset = 0;

@@ -270,6 +270,13 @@ exports[`Matches snapshot 1`] = `
       <div
         style="flex-grow: 1;"
       />
+      <div>
+        <p
+          class="text-info fw-bold"
+        >
+          manual mode
+        </p>
+      </div>
     </div>
   </div>
 </DocumentFragment>

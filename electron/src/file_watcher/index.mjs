@@ -1,5 +1,5 @@
 import { settingsEmitter } from "../settings.cjs";
-import { PlaylistWatcher, TrackWatcher } from "./file_watcher.mjs";
+import { PlaylistWatcher, ClipWatcher } from "./file_watcher.mjs";
 
 let audioFilesPath;
 let trackName;
@@ -61,7 +61,7 @@ async function getWatcher(fileWatcherMode) {
     let watcher;
 
     if (fileWatcherMode === 'track') {
-        watcher = new TrackWatcher('');
+        watcher = new ClipWatcher('');
     } else {
         watcher = new PlaylistWatcher('');
     }
