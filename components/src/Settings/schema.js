@@ -14,11 +14,11 @@ export const defaultSettings = {
     trackName: '',
     audioFilesPath: ''
   },
-  TakeDisplaySettings: {
-   takeTextPrefix: 'Take',
-   showTakePrefix: true,
-   showTakeButtons: true,
-   },
+  takeDisplaySettings: {
+    takeTextPrefix: 'Take',
+    showTakePrefix: true,
+    showTakeButtons: true,
+  },
 };
 
 export function settingsAreValid(settings, schema = defaultSettings) {
