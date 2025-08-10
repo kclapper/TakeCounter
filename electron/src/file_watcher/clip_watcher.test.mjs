@@ -3,7 +3,7 @@ import { test as jestTest, expect } from '@jest/globals';
 import withLocalTmpDir from 'with-local-tmp-dir';
 import outputFiles from 'output-files';
 
-import { TrackWatcher } from './file_watcher';
+import { ClipWatcher } from './file_watcher';
 
 const test = process.env.CI ? jestTest.skip : jestTest;
 
@@ -13,7 +13,7 @@ test('get current take', () => withLocalTmpDir(async () => {
             'whatever.txt': `Some file to create the Audio Files folder`
         }
     });
-    const watcher = new TrackWatcher('Audio Files');
+    const watcher = new ClipWatcher('Audio Files');
 
     expect(watcher.currentTake)
         .toEqual(0);

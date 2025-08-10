@@ -175,6 +175,93 @@ exports[`Matches snapshot 1`] = `
                 </div>
               </div>
             </div>
+            <div>
+              <h4
+                class="row border-bottom mt-3"
+              >
+                Take Display
+              </h4>
+              <div
+                class="row mb-2"
+              >
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <h5
+                    class="my-0"
+                  >
+                    Take Display Prefix
+                  </h5>
+                </div>
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <div
+                    class="border rounded p-1"
+                    contenteditable="true"
+                    style="outline: none; min-width: 20%;"
+                  />
+                </div>
+              </div>
+              <div
+                class="row mb-2"
+              >
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <h5
+                    class="my-0"
+                  >
+                    Show Take Prefix
+                  </h5>
+                </div>
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <div
+                    class="form-check form-switch form-check-reverse me-2"
+                  >
+                    <input
+                      checked=""
+                      class="form-check-input"
+                      id="flexSwitchCheckReverse"
+                      role="switch"
+                      style="transform: scale(1.5);"
+                      type="checkbox"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="row mb-2"
+              >
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <h5
+                    class="my-0"
+                  >
+                    Show Take Buttons
+                  </h5>
+                </div>
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <div
+                    class="form-check form-switch form-check-reverse me-2"
+                  >
+                    <input
+                      checked=""
+                      class="form-check-input"
+                      id="flexSwitchCheckReverse"
+                      role="switch"
+                      style="transform: scale(1.5);"
+                      type="checkbox"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
             <div
               class="row justify-content-start border-top mt-3 pt-2"
             >
@@ -270,6 +357,13 @@ exports[`Matches snapshot 1`] = `
       <div
         style="flex-grow: 1;"
       />
+      <div>
+        <p
+          class="text-info fw-bold"
+        >
+          manual  mode
+        </p>
+      </div>
     </div>
   </div>
 </DocumentFragment>

@@ -6,6 +6,7 @@ import { FileWatcherSettings } from './FileWatcherSettings';
 import { KeyboardShortcutSettings } from './KeyboardShortcutSettings';
 import { WindowSettings } from './WindowSettings';
 import { CounterSettings } from './CounterSettings';
+import { TakeDisplaySettings } from './TakeDisplaySettings';
 import { ResetDefaults } from './ResetDefaults';
 
 export default function Menu() {
@@ -25,6 +26,7 @@ export default function Menu() {
               <FileWatcherSettings />
               <WindowSettings />
               <KeyboardShortcutSettings />
+              <TakeDisplaySettings />
               <ResetDefaults />
              </div>
            </div>

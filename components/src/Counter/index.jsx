@@ -20,6 +20,12 @@ function Counter() {
     window.counter.handleSetCount(setTake);
   }
 
+  const [takeTextPrefix] = useSetting('takeDisplaySettings', 'takeTextPrefix');
+  const [showTakePrefix] = useSetting('takeDisplaySettings', 'showTakePrefix');
+  const [showTakeButtons] = useSetting('takeDisplaySettings', 'showTakeButtons');
+  const [fileWatcherMode] = useSetting('ptFileWatcherMode', 'mode');
+  const [counterMode] = useSetting('counterMode');
+
   const incrementCount = useCallback(() => {
     setTake(take + 1);
   }, [take, setTake]);
@@ -40,32 +46,45 @@ function Counter() {
   useShortcut(decrementCount, shortcuts.decrementCount, "counter.handleDecrement");
   useShortcut(resetTake, shortcuts.resetCount, "counter.handleReset");
 
+  const buttons = <>
+                    <Button onClick={decrementCount}
+                            tooltip={shortcuts.decrementCount}
+                            tooltipPlacement="bottom">
+                      -
+                    </Button>
+                    <Button onClick={resetTake}
+                            tooltip={shortcuts.resetTake}
+                            tooltipPlacement="bottom">
+                      reset
+                    </Button>
+                    <Button onClick={incrementCount}
+                            tooltip={shortcuts.incrementCount}
+                            tooltipPlacement="bottom">
+                      +
+                    </Button>
+                  </>
+
   return <div className='d-flex flex-column align-items-center justify-content-center' style={{ flexGrow: 1 }}>
            <div style={{ flexGrow: 0.75 }}/>
-           <div className="d-flex">
-             <h1 className="display-1 me-4 me-md-5">
-               Take
-             </h1>
+           <div className="d-flex"> 
+              {
+                showTakePrefix ?
+                <h1 className="display-1 me-4 me-md-5">
+                  {takeTextPrefix}
+                </h1>         
+                : undefined
+              }
              <TakeInputDisplay take={ take } onInput={ setTake } />
            </div>
            <div className='' style={{ flexGrow: 0 }}>
-             <Button onClick={ decrementCount }
-                     tooltip={ shortcuts.decrementCount }
-                     tooltipPlacement="bottom">
-               -
-             </Button>
-             <Button onClick={ resetTake }
-                     tooltip={ shortcuts.resetTake }
-                     tooltipPlacement="bottom">
-               reset
-             </Button>
-             <Button onClick={ incrementCount }
-                     tooltip={ shortcuts.incrementCount }
-                     tooltipPlacement="bottom">
-               +
-             </Button>
-           </div>
-           <div style={{ flexGrow: 1 }}/>
+              {showTakeButtons && buttons}
+            </div>
+            <div style={{ flexGrow: 1 }}/>
+            <div>
+              <p className='text-info fw-bold'>
+                {counterMode} {counterMode == "ptFileWatcher" && fileWatcherMode} mode
+              </p>
+            </div>
          </div>
 }
 

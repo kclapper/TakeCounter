@@ -5,7 +5,7 @@ export const defaultSettings = {
     decrementCount: "Alt+Shift+-",
     resetCount: "Alt+Shift+0"
   },
-  alwaysOnTop: false,
+  alwaysOnTop: true,
   counterMode: 'manual', /* manual, ptFileWatcher */
   ptFileWatcherMode: {
     mode: 'track', /* track, playlist */
@@ -13,7 +13,12 @@ export const defaultSettings = {
     offset: 0,
     trackName: '',
     audioFilesPath: ''
-  }
+  },
+  takeDisplaySettings: {
+    takeTextPrefix: 'Take',
+    showTakePrefix: true,
+    showTakeButtons: true,
+  },
 };
 
 export function settingsAreValid(settings, schema = defaultSettings) {
