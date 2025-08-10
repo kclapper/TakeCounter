@@ -62,7 +62,7 @@ function Counter() {
                             tooltipPlacement="bottom">
                       +
                     </Button>
-  </>
+                  </>
 
   return <div className='d-flex flex-column align-items-center justify-content-center' style={{ flexGrow: 1 }}>
            <div style={{ flexGrow: 0.75 }}/>
