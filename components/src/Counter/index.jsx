@@ -47,21 +47,21 @@ function Counter() {
   useShortcut(resetTake, shortcuts.resetCount, "counter.handleReset");
 
   const buttons = <>
-                <Button onClick={decrementCount}
-                      tooltip={shortcuts.decrementCount}
-                      tooltipPlacement="bottom">
-                -
-              </Button>
-              <Button onClick={resetTake}
-                      tooltip={shortcuts.resetTake}
-                      tooltipPlacement="bottom">
-                reset
-              </Button>
-              <Button onClick={incrementCount}
-                      tooltip={shortcuts.incrementCount}
-                      tooltipPlacement="bottom">
-                +
-              </Button>
+                    <Button onClick={decrementCount}
+                            tooltip={shortcuts.decrementCount}
+                            tooltipPlacement="bottom">
+                      -
+                    </Button>
+                    <Button onClick={resetTake}
+                            tooltip={shortcuts.resetTake}
+                            tooltipPlacement="bottom">
+                      reset
+                    </Button>
+                    <Button onClick={incrementCount}
+                            tooltip={shortcuts.incrementCount}
+                            tooltipPlacement="bottom">
+                      +
+                    </Button>
   </>
 
   return <div className='d-flex flex-column align-items-center justify-content-center' style={{ flexGrow: 1 }}>
