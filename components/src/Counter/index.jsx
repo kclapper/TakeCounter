@@ -66,10 +66,11 @@ function Counter() {
 
   return <div className='d-flex flex-column align-items-center justify-content-center' style={{ flexGrow: 1 }}>
            <div style={{ flexGrow: 0.75 }}/>
-           <div className="d-flex"> {
+           <div className="d-flex"> 
+              {
                 showTakePrefix ?
                 <h1 className="display-1 me-4 me-md-5">
-                {takeTextPrefix}
+                  {takeTextPrefix}
                 </h1>         
                 : undefined
               }
