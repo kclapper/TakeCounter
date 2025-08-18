@@ -6,6 +6,7 @@ export const defaultSettings = {
     resetCount: "Alt+Shift+0"
   },
   alwaysOnTop: true,
+  showDetailsBox: true,
   counterMode: 'manual', /* manual, ptFileWatcher */
   ptFileWatcherMode: {
     mode: 'track', /* track, playlist */
