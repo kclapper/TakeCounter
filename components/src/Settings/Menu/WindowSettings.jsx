@@ -5,6 +5,7 @@ import { BooleanItem } from '../Items';
 
 export function WindowSettings() {
     const [alwaysOnTop, setAlwaysOnTop] = useSetting('alwaysOnTop');
+    const [showDetailsBox, setShowDetailsBox] = useSetting('showDetailsBox');
 
     if (window.settings === undefined) {
         return undefined;
@@ -18,6 +19,9 @@ export function WindowSettings() {
         <BooleanItem name='Always on top'
                      value={ alwaysOnTop }
                      onChange={ setAlwaysOnTop }/>
+        <BooleanItem name='Show details box'
+                     value={ showDetailsBox }
+                     onChange={ setShowDetailsBox }/>
         </div>
     );
 }
