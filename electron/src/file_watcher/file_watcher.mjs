@@ -1,4 +1,5 @@
-import { watch } from 'node:fs/promises';
+import { watch, opendir } from 'node:fs/promises';
+import path from 'node:path';
 
 class TakeEvent extends Event {
     constructor(take) {
@@ -22,6 +23,17 @@ export class PlaylistWatcher extends EventTarget {
         this.isWatching = false;
         this.trackName = '';
         this.offset = 1;
+
+        this.#setUpResultPromise();
+    }
+
+    #setUpResultPromise() {
+        this.resultPromise = new Promise((resolve, reject) => {
+            this.resolveResultPromise = () => {
+                this.#setUpResultPromise();
+                resolve();
+            };
+        });
     }
 
     setOffset(offset) {
@@ -77,7 +89,7 @@ export class PlaylistWatcher extends EventTarget {
 
     watchTrackName(trackName) {
         return this.stopWatching()
-            .then(() => {
+            .then(async () => {
                 this.trackName = trackName;
 
                 if (this.audioFilePath === '') {
@@ -85,31 +97,66 @@ export class PlaylistWatcher extends EventTarget {
                 }
 
                 this.watchAbort = new AbortController();
-                this.watchGenerator = watch(
-                    this.audioFilePath, 
-                    {  
-                        signal: this.watchAbort.signal 
-                    }
-                );
+                this.watchGenerators = [];
+
+                await this.#watchFolder(this.audioFilePath);
 
                 this.isWatching = true;
                 this.#nextWatchResult();
             });
     }
 
+    async #watchFolder(folder)
+    {
+        console.log("Watch folder");
+        const generator = watch(
+            folder,
+            {
+                signal: this.watchAbort.signal
+            }
+        )
+        this.watchGenerators.push(generator);
+
+        await this.#watchChildFolders(folder);
+
+        return generator;
+    }
+
+    async #watchChildFolders(folder) {
+        let dir;
+        try {
+            dir = await opendir(folder);
+        } catch {
+            console.error("Failed to open folder");
+        }
+
+        for await (const child of dir) {
+            if (!child.isDirectory()) {
+                continue;
+            }
+
+            const childPath = path.resolve(folder, child.name);
+            await this.#watchFolder(childPath);
+        }
+    }
+
     #nextWatchResult() {
-        this.currentWatchPromise = this.watchGenerator
-            .next()
-            .then((watchIteratorResult) => {
-                this.#handleWatchIteratorResult(watchIteratorResult);
-            })
-            .catch((err) => {
-                if (err.name == 'AbortError') {
-                    this.isWatching = false;
-                    return;
-                }
-                throw err;
-            });
+        for (const generator of this.watchGenerators) {
+            generator
+                .next()
+                .then((watchIteratorResult) => {
+                    this.#handleWatchIteratorResult(watchIteratorResult);
+                    this.resolveResultPromise();
+                })
+                .catch((err) => {
+                    if (err.name == 'AbortError') {
+                        this.isWatching = false;
+                        this.resolveResultPromise();
+                        return;
+                    }
+                    throw err;
+                });
+        }
     }
 
     #handleWatchIteratorResult(watchIteratorResult) {
@@ -149,12 +196,7 @@ export class PlaylistWatcher extends EventTarget {
             return Promise.resolve();
         }
 
-        return new Promise((resolve) => {
-            this.currentWatchPromise
-                .then(() => {
-                    resolve();
-                });
-        });
+        return this.resultPromise;
     }
 
     changeAudioFilesPath(directory) {
