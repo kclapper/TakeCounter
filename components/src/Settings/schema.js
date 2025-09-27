@@ -9,7 +9,7 @@ export const defaultSettings = {
   showDetailsBox: true,
   counterMode: 'manual', /* manual, ptFileWatcher */
   ptFileWatcherMode: {
-    mode: 'track', /* track, playlist */
+    mode: 'clip', /* clip, playlist */
     subMode: 'all', /* all, specific */
     offset: 0,
     trackName: '',
