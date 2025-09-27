@@ -24,16 +24,18 @@ export class PlaylistWatcher extends EventTarget {
         this.trackName = '';
         this.offset = 1;
 
-        this.#setUpResultPromise();
+        this.#setUpNextUpdatePromise();
     }
 
-    #setUpResultPromise() {
-        this.resultPromise = new Promise((resolve, reject) => {
-            this.resolveResultPromise = () => {
-                this.#setUpResultPromise();
-                resolve();
-            };
+    #setUpNextUpdatePromise() {
+        this.nextUpdatePromise = new Promise((resolve, reject) => {
+            this.nextUpdatePromiseResolveCallback = resolve;
         });
+    }
+
+    #resolveNextUpdate() {
+        this.nextUpdatePromiseResolveCallback();
+        this.#setUpNextUpdatePromise();
     }
 
     setOffset(offset) {
@@ -48,6 +50,7 @@ export class PlaylistWatcher extends EventTarget {
             return 0;
         }
 
+        console.log(`lastAudioFile from getter: ${this.lastAudioFile}`);
         const lastTake = this.parseTake(this.lastAudioFile);
         if (lastTake === false) {
             return 0;
@@ -108,7 +111,6 @@ export class PlaylistWatcher extends EventTarget {
 
     async #watchFolder(folder)
     {
-        console.log("Watch folder");
         const generator = watch(
             folder,
             {
@@ -146,12 +148,12 @@ export class PlaylistWatcher extends EventTarget {
                 .next()
                 .then((watchIteratorResult) => {
                     this.#handleWatchIteratorResult(watchIteratorResult);
-                    this.resolveResultPromise();
+                    this.#resolveNextUpdate();
                 })
                 .catch((err) => {
                     if (err.name == 'AbortError') {
                         this.isWatching = false;
-                        this.resolveResultPromise();
+                        this.#resolveNextUpdate();
                         return;
                     }
                     throw err;
@@ -175,12 +177,14 @@ export class PlaylistWatcher extends EventTarget {
         }
 
         const filename = changeEvent.filename;
+        console.log(filename);
         const take = this.parseTake(filename);
         if (take === false) {
             return;
         }
 
         this.lastAudioFile = filename;
+        console.log(`Changed lastAudioFile to ${filename}`);
         this.dispatchEvent(new TakeEvent(take));
     }
 
@@ -196,7 +200,7 @@ export class PlaylistWatcher extends EventTarget {
             return Promise.resolve();
         }
 
-        return this.resultPromise;
+        return this.nextUpdatePromise;
     }
 
     changeAudioFilesPath(directory) {
