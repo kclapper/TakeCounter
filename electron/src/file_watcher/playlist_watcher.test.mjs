@@ -341,3 +341,37 @@ test('watch subfolders', () => withLocalTmpDir(async () => {
 
     await watcher.stopWatching();
 }));
+
+test('handle .wav and .aif files', () => withLocalTmpDir(async () => {
+    await outputFiles({
+        'Audio Files': {
+            'whatever.txt': `Some file to create the Audio Files folder`
+        }
+    });
+    const watcher = new PlaylistWatcher('Audio Files');
+
+    await watcher.watchTrackName('Audio 1');
+    await watcher.nextUpdate();
+
+    await outputFiles({
+        'Audio Files': {
+            'Audio 1_01.wav': ``
+        }
+    });
+    await watcher.nextUpdate();
+
+    expect(watcher.currentTake)
+        .toEqual(1);
+
+    await outputFiles({
+        'Audio Files': {
+            'Audio 1.01_01.aif': ``
+        }
+    });
+    await watcher.nextUpdate();
+
+    expect(watcher.currentTake)
+        .toEqual(2);
+
+    await watcher.stopWatching();
+}));

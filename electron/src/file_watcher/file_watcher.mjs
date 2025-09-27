@@ -78,13 +78,13 @@ export class PlaylistWatcher extends EventTarget {
     getRE() {
         if (this.trackName.trim() === '') {
             return new RegExp(
-                `([^\.]+)(\.?([0-9]+))?(_([0-9]+)\.wav)`
+                `([^\.]+)(\.?([0-9]+))?(_([0-9]+)\.(wav|aif))`
             );
         }
         else {
             const trackNameEscaped = escapeRegex(this.trackName);
             return new RegExp(
-                `(${trackNameEscaped})(\.?([0-9]+))?(_([0-9]+)\.wav)`
+                `(${trackNameEscaped})(\.?([0-9]+))?(_([0-9]+)\.(wav|aif))`
             );
         }
     }
