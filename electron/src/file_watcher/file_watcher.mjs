@@ -1,4 +1,5 @@
-import { watch } from 'node:fs/promises';
+import { watch, opendir } from 'node:fs/promises';
+import path from 'node:path';
 
 class TakeEvent extends Event {
     constructor(take) {
@@ -22,6 +23,19 @@ export class PlaylistWatcher extends EventTarget {
         this.isWatching = false;
         this.trackName = '';
         this.offset = 1;
+
+        this.#setUpNextUpdatePromise();
+    }
+
+    #setUpNextUpdatePromise() {
+        this.nextUpdatePromise = new Promise((resolve) => {
+            this.nextUpdatePromiseResolveCallback = resolve;
+        });
+    }
+
+    #resolveNextUpdate() {
+        this.nextUpdatePromiseResolveCallback();
+        this.#setUpNextUpdatePromise();
     }
 
     setOffset(offset) {
@@ -64,20 +78,20 @@ export class PlaylistWatcher extends EventTarget {
     getRE() {
         if (this.trackName.trim() === '') {
             return new RegExp(
-                `([^\.]+)(\.?([0-9]+))?(_([0-9]+)\.wav)`
+                `([^\.]+)(\.?([0-9]+))?(_([0-9]+)\.(wav|aif))`
             );
         }
         else {
             const trackNameEscaped = escapeRegex(this.trackName);
             return new RegExp(
-                `(${trackNameEscaped})(\.?([0-9]+))?(_([0-9]+)\.wav)`
+                `(${trackNameEscaped})(\.?([0-9]+))?(_([0-9]+)\.(wav|aif))`
             );
         }
     }
 
     watchTrackName(trackName) {
         return this.stopWatching()
-            .then(() => {
+            .then(async () => {
                 this.trackName = trackName;
 
                 if (this.audioFilePath === '') {
@@ -85,31 +99,65 @@ export class PlaylistWatcher extends EventTarget {
                 }
 
                 this.watchAbort = new AbortController();
-                this.watchGenerator = watch(
-                    this.audioFilePath, 
-                    {  
-                        signal: this.watchAbort.signal 
-                    }
-                );
+                this.watchGenerators = [];
+
+                await this.#watchFolder(this.audioFilePath);
 
                 this.isWatching = true;
                 this.#nextWatchResult();
             });
     }
 
+    async #watchFolder(folder)
+    {
+        const generator = watch(
+            folder,
+            {
+                signal: this.watchAbort.signal
+            }
+        )
+        this.watchGenerators.push(generator);
+
+        await this.#watchChildFolders(folder);
+
+        return generator;
+    }
+
+    async #watchChildFolders(folder) {
+        let dir;
+        try {
+            dir = await opendir(folder);
+        } catch {
+            console.error("Failed to open folder");
+        }
+
+        for await (const child of dir) {
+            if (!child.isDirectory()) {
+                continue;
+            }
+
+            const childPath = path.resolve(folder, child.name);
+            await this.#watchFolder(childPath);
+        }
+    }
+
     #nextWatchResult() {
-        this.currentWatchPromise = this.watchGenerator
-            .next()
-            .then((watchIteratorResult) => {
-                this.#handleWatchIteratorResult(watchIteratorResult);
-            })
-            .catch((err) => {
-                if (err.name == 'AbortError') {
-                    this.isWatching = false;
-                    return;
-                }
-                throw err;
-            });
+        for (const generator of this.watchGenerators) {
+            generator
+                .next()
+                .then((watchIteratorResult) => {
+                    this.#handleWatchIteratorResult(watchIteratorResult);
+                    this.#resolveNextUpdate();
+                })
+                .catch((err) => {
+                    if (err.name == 'AbortError') {
+                        this.isWatching = false;
+                        this.#resolveNextUpdate();
+                        return;
+                    }
+                    throw err;
+                });
+        }
     }
 
     #handleWatchIteratorResult(watchIteratorResult) {
@@ -128,6 +176,7 @@ export class PlaylistWatcher extends EventTarget {
         }
 
         const filename = changeEvent.filename;
+        console.log(filename);
         const take = this.parseTake(filename);
         if (take === false) {
             return;
@@ -149,12 +198,7 @@ export class PlaylistWatcher extends EventTarget {
             return Promise.resolve();
         }
 
-        return new Promise((resolve) => {
-            this.currentWatchPromise
-                .then(() => {
-                    resolve();
-                });
-        });
+        return this.nextUpdatePromise;
     }
 
     changeAudioFilesPath(directory) {

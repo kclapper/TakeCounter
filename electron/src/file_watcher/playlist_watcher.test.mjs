@@ -43,43 +43,6 @@ test('start and stop watcher', () => withLocalTmpDir(async () => {
     expect(watcher.isWatching).toBe(false);
 }));
 
-test('get current take', () => withLocalTmpDir(async () => {
-    await outputFiles({
-        'Audio Files': {
-            'whatever.txt': `Some file to create the Audio Files folder`
-        }
-    });
-    const watcher = new PlaylistWatcher('Audio Files');
-
-    expect(watcher.currentTake)
-        .toEqual(0);
-
-    await watcher.watchTrackName('Audio 1');
-    await watcher.nextUpdate();
-
-    await outputFiles({
-        'Audio Files': {
-            'Audio 1_01.wav': ``
-        }
-    });
-
-    await watcher.nextUpdate();
-    expect(watcher.currentTake)
-        .toEqual(1);
-
-    await outputFiles({
-        'Audio Files': {
-            'Audio 1.01_01.wav': ``
-        }
-    });
-
-    await watcher.nextUpdate();
-    expect(watcher.currentTake)
-        .toEqual(2);
-
-    await watcher.stopWatching();
-}));
-
 test('change track to watch', () => withLocalTmpDir(async () => {
     await outputFiles({
         'Audio Files': {
@@ -326,6 +289,89 @@ test('change offset', () => withLocalTmpDir(async () => {
 
     expect(watcher.currentTake)
         .toEqual(3);
+
+    await watcher.stopWatching();
+}));
+
+test('watch subfolders', () => withLocalTmpDir(async () => {
+    await outputFiles({
+        'parent folder': {
+            'Audio Files': {
+                'whatever.txt': `Some file to create the Audio Files folder`
+            },
+            'Other Audio Files': {
+                'whatever.txt': `Some file to create the Audio Files folder`
+            },
+        }
+    });
+    const watcher = new PlaylistWatcher('parent folder');
+
+    expect(watcher.currentTake)
+        .toEqual(0);
+
+    await watcher.watchTrackName('Audio 1');
+    await watcher.nextUpdate();
+    await watcher.nextUpdate();
+    await watcher.nextUpdate();
+    await watcher.nextUpdate();
+
+    await outputFiles({
+        'parent folder': {
+            'Audio Files': {
+                'Audio 1_01.wav': ``
+            }
+        }
+    });
+
+    await watcher.nextUpdate();
+    expect(watcher.currentTake)
+        .toEqual(1);
+
+    await outputFiles({
+        'parent folder': {
+            'Other Audio Files': {
+                'Audio 1.01_01.wav': ``
+            }
+        }
+    });
+
+    await watcher.nextUpdate();
+    expect(watcher.currentTake)
+        .toEqual(2);
+
+    await watcher.stopWatching();
+}));
+
+test('handle .wav and .aif files', () => withLocalTmpDir(async () => {
+    await outputFiles({
+        'Audio Files': {
+            'whatever.txt': `Some file to create the Audio Files folder`
+        }
+    });
+    const watcher = new PlaylistWatcher('Audio Files');
+
+    await watcher.watchTrackName('Audio 1');
+    await watcher.nextUpdate();
+
+    await outputFiles({
+        'Audio Files': {
+            'Audio 1_01.wav': ``
+        }
+    });
+    await watcher.nextUpdate();
+
+    expect(watcher.currentTake)
+        .toEqual(1);
+
+    await outputFiles({
+        'Audio Files': {
+            'Audio 1.01_01.aif': ``
+        }
+    });
+    await watcher.nextUpdate();
+
+    expect(watcher.currentTake)
+        .toEqual(2);
 
     await watcher.stopWatching();
 }));
