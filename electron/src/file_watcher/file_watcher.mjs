@@ -28,7 +28,7 @@ export class PlaylistWatcher extends EventTarget {
     }
 
     #setUpNextUpdatePromise() {
-        this.nextUpdatePromise = new Promise((resolve, reject) => {
+        this.nextUpdatePromise = new Promise((resolve) => {
             this.nextUpdatePromiseResolveCallback = resolve;
         });
     }
@@ -50,7 +50,6 @@ export class PlaylistWatcher extends EventTarget {
             return 0;
         }
 
-        console.log(`lastAudioFile from getter: ${this.lastAudioFile}`);
         const lastTake = this.parseTake(this.lastAudioFile);
         if (lastTake === false) {
             return 0;
@@ -184,7 +183,6 @@ export class PlaylistWatcher extends EventTarget {
         }
 
         this.lastAudioFile = filename;
-        console.log(`Changed lastAudioFile to ${filename}`);
         this.dispatchEvent(new TakeEvent(take));
     }
 
