@@ -7,6 +7,7 @@ import { useSetting } from '../Settings';
 
 import Button from '../Button';
 import TakeInputDisplay from './TakeInputDisplay';
+import ModeIndicator from './ModeIndicator';
 
 function Counter() {
   const [take, setRawTake] = useSetting('currentTake');
@@ -80,11 +81,7 @@ function Counter() {
               {showTakeButtons && buttons}
             </div>
             <div style={{ flexGrow: 1 }}/>
-            <div>
-              <p className='text-info fw-bold'>
-                {counterMode} {counterMode == "ptFileWatcher" && fileWatcherMode} mode
-              </p>
-            </div>
+            <ModeIndicator />
          </div>
 }
 
