@@ -24,8 +24,6 @@ function Counter() {
   const [takeTextPrefix] = useSetting('takeDisplaySettings', 'takeTextPrefix');
   const [showTakePrefix] = useSetting('takeDisplaySettings', 'showTakePrefix');
   const [showTakeButtons] = useSetting('takeDisplaySettings', 'showTakeButtons');
-  const [fileWatcherMode] = useSetting('ptFileWatcherMode', 'mode');
-  const [counterMode] = useSetting('counterMode');
 
   const incrementCount = useCallback(() => {
     setTake(take + 1);
