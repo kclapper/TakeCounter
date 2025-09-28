@@ -38,8 +38,8 @@ export function FileWatcherSettings() {
             {
                 fileWatcherSubMode === 'specific' ?
                 <TextItem name='Track name'
-                            value={ trackName }
-                            onChange={ setTrackName }> 
+                          value={ trackName }
+                          onChange={ setTrackName }> 
                 </TextItem>
                 : undefined
             }
@@ -70,8 +70,8 @@ export function FileWatcherSettings() {
                 Pro Tools File Watcher
             </h4>
             <PathItem name='Audio Files folder path'
-                        value={ audioFilesPath }
-                        onChange={ setAudioFilesPath }/>
+                      value={ audioFilesPath }
+                      onChange={ setAudioFilesPath }/>
             <DropdownItem name='Take Count follows'
                           value={ fileWatcherMode }
                           onChange={ setFileWatcherMode }

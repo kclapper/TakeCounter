@@ -176,7 +176,6 @@ export class PlaylistWatcher extends EventTarget {
         }
 
         const filename = changeEvent.filename;
-        console.log(filename);
         const take = this.parseTake(filename);
         if (take === false) {
             return;

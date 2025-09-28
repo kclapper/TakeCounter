@@ -9,7 +9,6 @@ import { Item } from './Item';
 const newShortcut = new Set();
 
 function keyIsInvalid(key) {
-  console.log(key);
   switch (key) {
     case 'Escape':
     case 'Enter':
@@ -21,7 +20,7 @@ function keyIsInvalid(key) {
   }
 }
 
-export function KeyItem({ name, value, onChange, children }) {
+export function KeyItem({ name, value, onChange, showReset=false, resetValue=false, children }) {
   const [ reading, setReading ] = useState(false);
   const [ display, setDisplay ] = useState(value);
 
@@ -63,14 +62,40 @@ export function KeyItem({ name, value, onChange, children }) {
     setDisplay(value);
   }, [setReading, onChange, setDisplay, value]);
 
+  const handleReset = useCallback(() => {
+    if (!resetValue || !showReset) {
+      return;
+    }
+    onChange(resetValue);
+  }, [onChange, showReset, resetValue]);
+
+  let inputDisplayClassName = 'p-1 ';
+  inputDisplayClassName += showReset ? 'form-control' : 'border rounded';
+
+  let itemContent = (
+    <InputDisplay className={ inputDisplayClassName }
+                  display={ reading ? display : value }
+                  onInput={ () => {} }
+                  onFocus={ handleFocus }
+                  onBlur={ handleBlur }
+                  style={{ minWidth: "20%" }}/>
+  );
+
+  if (showReset) {
+    itemContent = (
+      <div className='input-group'>
+        {itemContent}
+        <div className="btn btn-outline-secondary"
+             onClick={handleReset}>
+          Reset
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Item name={ name } description={ children }>
-      <InputDisplay className='border rounded p-1'
-                    display={ reading ? display : value }
-                    onInput={ () => {} }
-                    onFocus={ handleFocus }
-                    onBlur={ handleBlur }
-                    style={{ minWidth: "20%" }}/>
+      { itemContent }
     </Item>
   );
 };

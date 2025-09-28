@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useSetting } from '..';
+import { defaultSettings } from '../schema';
 
 import { KeyItem } from '../Items';
 
@@ -22,14 +23,20 @@ export function KeyboardShortcutSettings() {
             </p>
 
             <KeyItem name='Increment count'
-                    value={ incrementCountShortcut }
-                    onChange={ setIncrementCountShortcut } />
+                     value={ incrementCountShortcut }
+                     onChange={ setIncrementCountShortcut } 
+                     showReset={ true }
+                     resetValue={ defaultSettings.keyboardShortcuts.incrementCount }/>
             <KeyItem name='Decrement count'
-                    value={ decrementCountShortcut }
-                    onChange={ setDecrementCountShortcut }/>
+                     value={ decrementCountShortcut }
+                     onChange={ setDecrementCountShortcut }
+                     showReset={ true }
+                     resetValue={ defaultSettings.keyboardShortcuts.decrementCount }/>
             <KeyItem name='Reset count'
-                    value={ resetCountShortcut }
-                    onChange={ setResetCountShortcut }/>
+                     value={ resetCountShortcut }
+                     onChange={ setResetCountShortcut }
+                     showReset={ true }
+                     resetValue={ defaultSettings.keyboardShortcuts.resetCount }/>
         </div>
     )
 }

@@ -15,7 +15,7 @@ function validateInput(input, event) {
   return isValid;
 }
 
-export function TextItem({ name, value, onChange, children }) {
+export function TextItem({ name, value, onChange, showReset=false, resetValue="", children }) {
   const [ reading, setReading ] = useState(false);
   const [ display, setDisplay ] = useState(value);
 
@@ -33,15 +33,38 @@ export function TextItem({ name, value, onChange, children }) {
     setDisplay(input);
   }, [setDisplay]);
 
+  const handleReset = useCallback(() => {
+    onChange(resetValue);
+  }, [onChange]);
+
+  let inputDisplayClassName = 'p-1 ';
+  inputDisplayClassName += showReset ? 'form-control' : 'border rounded';
+
+  let itemContent = (
+    <InputDisplay className={ inputDisplayClassName }
+                  display={ reading ? display : value }
+                  onInput={ handleInput }
+                  onFocus={ handleFocus }
+                  onBlur={ handleBlur }
+                  validateInput={ validateInput }
+                  style={{ minWidth: "20%" }}/>
+  );
+
+  if (showReset) {
+    itemContent = (
+      <div className='input-group'>
+        {itemContent}
+        <div className="btn btn-outline-secondary"
+             onClick={handleReset}>
+          Reset
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Item name={ name } description={ children }>
-      <InputDisplay className='border rounded p-1'
-                    display={ reading ? display : value }
-                    onInput={ handleInput }
-                    onFocus={ handleFocus }
-                    onBlur={ handleBlur }
-                    validateInput={ validateInput }
-                    style={{ minWidth: "20%" }}/>
+      {itemContent}
     </Item>
   );
 }
