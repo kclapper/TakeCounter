@@ -15,7 +15,7 @@ function Counter() {
   const [offset, setOffset] = useSetting('ptFileWatcherMode', 'offset');
   const [offsetShortcuts] = useSetting('ptFileWatcherMode', 'offsetShortcuts');
 
-  const setTake = useCallback((newCount) => {
+  const setValue = useCallback((newCount) => {
     if (offsetShortcuts) {
       let value = Number(newCount);
       if (Number.isInteger(value)) {
@@ -38,18 +38,18 @@ function Counter() {
 
   const incrementCount = useCallback(() => {
     let value = offsetShortcuts ? offset : take;
-    setTake(value + 1);
-  }, [take, setTake, offset, offsetShortcuts]);
+    setValue(value + 1);
+  }, [take, setValue, offset, offsetShortcuts]);
 
   const decrementCount = useCallback(() => {
     let value = offsetShortcuts ? offset : take;
-    setTake(value - 1);
-  }, [take, setTake, offset, offsetShortcuts])
+    setValue(value - 1);
+  }, [take, setValue, offset, offsetShortcuts])
 
   const resetTake = useCallback(() => {
     let value = offsetShortcuts ? defaultSettings.ptFileWatcherMode.offset : 1;
-    setTake(value);
-  }, [setTake]);
+    setValue(value);
+  }, [setValue]);
 
   useEffect(() => {
     document.title = "Take " + take;
@@ -89,7 +89,7 @@ function Counter() {
                 </h1>         
                 : undefined
               }
-             <TakeInputDisplay take={ take } onInput={ setTake } />
+             <TakeInputDisplay take={ take } onInput={ setValue } />
            </div>
            <div className='' style={{ flexGrow: 0 }}>
              {showTakeButtons && buttons}
