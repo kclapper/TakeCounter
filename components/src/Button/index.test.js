@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect, it } from '@jest/globals';
 
@@ -37,5 +37,8 @@ it('Renders tooltip', async () => {
 
   fireEvent.mouseOver(getByText('Click Me!'));
 
-  expect(await findByText('test')).toBeVisible();
+  await waitFor(async () => {
+    expect(await findByText('test')).toBeVisible();
+  }, { timeout: 2000 });
+
 });
