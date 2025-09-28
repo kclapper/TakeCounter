@@ -12,11 +12,16 @@ import ModeIndicator from './ModeIndicator';
 
 function Counter() {
   const [take, setRawTake] = useSetting('currentTake');
+  const [mode] = useSetting('counterMode');
   const [offset, setOffset] = useSetting('ptFileWatcherMode', 'offset');
   const [offsetShortcuts] = useSetting('ptFileWatcherMode', 'offsetShortcuts');
 
+  const offsetShortcutsEnabled = useCallback(() => {
+    return mode === "ptFileWatcher" && offsetShortcuts;
+  }, [offsetShortcuts, mode]);
+
   const setValue = useCallback((newCount) => {
-    if (offsetShortcuts) {
+    if (offsetShortcutsEnabled()) {
       let value = Number(newCount);
       if (Number.isInteger(value)) {
         setOffset(value);
@@ -26,7 +31,7 @@ function Counter() {
 
     const validatedNewCount = getValidatedCount(newCount);
     setRawTake(validatedNewCount);
-  }, [setRawTake, setOffset, offsetShortcuts]);
+  }, [setRawTake, setOffset, offsetShortcutsEnabled]);
 
   if (window.counter !== undefined) {
     window.counter.handleSetCount(setRawTake);
@@ -37,19 +42,19 @@ function Counter() {
   const [showTakeButtons] = useSetting('takeDisplaySettings', 'showTakeButtons');
 
   const incrementCount = useCallback(() => {
-    let value = offsetShortcuts ? offset : take;
+    let value = offsetShortcutsEnabled() ? offset : take;
     setValue(value + 1);
-  }, [take, setValue, offset, offsetShortcuts]);
+  }, [take, setValue, offset, offsetShortcutsEnabled]);
 
   const decrementCount = useCallback(() => {
-    let value = offsetShortcuts ? offset : take;
+    let value = offsetShortcutsEnabled() ? offset : take;
     setValue(value - 1);
-  }, [take, setValue, offset, offsetShortcuts])
+  }, [take, setValue, offset, offsetShortcutsEnabled])
 
   const resetTake = useCallback(() => {
-    let value = offsetShortcuts ? defaultSettings.ptFileWatcherMode.offset : 1;
+    let value = offsetShortcutsEnabled() ? defaultSettings.ptFileWatcherMode.offset : 1;
     setValue(value);
-  }, [setValue]);
+  }, [setValue, offsetShortcutsEnabled]);
 
   useEffect(() => {
     document.title = "Take " + take;
@@ -80,7 +85,7 @@ function Counter() {
                   </>
 
   return <div className='d-flex flex-column align-items-center justify-content-center' style={{ flexGrow: 1 }}>
-           <div style={{ flexGrow: 1 }}/>
+           <div style={{ flexGrow: mode === "manual" ? 0.75 : 1 }}/>
            <div className="d-flex"> 
               {
                 showTakePrefix ?
