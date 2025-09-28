@@ -94,7 +94,7 @@ export function FileWatcherSettings() {
             <BooleanItem name='Offset Shortcuts'
                          value={ offsetShortcuts }
                          onChange={ setOffsetShortcuts }>
-                Counter shortcuts change offset instead of count.
+                Counter shortcuts change offset instead of take number.
             </BooleanItem>
             <BooleanItem name='Show offset'
                          value={ showOffset }
