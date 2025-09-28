@@ -334,7 +334,7 @@ exports[`Matches snapshot 1`] = `
       style="flex-grow: 1;"
     >
       <div
-        style="flex-grow: 1;"
+        style="flex-grow: 0.75;"
       />
       <div
         class="d-flex"
