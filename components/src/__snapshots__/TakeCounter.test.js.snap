@@ -124,10 +124,19 @@ exports[`Matches snapshot 1`] = `
                   class="col-6 align-self-center p-0"
                 >
                   <div
-                    class="border rounded p-1"
-                    contenteditable="true"
-                    style="outline: none; min-width: 20%;"
-                  />
+                    class="input-group"
+                  >
+                    <div
+                      class="p-1 form-control"
+                      contenteditable="true"
+                      style="outline: none; min-width: 20%;"
+                    />
+                    <div
+                      class="btn btn-outline-secondary"
+                    >
+                      Reset
+                    </div>
+                  </div>
                 </div>
               </div>
               <div
@@ -146,10 +155,19 @@ exports[`Matches snapshot 1`] = `
                   class="col-6 align-self-center p-0"
                 >
                   <div
-                    class="border rounded p-1"
-                    contenteditable="true"
-                    style="outline: none; min-width: 20%;"
-                  />
+                    class="input-group"
+                  >
+                    <div
+                      class="p-1 form-control"
+                      contenteditable="true"
+                      style="outline: none; min-width: 20%;"
+                    />
+                    <div
+                      class="btn btn-outline-secondary"
+                    >
+                      Reset
+                    </div>
+                  </div>
                 </div>
               </div>
               <div
@@ -168,10 +186,19 @@ exports[`Matches snapshot 1`] = `
                   class="col-6 align-self-center p-0"
                 >
                   <div
-                    class="border rounded p-1"
-                    contenteditable="true"
-                    style="outline: none; min-width: 20%;"
-                  />
+                    class="input-group"
+                  >
+                    <div
+                      class="p-1 form-control"
+                      contenteditable="true"
+                      style="outline: none; min-width: 20%;"
+                    />
+                    <div
+                      class="btn btn-outline-secondary"
+                    >
+                      Reset
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -197,7 +224,7 @@ exports[`Matches snapshot 1`] = `
                   class="col-6 align-self-center p-0"
                 >
                   <div
-                    class="border rounded p-1"
+                    class="p-1 border rounded"
                     contenteditable="true"
                     style="outline: none; min-width: 20%;"
                   />
