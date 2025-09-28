@@ -47,12 +47,12 @@ export class PlaylistWatcher extends EventTarget {
 
     get currentTake() {
         if (!this.lastAudioFile) {
-            return 0;
+            return this.offset < 0 ? 1 : this.offset;
         }
 
         const lastTake = this.parseTake(this.lastAudioFile);
         if (lastTake === false) {
-            return 0;
+            return this.offset < 0 ? 1 : this.offset;
         }
 
         return lastTake;
