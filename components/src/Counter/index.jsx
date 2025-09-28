@@ -4,6 +4,7 @@ import { useEffect, useCallback } from 'react';
 import { getValidatedCount } from '../util';
 import { useShortcut } from '../util/shortcuts';
 import { useSetting } from '../Settings';
+import { defaultSettings } from '../Settings/schema';
 
 import Button from '../Button';
 import TakeInputDisplay from './TakeInputDisplay';
@@ -11,14 +12,24 @@ import ModeIndicator from './ModeIndicator';
 
 function Counter() {
   const [take, setRawTake] = useSetting('currentTake');
+  const [offset, setOffset] = useSetting('ptFileWatcherMode', 'offset');
+  const [offsetShortcuts] = useSetting('ptFileWatcherMode', 'offsetShortcuts');
 
   const setTake = useCallback((newCount) => {
+    if (offsetShortcuts) {
+      let value = Number(newCount);
+      if (Number.isInteger(value)) {
+        setOffset(value);
+      }
+      return;
+    }
+
     const validatedNewCount = getValidatedCount(newCount);
     setRawTake(validatedNewCount);
-  }, [setRawTake]);
+  }, [setRawTake, setOffset, offsetShortcuts]);
 
   if (window.counter !== undefined) {
-    window.counter.handleSetCount(setTake);
+    window.counter.handleSetCount(setRawTake);
   }
 
   const [takeTextPrefix] = useSetting('takeDisplaySettings', 'takeTextPrefix');
@@ -26,13 +37,18 @@ function Counter() {
   const [showTakeButtons] = useSetting('takeDisplaySettings', 'showTakeButtons');
 
   const incrementCount = useCallback(() => {
-    setTake(take + 1);
-  }, [take, setTake]);
+    let value = offsetShortcuts ? offset : take;
+    setTake(value + 1);
+  }, [take, setTake, offset, offsetShortcuts]);
+
   const decrementCount = useCallback(() => {
-    setTake(take - 1);
-  }, [take, setTake])
+    let value = offsetShortcuts ? offset : take;
+    setTake(value - 1);
+  }, [take, setTake, offset, offsetShortcuts])
+
   const resetTake = useCallback(() => {
-    setTake(1);
+    let value = offsetShortcuts ? defaultSettings.ptFileWatcherMode.offset : 1;
+    setTake(value);
   }, [setTake]);
 
   useEffect(() => {
@@ -52,7 +68,7 @@ function Counter() {
                       -
                     </Button>
                     <Button onClick={resetTake}
-                            tooltip={shortcuts.resetTake}
+                            tooltip={shortcuts.resetCount}
                             tooltipPlacement="bottom">
                       reset
                     </Button>
@@ -64,7 +80,7 @@ function Counter() {
                   </>
 
   return <div className='d-flex flex-column align-items-center justify-content-center' style={{ flexGrow: 1 }}>
-           <div style={{ flexGrow: 0.75 }}/>
+           <div style={{ flexGrow: 1 }}/>
            <div className="d-flex"> 
               {
                 showTakePrefix ?
@@ -76,10 +92,10 @@ function Counter() {
              <TakeInputDisplay take={ take } onInput={ setTake } />
            </div>
            <div className='' style={{ flexGrow: 0 }}>
-              {showTakeButtons && buttons}
-            </div>
-            <div style={{ flexGrow: 1 }}/>
-            <ModeIndicator />
+             {showTakeButtons && buttons}
+           </div>
+           <div style={{ flexGrow: 1 }}/>
+           <ModeIndicator />
          </div>
 }
 

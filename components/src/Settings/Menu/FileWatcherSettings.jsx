@@ -11,6 +11,7 @@ export function FileWatcherSettings() {
     const [audioFilesPath, setAudioFilesPath] = useSetting('ptFileWatcherMode', 'audioFilesPath');
     const [offset, setOffset] = useSetting('ptFileWatcherMode', 'offset');
     const [offsetShortcuts, setOffsetShortcuts] = useSetting('ptFileWatcherMode', 'offsetShortcuts');
+    const [showOffset, setShowOffset] = useSetting('ptFileWatcherMode', 'showOffset');
 
     const handleSetSubMode = useCallback((mode) => {
         if (mode === 'all') {
@@ -94,6 +95,11 @@ export function FileWatcherSettings() {
                          value={ offsetShortcuts }
                          onChange={ setOffsetShortcuts }>
                 Counter shortcuts change offset instead of count.
+            </BooleanItem>
+            <BooleanItem name='Show offset'
+                         value={ showOffset }
+                         onChange={ setShowOffset }>
+                Shows the current offset on the main screen
             </BooleanItem>
         </div>
     );
