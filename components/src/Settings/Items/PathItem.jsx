@@ -17,11 +17,11 @@ export function PathItem({ name, value, onChange, children }) {
     <Item name={ name } description={ children }>
         <div className='input-group'>
           <input type="text" 
-                readOnly 
-                value={ value }
-             className="form-control overflow-x-scroll" />
+                 readOnly 
+                 value={ value }
+                 className="form-control overflow-x-scroll" />
           <div className="btn btn-outline-secondary"
-                  onClick={ handleClick }>
+               onClick={ handleClick }>
             Browse
           </div>
         </div>
