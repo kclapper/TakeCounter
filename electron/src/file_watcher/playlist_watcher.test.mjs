@@ -163,18 +163,6 @@ test('change path to Audio Files', () => withLocalTmpDir(async () => {
 
     await outputFiles({
         'Audio Files': {
-            'Audio 1_01.wav': ``
-        }
-    });
-    await watcher.nextUpdate();
-
-    expect(watcher.currentTake)
-        .toEqual(1);
-
-    await watcher.changeAudioFilesPath('Other Files');
-
-    await outputFiles({
-        'Other Files': {
             'Audio 1.01_01.wav': ``
         }
     });
@@ -182,6 +170,18 @@ test('change path to Audio Files', () => withLocalTmpDir(async () => {
 
     expect(watcher.currentTake)
         .toEqual(2);
+
+    await watcher.changeAudioFilesPath('Other Files');
+
+    await outputFiles({
+        'Other Files': {
+            'Audio 1.02_01.wav': ``
+        }
+    });
+    await watcher.nextUpdate();
+
+    expect(watcher.currentTake)
+        .toEqual(3);
 
     await watcher.stopWatching();
 }));
@@ -307,7 +307,7 @@ test('watch subfolders', () => withLocalTmpDir(async () => {
     const watcher = new PlaylistWatcher('parent folder');
 
     expect(watcher.currentTake)
-        .toEqual(0);
+        .toEqual(1);
 
     await watcher.watchTrackName('Audio 1');
     await watcher.nextUpdate();
@@ -318,18 +318,6 @@ test('watch subfolders', () => withLocalTmpDir(async () => {
     await outputFiles({
         'parent folder': {
             'Audio Files': {
-                'Audio 1_01.wav': ``
-            }
-        }
-    });
-
-    await watcher.nextUpdate();
-    expect(watcher.currentTake)
-        .toEqual(1);
-
-    await outputFiles({
-        'parent folder': {
-            'Other Audio Files': {
                 'Audio 1.01_01.wav': ``
             }
         }
@@ -338,6 +326,18 @@ test('watch subfolders', () => withLocalTmpDir(async () => {
     await watcher.nextUpdate();
     expect(watcher.currentTake)
         .toEqual(2);
+
+    await outputFiles({
+        'parent folder': {
+            'Other Audio Files': {
+                'Audio 1.02_01.wav': ``
+            }
+        }
+    });
+
+    await watcher.nextUpdate();
+    expect(watcher.currentTake)
+        .toEqual(3);
 
     await watcher.stopWatching();
 }));
@@ -355,23 +355,23 @@ test('handle .wav and .aif files', () => withLocalTmpDir(async () => {
 
     await outputFiles({
         'Audio Files': {
-            'Audio 1_01.wav': ``
-        }
-    });
-    await watcher.nextUpdate();
-
-    expect(watcher.currentTake)
-        .toEqual(1);
-
-    await outputFiles({
-        'Audio Files': {
-            'Audio 1.01_01.aif': ``
+            'Audio 1.01_01.wav': ``
         }
     });
     await watcher.nextUpdate();
 
     expect(watcher.currentTake)
         .toEqual(2);
+
+    await outputFiles({
+        'Audio Files': {
+            'Audio 1.02_01.aif': ``
+        }
+    });
+    await watcher.nextUpdate();
+
+    expect(watcher.currentTake)
+        .toEqual(3);
 
     await watcher.stopWatching();
 }));

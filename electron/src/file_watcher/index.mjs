@@ -54,6 +54,7 @@ async function handleFileWatcherMode(fileWatcherSettings) {
     if (offset === undefined || offset != fileWatcherSettings.offset) {
         offset = fileWatcherSettings.offset;
         watcher.setOffset(offset);
+        notifyNewTake(watcher.currentTake);
     }
 } 
 

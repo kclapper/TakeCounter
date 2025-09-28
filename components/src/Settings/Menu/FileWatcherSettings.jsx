@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { useSetting } from '..';
-import { TextItem, PathItem, DropdownItem, IntegerItem } from '../Items/index';
+import { TextItem, PathItem, DropdownItem, IntegerItem, BooleanItem } from '../Items/index';
 
 export function FileWatcherSettings() {
     const [counterMode] = useSetting('counterMode');
@@ -10,6 +10,8 @@ export function FileWatcherSettings() {
     const [trackName, setTrackName] = useSetting('ptFileWatcherMode', 'trackName');
     const [audioFilesPath, setAudioFilesPath] = useSetting('ptFileWatcherMode', 'audioFilesPath');
     const [offset, setOffset] = useSetting('ptFileWatcherMode', 'offset');
+    const [offsetShortcuts, setOffsetShortcuts] = useSetting('ptFileWatcherMode', 'offsetShortcuts');
+    const [showOffset, setShowOffset] = useSetting('ptFileWatcherMode', 'showOffset');
 
     const handleSetSubMode = useCallback((mode) => {
         if (mode === 'all') {
@@ -89,6 +91,16 @@ export function FileWatcherSettings() {
                          onChange={ setOffset }>
                 Offset adjusts the automatic take value up or down.
             </IntegerItem>
+            <BooleanItem name='Offset Shortcuts'
+                         value={ offsetShortcuts }
+                         onChange={ setOffsetShortcuts }>
+                Counter shortcuts change offset instead of take number.
+            </BooleanItem>
+            <BooleanItem name='Show offset'
+                         value={ showOffset }
+                         onChange={ setShowOffset }>
+                Shows the current offset on the main screen
+            </BooleanItem>
         </div>
     );
 }

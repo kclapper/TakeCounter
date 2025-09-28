@@ -12,6 +12,8 @@ export const defaultSettings = {
     mode: 'clip', /* clip, playlist */
     subMode: 'all', /* all, specific */
     offset: 0,
+    offsetShortcuts: false,
+    showOffset: true,
     trackName: '',
     audioFilesPath: ''
   },

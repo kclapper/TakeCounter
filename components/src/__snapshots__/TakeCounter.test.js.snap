@@ -366,6 +366,7 @@ exports[`Matches snapshot 1`] = `
         <button
           class="btn btn-primary m-1"
           data-bs-placement="bottom"
+          data-bs-title="Alt+Shift+0"
           data-bs-toggle="tooltip"
           type="button"
         >

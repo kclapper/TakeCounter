@@ -5,7 +5,7 @@ import { TextItem } from './TextItem';
 
 export function IntegerItem({ name, value, onChange, children }) {
   const handleChange = useCallback((input) => {
-    if (input.trim() === '') {
+    if (typeof(input) === "string" && input.trim() === '') {
       return;
     }
 
