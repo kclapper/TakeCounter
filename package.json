@@ -20,5 +20,8 @@
   "author": {
     "name": "Kyle Clapper",
     "email": "35474281+kclapper@users.noreply.github.com"
+  },
+  "devDependencies": {
+    "identity-obj-proxy": "^3.0.0"
   }
 }

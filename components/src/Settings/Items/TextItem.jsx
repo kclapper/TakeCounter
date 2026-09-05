@@ -4,6 +4,8 @@ import { useCallback, useState } from 'react';
 import InputDisplay from '../../Input/InputDisplay';
 import { Item } from './Item';
 
+import { ClearButton, clearButtonParentStyleClassName } from './ClearButton';
+
 function validateInput(input, event) {
   const invalidCharacters = /(\n)[^\n]/;
 
@@ -15,7 +17,7 @@ function validateInput(input, event) {
   return isValid;
 }
 
-export function TextItem({ name, value, onChange, showReset=false, resetValue="", children }) {
+export function TextItem({ name, value, onChange, showReset=false, resetValue="", showClear=true, children }) {
   const [ reading, setReading ] = useState(false);
   const [ display, setDisplay ] = useState(value);
 
@@ -41,13 +43,16 @@ export function TextItem({ name, value, onChange, showReset=false, resetValue=""
   inputDisplayClassName += showReset ? 'form-control' : 'border rounded';
 
   let itemContent = (
-    <InputDisplay className={ inputDisplayClassName }
-                  display={ reading ? display : value }
-                  onInput={ handleInput }
-                  onFocus={ handleFocus }
-                  onBlur={ handleBlur }
-                  validateInput={ validateInput }
-                  style={{ minWidth: "20%" }}/>
+    <div className={ clearButtonParentStyleClassName } style={{ display: 'flex', width: '100%' }}>
+      <InputDisplay className={ inputDisplayClassName }
+                    display={ reading ? display : value }
+                    onInput={ handleInput }
+                    onFocus={ handleFocus }
+                    onBlur={ handleBlur }
+                    validateInput={ validateInput }
+                    style={{ width: '100%' }}/>
+      { showClear && <ClearButton onClick={ handleReset } />}
+    </div>
   );
 
   if (showReset) {
