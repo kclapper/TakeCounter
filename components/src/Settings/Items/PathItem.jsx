@@ -4,8 +4,6 @@ import { useCallback } from 'react';
 import { Item } from './Item';
 import { ClearButton, clearButtonParentStyleClassName } from './ClearButton';
 
-import * as styles from './ClearButton.module.css';
-
 export function PathItem({ name, value, onChange, children }) {
   const handlePathSelect = useCallback((path) => {
     onChange(path);

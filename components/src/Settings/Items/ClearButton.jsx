@@ -1,6 +1,4 @@
 import React from 'react';
-import { useCallback } from 'react';
-
 import * as styles from './ClearButton.module.css';
 
 export const clearButtonParentStyleClassName = styles['clear-button-parent'];
