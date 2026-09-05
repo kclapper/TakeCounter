@@ -27,6 +27,7 @@ function resetDefaultSettings()
     { encoding: 'utf8' }
   );
   settings = copy(defaultSettings);
+  return settings;
 }
 
 async function loadSettings(mainWindow) {
@@ -39,8 +40,7 @@ async function loadSettings(mainWindow) {
     loadedSettings = JSON.parse(settingsJson);
   } catch {
     console.warn("Could not load settings, using defaults");
-    resetDefaultSettings();
-    return;
+    loadedSettings = resetDefaultSettings();
   }
 
   if (settingsAreValid(loadedSettings)) {
