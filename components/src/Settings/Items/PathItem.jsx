@@ -6,6 +6,9 @@ import { ClearButton, clearButtonParentStyleClassName } from './ClearButton';
 
 export function PathItem({ name, value, onChange, children }) {
   const handlePathSelect = useCallback((path) => {
+    if (path === undefined) {
+      return;
+    }
     onChange(path);
   }, [ onChange ]);
 
