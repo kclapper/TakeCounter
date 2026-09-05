@@ -26,7 +26,8 @@ export function IntegerItem({ name, value, onChange, children }) {
   return (
     <TextItem name={ name }
               value={ value }
-              onChange={ handleChange }>
+              onChange={ handleChange }
+              showClear={ false }>
       { children }
     </TextItem>
   );

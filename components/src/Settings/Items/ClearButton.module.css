@@ -28,7 +28,7 @@
 }
 
 /* Show the clear button whenever the user hovers over the entire container */
-.input-container:hover .clear-button {
+.clear-button-parent:hover .clear-button {
   opacity: 1;
   visibility: visible;
 }
