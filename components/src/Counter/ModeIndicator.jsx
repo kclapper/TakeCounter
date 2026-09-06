@@ -1,43 +1,51 @@
 import React from 'react';
 
 import { useSetting } from '../Settings';
-import { defaultSettings } from '../Settings/schema';
+
+import * as styles from './ModeIndicator.module.css';
 
 export default function ModeIndicator() {
     const [counterMode] = useSetting('counterMode');
     const [fileWatcherMode] = useSetting('ptFileWatcherMode', 'mode');
     const [offset] = useSetting('ptFileWatcherMode', 'offset');
     const [showOffset] = useSetting('ptFileWatcherMode', 'showOffset');
+    const [showModeIndicator] = useSetting('ptFileWatcherMode', 'showModeIndicator');
 
-    let modeIndicator;
-
-    switch (counterMode) {
-        case "ptFileWatcher":
-            modeIndicator = "Pro Tools File Watcher Mode";
-            modeIndicator += ` (${fileWatcherMode})`;
-            break;
-        case "manual":
-        default:
-            return <></>;
+    if (counterMode === 'manual') {
+        return <></>;
     }
+
+    const itemClassName = 'text-info fw-bold text-center mx-1';
+
+    const fileWatcherModeName = fileWatcherMode.charAt(0).toUpperCase() + fileWatcherMode.slice(1);
+
+    const modeIndicator = (
+        showModeIndicator
+        && (
+            <p className={ itemClassName }>
+                Pro Tools { fileWatcherModeName } Watcher
+            </p>
+        )
+    );
 
     const offsetIndicator = 
         showOffset
-        && offset !== defaultSettings.ptFileWatcherMode.offset 
         && (
-            <>
-                <br/>
+            <p className={ itemClassName }>
                 Offset: {offset}
-            </>
+            </p>
         );
 
+    const separator = 
+        modeIndicator 
+        && offsetIndicator
+        && <div className={styles['separator']} />;
+
     return (
-        <div>
-            <p className='text-info fw-bold text-center'>
-                {offsetIndicator ? undefined : <br/>}
-                {modeIndicator}
-                {offsetIndicator}
-            </p>
+        <div className={ styles['container'] }>
+            { modeIndicator }
+            { separator }
+            { offsetIndicator }
         </div>
     )
 }

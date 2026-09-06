@@ -1,4 +1,5 @@
 export const defaultSettings = {
+  schemaVersion: 1,
   currentTake: 1,
   keyboardShortcuts: {
     incrementCount: "Alt+Shift+=",
@@ -10,6 +11,7 @@ export const defaultSettings = {
   counterMode: 'manual', /* manual, ptFileWatcher */
   ptFileWatcherMode: {
     mode: 'clip', /* clip, playlist */
+    showModeIndicator: true,
     subMode: 'all', /* all, specific */
     offset: 0,
     offsetShortcuts: false,

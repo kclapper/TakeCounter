@@ -6,6 +6,7 @@ import { TextItem, PathItem, DropdownItem, IntegerItem, BooleanItem } from '../I
 export function FileWatcherSettings() {
     const [counterMode] = useSetting('counterMode');
     const [fileWatcherMode, setFileWatcherMode] = useSetting('ptFileWatcherMode', 'mode');
+    const [showModeIndicator, setShowModeIndicator] = useSetting('ptFileWatcherMode', 'showModeIndicator');
     const [fileWatcherSubMode, setFileWatcherSubMode] = useSetting('ptFileWatcherMode', 'subMode');
     const [trackName, setTrackName] = useSetting('ptFileWatcherMode', 'trackName');
     const [audioFilesPath, setAudioFilesPath] = useSetting('ptFileWatcherMode', 'audioFilesPath');
@@ -88,9 +89,8 @@ export function FileWatcherSettings() {
             }
             <IntegerItem name='Take Count offset'
                          value={ offset }
-                         onChange={ setOffset }>
-                Offset adjusts the automatic take value up or down.
-            </IntegerItem>
+                         onChange={ setOffset }
+                         description='Offset adjusts the automatic take value up or down.' />
             <BooleanItem name='Offset Shortcuts'
                          value={ offsetShortcuts }
                          onChange={ setOffsetShortcuts }>
@@ -99,7 +99,12 @@ export function FileWatcherSettings() {
             <BooleanItem name='Show offset'
                          value={ showOffset }
                          onChange={ setShowOffset }>
-                Shows the current offset on the main screen
+                Shows the current offset on the main screen.
+            </BooleanItem>
+            <BooleanItem name='Show Mode Indicator'
+                         value={ showModeIndicator }
+                         onChange={ setShowModeIndicator }>
+                Shows the current Pro Tools File Watcher mode on the main screen.
             </BooleanItem>
         </div>
     );
