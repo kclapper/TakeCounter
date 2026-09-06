@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { useSetting } from '../Settings';
-import { defaultSettings } from '../Settings/schema';
 
 import * as styles from './ModeIndicator.module.css';
 

@@ -78,11 +78,11 @@ exports[`Matches snapshot 1`] = `
               <div
                 class="col-6 align-self-center p-0"
               >
-                <h5
+                <h6
                   class="my-0"
                 >
                   Mode
-                </h5>
+                </h6>
               </div>
               <div
                 class="col-6 align-self-center p-0"
@@ -114,11 +114,11 @@ exports[`Matches snapshot 1`] = `
                 <div
                   class="col-6 align-self-center p-0"
                 >
-                  <h5
+                  <h6
                     class="my-0"
                   >
                     Increment count
-                  </h5>
+                  </h6>
                 </div>
                 <div
                   class="col-6 align-self-center p-0"
@@ -145,11 +145,11 @@ exports[`Matches snapshot 1`] = `
                 <div
                   class="col-6 align-self-center p-0"
                 >
-                  <h5
+                  <h6
                     class="my-0"
                   >
                     Decrement count
-                  </h5>
+                  </h6>
                 </div>
                 <div
                   class="col-6 align-self-center p-0"
@@ -176,11 +176,11 @@ exports[`Matches snapshot 1`] = `
                 <div
                   class="col-6 align-self-center p-0"
                 >
-                  <h5
+                  <h6
                     class="my-0"
                   >
                     Reset count
-                  </h5>
+                  </h6>
                 </div>
                 <div
                   class="col-6 align-self-center p-0"
@@ -214,11 +214,11 @@ exports[`Matches snapshot 1`] = `
                 <div
                   class="col-6 align-self-center p-0"
                 >
-                  <h5
+                  <h6
                     class="my-0"
                   >
                     Take Display Prefix
-                  </h5>
+                  </h6>
                 </div>
                 <div
                   class="col-6 align-self-center p-0"
@@ -254,11 +254,11 @@ exports[`Matches snapshot 1`] = `
                 <div
                   class="col-6 align-self-center p-0"
                 >
-                  <h5
+                  <h6
                     class="my-0"
                   >
                     Show Take Prefix
-                  </h5>
+                  </h6>
                 </div>
                 <div
                   class="col-6 align-self-center p-0"
@@ -283,11 +283,11 @@ exports[`Matches snapshot 1`] = `
                 <div
                   class="col-6 align-self-center p-0"
                 >
-                  <h5
+                  <h6
                     class="my-0"
                   >
                     Show Take Buttons
-                  </h5>
+                  </h6>
                 </div>
                 <div
                   class="col-6 align-self-center p-0"
@@ -316,11 +316,11 @@ exports[`Matches snapshot 1`] = `
                 <div
                   class="col-6 align-self-center p-0"
                 >
-                  <h5
+                  <h6
                     class="my-0"
                   >
                     Reset
-                  </h5>
+                  </h6>
                 </div>
                 <div
                   class="col-6 align-self-center p-0"
