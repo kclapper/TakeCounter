@@ -14,6 +14,7 @@ async function bumpVersion(path, version) {
 }
 
 const packageJsonFiles = [
+    './package.json',
     './web/package.json',
     './electron/package.json',
     './components/package.json',
