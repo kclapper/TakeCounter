@@ -49,6 +49,9 @@ jobs:
       - name: Build Electron App
         run: npm run make -- -- --arch ${{ matrix.arch }} --platform ${{ matrix.target }}
         working-directory: ${{ env.electron-directory }}
+      - run: ls 
+      - run: ls electron/out/make/zip
+      - run: ls electron/out/make/zip/darwin
       - name: Upload App to Workflow Run
         uses: actions/upload-artifact@v4
         with:
