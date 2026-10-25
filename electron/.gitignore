@@ -93,3 +93,6 @@ out/
 
 # Temp test files
 tmp*/
+
+# Apple provisioning profile
+*.provisionprofile
