@@ -43,14 +43,14 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Install dependencies
         run: npm ci
       - name: Build Electron App
         run: npm run make -- --arch ${{ matrix.arch }} --platform ${{ matrix.target }}
         working-directory: ${{ env.electron-directory }}
       - name: Upload App to Workflow Run
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ env.artifact-name }}
           path: ${{ env.distributable-path }}
@@ -63,7 +63,7 @@ jobs:
 
     steps:
       - name: Retrieve build
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
       - run: mkdir artifacts
       - run: mv ./**/*.zip artifacts
       - name: Upload App to S3
