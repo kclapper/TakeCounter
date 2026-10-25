@@ -47,7 +47,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build Electron App
-        run: npm run make -- -- --arch ${{ matrix.arch }} --platform ${{ matrix.target }}
+        run: npm run make -- --arch ${{ matrix.arch }} --platform ${{ matrix.target }}
         working-directory: ${{ env.electron-directory }}
       - name: Upload App to Workflow Run
         uses: actions/upload-artifact@v4
