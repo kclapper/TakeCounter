@@ -8,6 +8,7 @@ export function ResetDefaults({ children }) {
     const resetDefaultSettings = useResetter();
 
     const handleReset = useCallback(() => {
+        console.log("test");
         document.activeElement.blur();
         resetDefaultSettings();
     }, [resetDefaultSettings]);

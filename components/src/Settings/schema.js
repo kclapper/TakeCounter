@@ -1,10 +1,12 @@
 export const defaultSettings = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   currentTake: 1,
   keyboardShortcuts: {
     incrementCount: "Alt+Shift+=",
     decrementCount: "Alt+Shift+-",
-    resetCount: "Alt+Shift+0"
+    resetCount: "Alt+Shift+0",
+    manualMode: "Alt+Shift+M",
+    fileWatcherMode: "Alt+Shift+W",
   },
   alwaysOnTop: true,
   showDetailsBox: true,
@@ -25,6 +27,36 @@ export const defaultSettings = {
     showTakeButtons: true,
   },
 };
+
+export function settingsNeedMigration(settings) {
+  if (!settings['schemaVersion']) {
+    return true;
+  }
+
+  return settings['schemaVersion'] !== defaultSettings['schemaVersion'];
+}
+
+export function migrateSettings(settings) {
+  if (!settings['schemaVersion']) {
+    return defaultSettings;
+  }
+
+  switch (settings['schemaVersion']) {
+    case 1: {
+      settings['keyboardShortcuts']['manualMode'] = defaultSettings['keyboardShortcuts']['manualMode'];
+      settings['keyboardShortcuts']['fileWatcherMode'] = defaultSettings['keyboardShortcuts']['fileWatcherMode'];
+      settings['schemaVersion'] = 2;
+    }
+    // Fallthrough
+  }
+
+  if (settings['schemaVersion'] != defaultSettings['schemaVersion']) {
+    console.error('Something went wrong while migrating settings');
+    return defaultSettings;
+  }
+
+  return settings;
+}
 
 export function settingsAreValid(settings, schema = defaultSettings) {
   for (const [key, value] of Object.entries(settings)) {

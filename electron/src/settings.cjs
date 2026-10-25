@@ -6,7 +6,7 @@ const { app, ipcMain, dialog } = require('electron');
 
 const { copy } = require('../../components/src/util');
 
-const { defaultSettings, settingsAreValid } = require("../../components/src/settings/schema");
+const { defaultSettings, settingsAreValid, settingsNeedMigration, migrateSettings } = require("../../components/src/settings/schema");
 
 class SettingsEmitter extends EventEmitter {}
 const settingsEmitter = new SettingsEmitter();
@@ -41,6 +41,11 @@ async function loadSettings(mainWindow) {
   } catch {
     console.warn("Could not load settings, using defaults");
     loadedSettings = resetDefaultSettings();
+  }
+
+  if (settingsNeedMigration(loadedSettings)) {
+    console.log(`Migrating settings from schema version ${loadedSettings['schemaVersion']} to ${defaultSettings['schemaVersion']}`);
+    loadedSettings = migrateSettings(loadedSettings);
   }
 
   if (settingsAreValid(loadedSettings)) {

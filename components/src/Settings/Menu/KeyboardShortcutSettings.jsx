@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useSetting } from '..';
 import { defaultSettings } from '../schema';
@@ -9,6 +9,18 @@ export function KeyboardShortcutSettings() {
     const [incrementCountShortcut, setIncrementCountShortcut] = useSetting('keyboardShortcuts', 'incrementCount');
     const [decrementCountShortcut, setDecrementCountShortcut] = useSetting('keyboardShortcuts', 'decrementCount');
     const [resetCountShortcut, setResetCountShortcut] = useSetting('keyboardShortcuts', 'resetCount');
+    const [manualModeShortcut, setManualModeShortcut] = useSetting('keyboardShortcuts', 'manualMode');
+    const [fileWatcherModeShortcut, setFileWatcherModeShortcut] = useSetting('keyboardShortcuts', 'fileWatcherMode');
+
+    const [counterMode, setCounterMode] = useSetting('counterMode');
+
+    useEffect(() => {
+        if (!window.counter) {
+            return;
+        }
+
+        window.counter.handleSetMode(setCounterMode);
+    }, [setCounterMode]);
 
     return (
         <div>
@@ -37,6 +49,16 @@ export function KeyboardShortcutSettings() {
                      onChange={ setResetCountShortcut }
                      showReset={ true }
                      resetValue={ defaultSettings.keyboardShortcuts.resetCount }/>
+            <KeyItem name='Manual mode'
+                     value={ manualModeShortcut }
+                     onChange={ setManualModeShortcut }
+                     showReset={ true }
+                     resetValue={ defaultSettings.keyboardShortcuts.manualModeShortcut }/>
+            <KeyItem name='File watcher mode'
+                     value={ fileWatcherModeShortcut }
+                     onChange={ setFileWatcherModeShortcut }
+                     showReset={ true }
+                     resetValue={ defaultSettings.keyboardShortcuts.fileWatcherModeShortcut }/>
         </div>
     )
 }
