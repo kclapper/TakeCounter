@@ -77,7 +77,7 @@ async function registerSettingsHandlers(mainWindow) {
     return newSettings;
   });
   ipcMain.handle('show-dialog', (event, dialogArg) => {
-    dialog.showOpenDialog(dialogArg)
+    dialog.showOpenDialog(mainWindow, dialogArg)
       .then((path) => {
         mainWindow.webContents.send('dialog-response', path);
       })
