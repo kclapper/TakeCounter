@@ -19,10 +19,9 @@ function Button({ onClick, tooltipPlacement, tooltip, className, children}) {
   }, [tooltip, tooltipPlacement, element]);
 
   const handleClick = useCallback(() => {
-    if (bootstrapTooltip.current === null) {
-      return;
+    if (bootstrapTooltip.current !== null) {
+      bootstrapTooltip.current.hide();
     }
-    bootstrapTooltip.current.hide();
     onClick();
   }, [onClick, bootstrapTooltip]);
 
