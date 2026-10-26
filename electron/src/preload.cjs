@@ -22,6 +22,12 @@ contextBridge.exposeInMainWorld('counter', {
       callback(count);
     });
   },
+  handleSetMode: (callback) => {
+    ipcRenderer.removeAllListeners('set-mode');
+    ipcRenderer.on('set-mode', (event, mode) => {
+      callback(mode);
+    })
+  }
 });
 
 contextBridge.exposeInMainWorld('settings', {

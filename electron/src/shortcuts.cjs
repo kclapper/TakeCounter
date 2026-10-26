@@ -8,48 +8,76 @@ const {
 } = require('./settings.cjs');
 const { defaultSettings } = require("../../components/src/settings/schema");
 
-function registerCountShortcuts(mainWindow) {
-  let settings = getSettings();
-  const shortcuts = settings.keyboardShortcuts;
+function Shortcut(setting, keybind, activateCallback) {
+  this.setting = setting;
+  this.keybind = keybind;
+  this.activateCallback = activateCallback;
 
-  let status = globalShortcut.register(shortcuts.incrementCount, () => {
-    mainWindow.webContents.send('increment-counter');
-  });
+  settingsEmitter.on('change', this.onSettingChange.bind(this));
+  globalShortcut.register(keybind, activateCallback);
+}
+
+Shortcut.prototype.onSettingChange = function(settings) {
+  if (settings.keyboardShortcuts[this.setting] === this.keybind) {
+    return;
+  }
+
+  globalShortcut.unregister(this.keybind);
+
+  const keybind = settings['keyboardShortcuts'][this.setting];
+  let status = globalShortcut.register(keybind, this.activateCallback);
   if (!status) {
-    console.log("Invalid increment count shortcut", shortcuts.incrementCount);
-    settings.keyboardShortcuts.incrementCount = defaultSettings.keyboardShortcuts.incrementCount; 
+    console.log(`Invalid ${this.setting} shortcut: ${keybind}`);
+    settings.keyboardShortcuts[this.setting] = defaultSettings.keyboardShortcuts[this.setting]; 
     changeSettings(settings);
     return;
   }
 
-  status = globalShortcut.register(shortcuts.decrementCount, () => {
-    mainWindow.webContents.send('decrement-counter');
-  });
-  if (!status) {
-    console.log("Invalid decrement count shortcut", shortcuts.decrementCount);
-    settings.keyboardShortcuts.decrementCount = defaultSettings.keyboardShortcuts.decrementCount; 
-    changeSettings(settings);
-    return;
-  }
-
-  status = globalShortcut.register(shortcuts.resetCount, () => {
-    mainWindow.webContents.send('reset-counter');
-  });
-  if (!status) {
-    console.log("Invalid reset count shortcut", shortcuts.resetCount);
-    settings.keyboardShortcuts.resetCount = defaultSettings.keyboardShortcuts.resetCount; 
-    changeSettings(settings);
-    return;
-  }
+  this.keybind = keybind;
 }
 
 async function registerKeyboardShortcuts(mainWindow) {
-  registerCountShortcuts(mainWindow);
+  let settings = getSettings();
 
-  settingsEmitter.on('change', () => {
-    globalShortcut.unregisterAll();
-    registerCountShortcuts(mainWindow);
-  });
+  new Shortcut(
+    'incrementCount', 
+    settings.keyboardShortcuts.incrementCount,
+    () => {
+      mainWindow.webContents.send('increment-counter');
+    }
+  );
+
+  new Shortcut(
+    'decrementCount', 
+    settings.keyboardShortcuts.decrementCount,
+    () => {
+      mainWindow.webContents.send('decrement-counter');
+    }
+  );
+
+  new Shortcut(
+    'resetCount', 
+    settings.keyboardShortcuts.resetCount,
+    () => {
+      mainWindow.webContents.send('reset-counter');
+    }
+  );
+
+  new Shortcut(
+    'manualMode', 
+    settings.keyboardShortcuts.manualMode,
+    () => {
+      mainWindow.webContents.send('set-mode', 'manual');
+    }
+  );
+
+  new Shortcut(
+    'fileWatcherMode', 
+    settings.keyboardShortcuts.fileWatcherMode,
+    () => {
+      mainWindow.webContents.send('set-mode', 'ptFileWatcher');
+    }
+  );
 
   return mainWindow;
 }

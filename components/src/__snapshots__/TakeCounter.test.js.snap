@@ -201,6 +201,68 @@ exports[`Matches snapshot 1`] = `
                   </div>
                 </div>
               </div>
+              <div
+                class="row mb-2"
+              >
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <h6
+                    class="my-0"
+                  >
+                    Manual mode
+                  </h6>
+                </div>
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <div
+                    class="input-group"
+                  >
+                    <div
+                      class="p-1 form-control"
+                      contenteditable="true"
+                      style="outline: none; min-width: 20%;"
+                    />
+                    <div
+                      class="btn btn-outline-secondary"
+                    >
+                      Reset
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="row mb-2"
+              >
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <h6
+                    class="my-0"
+                  >
+                    File watcher mode
+                  </h6>
+                </div>
+                <div
+                  class="col-6 align-self-center p-0"
+                >
+                  <div
+                    class="input-group"
+                  >
+                    <div
+                      class="p-1 form-control"
+                      contenteditable="true"
+                      style="outline: none; min-width: 20%;"
+                    />
+                    <div
+                      class="btn btn-outline-secondary"
+                    >
+                      Reset
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div>
               <h4
