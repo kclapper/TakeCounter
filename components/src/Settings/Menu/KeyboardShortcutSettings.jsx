@@ -12,7 +12,7 @@ export function KeyboardShortcutSettings() {
     const [manualModeShortcut, setManualModeShortcut] = useSetting('keyboardShortcuts', 'manualMode');
     const [fileWatcherModeShortcut, setFileWatcherModeShortcut] = useSetting('keyboardShortcuts', 'fileWatcherMode');
 
-    const [counterMode, setCounterMode] = useSetting('counterMode');
+    const [, setCounterMode] = useSetting('counterMode');
 
     useEffect(() => {
         if (!window.counter) {
