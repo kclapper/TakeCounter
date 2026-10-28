@@ -64,8 +64,8 @@ jobs:
     steps:
       - name: Retrieve build
         uses: actions/download-artifact@v8
-      - run: mkdir artifacts
-      - run: mv ./**/*.zip artifacts
+        with:
+          path: artifacts
       - name: Upload App to S3
         uses: keithweaver/aws-s3-github-action@v1.0.0
         with:
