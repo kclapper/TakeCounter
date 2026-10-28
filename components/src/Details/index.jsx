@@ -1,13 +1,15 @@
 import React from 'react';
 
 import ExpandingInput from '../Input/ExpandingInput';
-import { useSetting } from '../Settings';
+import { useSetting, useTextContrastForColorSetting } from '../Settings';
 
 export default function Details() {
   const [showDetailsBox] = useSetting('showDetailsBox');
+  const contrast = useTextContrastForColorSetting('background');
+  const borderColor = contrast === 'light' ? 'border-white' : 'border-black';
 
   const detailsBox = <>
-                      <ExpandingInput className="h3 border-bottom m-2 ms-0" style={{ minWidth: '25vw' }}/>
+                      <ExpandingInput className={ "h3 border-bottom m-2 ms-0 " + borderColor } style={{ minWidth: '25vw' }}/>
                      </>
 
   return <div className="d-flex justify-content-start align-items-stretch">

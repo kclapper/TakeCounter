@@ -3,7 +3,7 @@ import { useEffect, useCallback } from 'react';
 
 import { getValidatedCount } from '../util';
 import { useShortcut } from '../util/shortcuts';
-import { useSetting } from '../Settings';
+import { useSetting, useTextContrastForColorSetting } from '../Settings';
 import { defaultSettings } from '../Settings/schema';
 
 import Button from '../Button';
@@ -15,6 +15,11 @@ function Counter() {
   const [mode] = useSetting('counterMode');
   const [offset, setOffset] = useSetting('ptFileWatcherMode', 'offset');
   const [offsetShortcuts] = useSetting('ptFileWatcherMode', 'offsetShortcuts');
+  const [backgroundColor] = useSetting('colorScheme', 'background');
+  const [counterButtonColor] = useSetting('colorScheme', 'counterButtons');
+
+  const counterButtonTextContrast = useTextContrastForColorSetting('counterButtons');
+  const counterButtonTextColor = counterButtonTextContrast === 'light' ? 'white' : 'black';
 
   const offsetShortcutsEnabled = useCallback(() => {
     return mode === "ptFileWatcher" && offsetShortcuts;
@@ -60,6 +65,11 @@ function Counter() {
     document.title = "Take " + take;
   }, [take]);
 
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty('--bs-body-bg', backgroundColor);
+  }, [backgroundColor]);
+
   const [shortcuts] = useSetting("keyboardShortcuts");
 
   useShortcut(incrementCount, shortcuts.incrementCount, "counter.handleIncrement");
@@ -69,17 +79,23 @@ function Counter() {
   const buttons = <>
                     <Button onClick={decrementCount}
                             tooltip={shortcuts.decrementCount}
-                            tooltipPlacement="bottom">
+                            tooltipPlacement="bottom"
+                            color={ counterButtonColor }
+                            textColor={ counterButtonTextColor } >
                       -
                     </Button>
                     <Button onClick={resetTake}
                             tooltip={shortcuts.resetCount}
-                            tooltipPlacement="bottom">
+                            tooltipPlacement="bottom"
+                            color={ counterButtonColor } 
+                            textColor={ counterButtonTextColor } >
                       reset
                     </Button>
                     <Button onClick={incrementCount}
                             tooltip={shortcuts.incrementCount}
-                            tooltipPlacement="bottom">
+                            tooltipPlacement="bottom"
+                            color={ counterButtonColor } 
+                            textColor={ counterButtonTextColor } >
                       +
                     </Button>
                   </>
