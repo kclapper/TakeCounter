@@ -15,12 +15,15 @@
         "bootstrap": "^5.3.7",
         "eslint": "^9.32.0",
         "jest": "^30.0.5",
-        "jest-environment-jsdom": "^30.0.5"
+        "jest-environment-jsdom": "^30.0.5",
+        "react-bootstrap": "^2.10.10",
+        "react-color": "^2.19.3"
     },
     "dependencies": {
         "@testing-library/dom": "^10.4.0",
         "@testing-library/jest-dom": "^6.6.4",
         "@testing-library/react": "^16.3.0",
-        "@testing-library/user-event": "^14.6.1"
+        "@testing-library/user-event": "^14.6.1",
+        "colorjs.io": "^0.7.1"
     }
 }

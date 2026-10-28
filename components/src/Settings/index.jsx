@@ -1,6 +1,8 @@
 import { useContext, useCallback, useReducer, createContext, useEffect } from 'react';
 import React from 'react';
 
+import { parse, contrastWCAG21, ColorSpace, sRGB } from 'colorjs.io/fn';
+
 import { copy } from '../util';
 import { defaultSettings } from './schema';
 import { loadSettings } from './load';
@@ -111,4 +113,14 @@ export function useResetter() {
       type: 'reset'
     });
   }, [dispatch]);
+}
+
+ColorSpace.register(sRGB);
+
+export function useTextContrastForColorSetting(colorSettingKey) {
+  const [colorHex] = useSetting('colorScheme', colorSettingKey);
+  const color = parse(colorHex);
+  const white = parse('#FFFFFF');
+  const useLightText = contrastWCAG21(white, color) >= 4.5;
+  return useLightText ? 'light' : 'dark';
 }

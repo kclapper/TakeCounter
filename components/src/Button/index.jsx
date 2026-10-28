@@ -3,7 +3,7 @@ import { useRef, useEffect } from 'react';
 
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
 
-function Button({ onClick, tooltipPlacement, tooltip, className, children}) {
+function Button({ onClick, tooltipPlacement, tooltip, className, color, textColor, children}) {
   const element = useRef(null);
   const bootstrapTooltip = useRef(null);
 
@@ -25,8 +25,17 @@ function Button({ onClick, tooltipPlacement, tooltip, className, children}) {
     onClick();
   }, [onClick, bootstrapTooltip]);
 
+  let style = {};
+  if (color) {
+    style = { ...style, background: color, borderColor: color }
+  }
+  if (textColor) {
+    style = { ...style, color: textColor }
+  }
+
   return <button ref={ element }
                  className={ className || 'btn btn-primary m-1' }
+                 style={ style }
                  type='button'
                  onClick={ handleClick }
                  data-bs-toggle="tooltip"

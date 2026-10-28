@@ -1,5 +1,5 @@
 export const defaultSettings = {
-  schemaVersion: 2,
+  schemaVersion: 3,
   currentTake: 1,
   keyboardShortcuts: {
     incrementCount: "Alt+Shift+=",
@@ -26,6 +26,11 @@ export const defaultSettings = {
     showTakePrefix: true,
     showTakeButtons: true,
   },
+  colorScheme: {
+    background: '#282c34',
+    counterButtons: '#f468f7',
+    settingsButtons: '#ced900',
+  }
 };
 
 export function settingsNeedMigration(settings) {
@@ -46,6 +51,15 @@ export function migrateSettings(settings) {
       settings['keyboardShortcuts']['manualMode'] = defaultSettings['keyboardShortcuts']['manualMode'];
       settings['keyboardShortcuts']['fileWatcherMode'] = defaultSettings['keyboardShortcuts']['fileWatcherMode'];
       settings['schemaVersion'] = 2;
+    }
+    // Fallthrough
+    case 2: {
+      settings['colorScheme'] =  {
+        background: '#282c34',
+        counterButtons: '#f468f7',
+        settingsButtons: '#ced900',
+      };
+      settings['schemaVersion'] = 3;
     }
     // Fallthrough
   }
